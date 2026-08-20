@@ -231,12 +231,12 @@ Write the starting and ending moral identities, not merely plot conditions.
 
 An episode earns its place by containing a choice that closes a door. Suggested series chain:
 
-1. Mara argues successfully for synthesis.
-2. Jenn, altered but still legible as Jenn, deliberately exposes another person.
-3. Mara refuses orientation after someone she loves joins.
-4. Rios classifies the Joined as a threat and wins authority to contain them.
-5. The Joined choose acceleration after interpreting containment as inevitable violence.
-6. Mara chooses an unproven intervention and loses the private self she meant to preserve.
+1. Mara defeats the observation-only protocol and wins authorization to synthesize S-78.
+2. Jenn coaches the accidentally exposed Arlo through their first stable echo and delays the report that would separate them.
+3. Deshpande chooses a documented exposure, then supervises Mel’s disclosed low-dose exposure after he joins.
+4. Rios classifies the Joined as an adversarial biological network and wins authority to isolate it.
+5. Rios applies the simultaneous-isolation doctrine she authored; its brief success helps drive the Joined to abandon assent and accelerate.
+6. Mara uses the antisense intervention she planted, then chooses conscious orientation when it cannot dismantle her established interface.
 
 The known canon outcome does not weaken suspense if the choices remain surprising, specific, and costly.
 

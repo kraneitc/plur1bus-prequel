@@ -134,7 +134,7 @@ Mara, Jenn, Deshpande, Rios, Leah, and Davis may receive close-third interiority
 
 ## Named cost continuity
 
-- **Arlo:** facilities cleaner; accidentally exposed when Jenn’s saliva reaches a cut on his hand; becomes the other half of the first documented two-host connection. His observation notes become part of the orientation protocol, carrying Jenn’s delayed report forward as institutional residue.
+- **Arlo:** facilities cleaner; accidentally exposed during the initial cleanup when Jenn’s saliva reaches a fresh cut on his hand; his first echo occurs roughly forty-three hours later. He becomes the other half of the first documented two-host connection, and his observation notes carry Jenn’s delayed report forward as institutional residue.
 - **Mel Ortega:** laboratory security officer; brings his daughter Sofia’s marching-band doughnuts; becomes the first documented voluntary secondary exposure.
 - **Sofia Ortega:** fourteen-year-old trombonist; remains uninfected when she refuses orientation during the peaceful month. During acceleration, Mel cannot preserve that refusal and can only make her school’s convergence setting safer.
 - **Tess Arnold:** tower-crane operator introduced during Rios’s investigation; follows safety procedure when prodromal symptoms begin, but an accelerated shared-state shift defeats her remaining margin.

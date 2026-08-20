@@ -181,17 +181,15 @@ Macaques, rabbits, mice, guinea pigs, and finally rats show no clinical signs. C
 
 Jenn carries the episode. She moves between the grand rhetoric upstairs and the unglamorous animal work below. Mel from security has brought boxes of doughnuts for his fourteen-year-old daughter’s marching-band fundraiser. They sit beside the sign-in sheet, slowly going stale.
 
-A rat scheduled for euthanasia appears lifeless but has a powerful heartbeat. It bites Jenn through her glove at 3:36 a.m. Deshpande begins exposure protocol. Jenn suffers a violent autonomic episode—tremor, gasping, loss of muscle control—then stabilizes. She does not wake transformed. She wakes embarrassed, frightened, and furious that the occupational-health physician keeps describing a bite she can plainly see as a “potential exposure.”
+A rat scheduled for euthanasia appears lifeless but has a powerful heartbeat. It bites Jenn through her glove at 3:36 a.m. Deshpande begins exposure protocol. Jenn suffers a violent autonomic episode—tremor, gasping, loss of muscle control—then stabilizes. During the cleanup, Arlo replaces a cracked splash shield; its edge opens the skin on his knuckle, and a drop from Jenn’s saliva-wet respirator strap reaches the cut. Nobody yet considers Jenn infectious, so the event is logged as a housekeeping injury rather than a biological exposure. Jenn does not wake transformed. She wakes embarrassed, frightened, and furious that the occupational-health physician keeps describing a bite she can plainly see as a “potential exposure.”
 
 Jenn is placed in negative-pressure observation. For the first twelve hours, every test is normal. At hour nineteen she cannot smell coffee. At hour twenty-six she answers a question Deshpande has not yet asked. At hour thirty-one she dreams from the viewpoint of the bitten rat: fluorescent light, gloved hands, no concept of a self that ends at the skin.
 
 Mara finds low levels of novel RNA in Jenn’s tonsillar swab but not her blood. Deshpande argues this indicates contamination. Mara orders serial saliva, nasal, blood, and cerebrospinal-fluid testing. Their competence delays disaster and reveals it at the same time.
 
-At hour forty, Jenn begins recognizing the emotions of people in adjacent rooms. She believes she is hallucinating until she correctly identifies that Mel is hiding a panic attack and that a cleaner named Arlo has trapped his arm beneath a floor machine. She barely knows either man.
+At hour forty, Jenn begins recognizing the emotions of people in adjacent rooms. She believes she is hallucinating until she correctly identifies that Mel is hiding a panic attack and that Arlo is alone in a supply room, staring at the inflamed cut on his knuckle and trying not to panic. She barely knows either man.
 
-Arlo cuts his hand during the rescue. Jenn’s saliva reaches the wound before anybody understands that she is shedding. Their contact is incidental, not a supernatural transfer. Nothing happens immediately.
-
-At hour forty-seven, Jenn hears a thought that is not hers. It is not a sentence. It is Arlo’s recognition of her, arriving through a wall before he has consciously remembered her face.
+At hour forty-seven, roughly forty-three hours after Arlo’s high-dose broken-skin exposure, Jenn hears a thought that is not hers. It is not a sentence. It is Arlo’s recognition of her, arriving through a wall before he has consciously remembered her face.
 
 Jenn understands what the correlation will trigger: separate transfers, deeper isolation, and two frightened people converted into evidence before either can describe what is happening. She coaches Arlo to attend to the echo long enough to stabilize his breathing, then withholds the correlation when Mara asks whether anything has changed. Jenn tells herself she is preserving an observation until morning. The delay closes the cleanest remaining exit from a two-host network.
 

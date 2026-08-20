@@ -131,4 +131,5 @@ Internal workflow:
 - Peaceful deliberate exposure requires proactive material-risk disclosure and active assent; accidental exposures must be identified as accidental.
 - Named costs must survive beyond montage: Arlo, Mel and Sofia Ortega, Tess Arnold, Omar Haddad, Mateo and Evelyn Rios, and Tom Velez.
 - Tom’s memory identifies Mara’s safe-house grocery order; the network exposes her through contaminated prepared food only after acceleration abandons assent.
+- Arlo’s high-dose broken-skin exposure occurs during Jenn’s initial cleanup, roughly forty-three hours before their first stable echo.
 - Do not answer later-series mysteries about immunity, reversibility, or the sender’s motives.

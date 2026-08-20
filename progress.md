@@ -2,8 +2,8 @@
 
 **Last updated:** 2026-08-20  
 **Spoiler boundary:** *Pluribus* S01E04  
-**Current phase:** All six episode revisions internally complete; season-wide assembly and revision pending
-**Drafting permission:** Authorized. Preserve surprise by keeping spoiler-heavy planning internal; pause only for a material contradiction that requires the user’s creative authority.
+**Current phase:** Assembled six-part working manuscript complete; season-wide pass passed; awaiting user review
+**Drafting permission:** No further drafting is required. Preserve surprise unless the user requests excerpts, spoilers, or revision.
 
 ## Project goal
 
@@ -27,8 +27,8 @@ Develop a complete six-part prose prequel season that explains the discovery, st
 | Part Four prose | Separate full revision complete; internal episode gate passed | Working draft; not user-approved |
 | Part Five prose | Separate full revision complete; internal episode gate passed | Working draft; not user-approved |
 | Part Six prose | Separate full revision complete; internal episode gate passed | Working draft; not user-approved |
-| Full season manuscript | All six working revisions drafted; 41,479 words; assembly and target-length expansion pending | Not user-approved |
-| Season-wide continuity pass | Not started | — |
+| Full season manuscript | Assembled in `manuscript/before-we-were-us-working-manuscript.md`; 41,479 story words | Working manuscript; not user-approved |
+| Season-wide continuity pass | Complete; internal season gate passed | Recorded in `audits/season-manuscript-audit.md` |
 
 ## Accepted user requirements
 
@@ -52,7 +52,7 @@ Develop a complete six-part prose prequel season that explains the discovery, st
 
 ## Accepted creative decisions
 
-- The finished season will target 55,000–75,000 words.
+- The finished season may remain at its current 41,479 story words; the user explicitly waived the former 55,000–75,000-word target on 2026-08-20.
 - Mara remains the continuous spine, with rotating close-third sections for other unjoined characters.
 - Each important procedure will be fully legible on its first appearance; repeated procedures may compress established steps while preserving meaningful deviations.
 - Early network echoes vary predictably with the infected brain regions involved rather than following one uniform sensory, emotional, or mnemonic mode.
@@ -134,13 +134,19 @@ The revision remains unapproved until the user explicitly approves it. Internal 
 
 **Passed internally on 2026-08-20.** `manuscript/06-everybody-okay-revision.md` is a complete finale revision built from the finished outline and established prose standard. Its causality, thirty-six-hour progression, knowledge-route, convergence-viewpoint, named-cost, continuity, consent, safety, and prose checks are recorded in `audits/06-everybody-okay-audit.md`.
 
-The revision remains unapproved until the user explicitly approves it. All six working episode revisions now exist, but the assembled working manuscript is 41,479 words and remains below the accepted 55,000–75,000-word season target.
+The revision remains unapproved until the user explicitly approves it. All six working episode revisions are included in the assembled manuscript. On 2026-08-20 the user accepted the current 41,479-word length, so expansion is no longer a release requirement.
+
+## Season manuscript result
+
+**Passed internally on 2026-08-20.** `manuscript/before-we-were-us-working-manuscript.md` assembles all six working episode revisions once and in order, with a normalized season title and part headings. The season-wide continuity, science, knowledge, truth, consent, viewpoint, spoiler, safety-abstraction, causality, and style gate is recorded in `audits/season-manuscript-audit.md`.
+
+The story prose remains 41,479 words. The user explicitly accepted that length and directed the project to proceed without expansion. The assembled manuscript remains a working manuscript until the user approves it.
 
 ## Recommended next action
 
-**Assemble the six working episode revisions and perform the season-wide continuity, science, style, length, and spoiler pass.**
+**User review of the assembled working manuscript.**
 
-The season pass must reconcile all cross-episode clocks and knowledge routes, preserve the S01E04 spoiler boundary, and expand the 41,479-word working manuscript to the accepted 55,000–75,000-word range through character causality, relationship, process, and residue rather than operational exposure detail or redundant spectacle. User approval remains required afterward.
+The season-wide pass is complete and no open creative decision remains. The next material change should follow the user's approval or specific revision notes; internal completion does not constitute approval.
 
 ## Decision log
 
@@ -153,7 +159,7 @@ The season pass must reconcile all cross-episode clocks and knowledge routes, pr
 | 2026-08-20 | Prefer cinematic prose over screenplay format | Accepted requirement |
 | 2026-08-20 | Pause whole-season drafting and proceed through review gates | Accepted workflow |
 | 2026-08-20 | Treat the two existing prose chapters as exploratory, not approved | Current status |
-| 2026-08-20 | Target a fuller novel season of approximately 55,000–75,000 words | Accepted decision |
+| 2026-08-20 | Target a fuller novel season of approximately 55,000–75,000 words | Superseded by the user's acceptance of the 41,479-word manuscript |
 | 2026-08-20 | Keep Mara as the continuous spine with rotating close-third sections for other unjoined characters | Accepted decision |
 | 2026-08-20 | Make each important procedure fully legible once, then compress repeated steps | Accepted decision |
 | 2026-08-20 | Make early network echoes vary predictably with infected brain regions | Accepted decision |
@@ -171,7 +177,9 @@ The season pass must reconcile all cross-episode clocks and knowledge routes, pr
 | 2026-08-20 | Complete a separate full Part Four revision and pass the causality, consent, knowledge-route, progression, telemetry, viewpoint, institutional-process, continuity, safety, and prose-quality episode audit | Passed internal gate; working draft, not user-approved |
 | 2026-08-20 | Complete a separate full Part Five revision and pass the causality, consent-breach, knowledge-route, progression, telemetry, viewpoint, institutional-process, continuity, safety, and prose-quality episode audit | Passed internal gate; working draft, not user-approved |
 | 2026-08-20 | Complete a separate full Part Six revision and pass the causality, progression, knowledge-route, convergence-viewpoint, named-cost, continuity, consent, safety, and prose-quality episode audit | Passed internal gate; working draft, not user-approved |
-| 2026-08-20 | Record the six-revision working total of 41,479 words against the accepted 55,000–75,000-word target | Required season-pass expansion; do not pad with operational detail or spectacle |
+| 2026-08-20 | Record the six-revision working total of 41,479 words against the former 55,000–75,000-word target | Expansion requirement later waived by the user |
+| 2026-08-20 | Accept the current 41,479-word season length and proceed without expansion | Accepted user instruction; supersedes the former length target |
+| 2026-08-20 | Assemble all six revisions and pass the season-wide continuity, science, knowledge, truth, consent, viewpoint, spoiler, safety, causality, and style audit | Passed internal gate; working manuscript ready for user review |
 
 ## Continuity watchlist
 

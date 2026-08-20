@@ -2,7 +2,7 @@
 
 **Last updated:** 2026-08-20  
 **Spoiler boundary:** *Pluribus* S01E04  
-**Current phase:** Calibration-sample development in surprise mode
+**Current phase:** Episode-by-episode drafting in surprise mode
 **Drafting permission:** Authorized. Preserve surprise by keeping spoiler-heavy planning internal; pause only for a material contradiction that requires the user’s creative authority.
 
 ## Project goal
@@ -20,7 +20,7 @@ Develop a complete six-part prose prequel season that explains the discovery, st
 | Truth, knowledge, and consent rules | Pre-outline reconciliation complete | Working basis; detailed review waived |
 | Season causality and relationship ledgers | Pre-outline reconciliation complete | Working basis; detailed review waived |
 | Six scene-level episode outlines | Complete; season outline audit passed | Working basis; detailed review waived |
-| Representative “Forty-Seven Hours” sample | Exploratory draft; balanced-abstraction pass complete | Not approved |
+| Representative “Forty-Seven Hours” sample | Polished calibration revision complete; internal prose gate passed | Working basis; not user-approved |
 | Part One prose | Exploratory draft; balanced-abstraction pass complete | Not approved |
 | Full season manuscript | Not started under gated workflow | — |
 | Season-wide continuity pass | Not started | — |
@@ -89,11 +89,17 @@ None currently. The six architecture questions were resolved by the user, and th
 - They must omit reproducible synthesis or cultivation steps, real sequence or target design, exact quantities, culture conditions, environmental-performance parameters, apparatus modifications, optimized dispersal calculations, and intervention formulation.
 - Mass spread is portrayed through character choices and visible social consequences. Routes may be named for continuity, but the story never assembles them into a usable operational plan.
 
+## Calibration result
+
+**Passed internally on 2026-08-20.** `manuscript/02-forty-seven-hours-calibration-sample.md` preserves the exploratory chapter, corrects Arlo’s exposure timing and Jenn’s governing choice, and establishes the working register recorded in `prose-calibration-standard.md`.
+
+The sample remains unapproved until the user explicitly approves it. Under surprise mode, internal passage is sufficient to continue staged drafting without a spoiler-heavy review stop.
+
 ## Recommended next action
 
-**Produce one polished calibration sample centered on Jenn’s first forty-seven hours, then revise it internally against the frozen rules and quality gates and record the resulting prose standard.**
+**Draft Part One, “Four Notes,” as a separate manuscript revision from the completed outline, preserving `manuscript/01-four-notes.md` as exploratory.**
 
-After the calibration gate passes, draft one episode at a time without exposing later turns, then assemble and perform a season-wide continuity, science, style, and spoiler audit.
+After Part One passes its internal episode gate, continue one episode at a time without exposing later turns, then assemble and perform a season-wide continuity, science, style, and spoiler audit.
 
 ## Decision log
 
@@ -116,6 +122,7 @@ After the calibration gate passes, draft one episode at a time without exposing 
 | 2026-08-20 | Complete the final pre-outline reconciliation of consent, Episode 2 causality, knowledge routes, named costs, Mara’s exposure, and Evelyn’s finale chain | Passed review |
 | 2026-08-20 | Use balanced abstraction: retain conceptual S-78 biology and broad story routes while excluding reproducible construction, exact dosing, optimized dispersal, and treatment formulation | Accepted requirement |
 | 2026-08-20 | Complete all six scene-level outlines and pass the cross-episode causality, continuity, rules, viewpoint, consent, safety, and craft audit | Passed internal gate; working basis under surprise mode |
+| 2026-08-20 | Complete a separate polished “Forty-Seven Hours” calibration sample and record the reusable prose standard without overwriting exploratory prose | Passed internal gate; working basis, not user-approved |
 
 ## Continuity watchlist
 

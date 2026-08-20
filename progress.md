@@ -2,7 +2,7 @@
 
 **Last updated:** 2026-08-20  
 **Spoiler boundary:** *Pluribus* S01E04  
-**Current phase:** Autonomous staged development in surprise mode  
+**Current phase:** Calibration-sample development in surprise mode
 **Drafting permission:** Authorized. Preserve surprise by keeping spoiler-heavy planning internal; pause only for a material contradiction that requires the user’s creative authority.
 
 ## Project goal
@@ -19,7 +19,7 @@ Develop a complete six-part prose prequel season that explains the discovery, st
 | S-78 and telemetry rules | Pre-outline reconciliation complete | Working basis; detailed review waived |
 | Truth, knowledge, and consent rules | Pre-outline reconciliation complete | Working basis; detailed review waived |
 | Season causality and relationship ledgers | Pre-outline reconciliation complete | Working basis; detailed review waived |
-| Six scene-level episode outlines | Not started | — |
+| Six scene-level episode outlines | Complete; season outline audit passed | Working basis; detailed review waived |
 | Representative “Forty-Seven Hours” sample | Exploratory draft; balanced-abstraction pass complete | Not approved |
 | Part One prose | Exploratory draft; balanced-abstraction pass complete | Not approved |
 | Full season manuscript | Not started under gated workflow | — |
@@ -91,16 +91,9 @@ None currently. The six architecture questions were resolved by the user, and th
 
 ## Recommended next action
 
-**Proceed in surprise mode without a spoiler-heavy approval stop.**
+**Produce one polished calibration sample centered on Jenn’s first forty-seven hours, then revise it internally against the frozen rules and quality gates and record the resulting prose standard.**
 
-Internal workflow:
-
-1. Create scene-level outlines for all six episodes in `outlines/`.
-2. Quality-check the six irreversible choices and cross-episode consequences.
-3. Produce one polished calibration sample centered on Jenn’s first forty-seven hours.
-4. Revise that sample internally against the rules and quality gates and record the resulting prose standard.
-5. Draft one episode at a time without exposing later turns.
-6. Assemble and perform a season-wide continuity, science, style, and spoiler audit.
+After the calibration gate passes, draft one episode at a time without exposing later turns, then assemble and perform a season-wide continuity, science, style, and spoiler audit.
 
 ## Decision log
 
@@ -122,6 +115,7 @@ Internal workflow:
 | 2026-08-20 | Use surprise mode: waive routine detailed review, keep spoiler-heavy planning internal, and proceed through staged internal quality gates | Accepted workflow |
 | 2026-08-20 | Complete the final pre-outline reconciliation of consent, Episode 2 causality, knowledge routes, named costs, Mara’s exposure, and Evelyn’s finale chain | Passed review |
 | 2026-08-20 | Use balanced abstraction: retain conceptual S-78 biology and broad story routes while excluding reproducible construction, exact dosing, optimized dispersal, and treatment formulation | Accepted requirement |
+| 2026-08-20 | Complete all six scene-level outlines and pass the cross-episode causality, continuity, rules, viewpoint, consent, safety, and craft audit | Passed internal gate; working basis under surprise mode |
 
 ## Continuity watchlist
 

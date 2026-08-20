@@ -154,13 +154,13 @@ Jenn looked at the empty water pitcher. “That proves I drank water.”
 
 Mara recorded the answer without endorsing it.
 
-Blood PCR was negative. Wound swab negative. Saliva indeterminate, then weakly positive on a research primer set that had never been validated for diagnosis.
+Blood PCR was negative. The sample from the bite was negative. Saliva was indeterminate, then weakly positive on an exploratory assay that had never been validated for diagnosis.
 
-Mara ordered the run repeated with extraction controls, environmental blanks, and a second target. She asked the genomics unit to begin antisense candidates against the S-78 replicase and the most conserved noncoding folds.
+Mara ordered the result repeated with independent controls. She asked the genomics unit to begin an antisense line without waiting for certainty; the target design stayed inside that team.
 
 Deshpande stood beside her at the observation glass.
 
-“Antisense delivery to what tissue?” he asked.
+“And where would it have to work?” he asked.
 
 “First we need a molecule.”
 
@@ -337,4 +337,3 @@ Jenn felt her astonishment arrive through Arlo, who could not see Mara at all.
 For the first time since the bite, Jenn was certain she was not alone.
 
 The certainty did not comfort her.
-

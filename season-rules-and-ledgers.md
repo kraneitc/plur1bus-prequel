@@ -21,28 +21,26 @@ Mara, Jenn, Deshpande, Rios, Leah, and Davis may receive close-third interiority
 
 | Part | Choice | Defensible reason | Compromised need | Immediate success | Residue and consequence | Who pays? |
 |---|---|---|---|---|---|---|
-| 1 | Mara defeats the observation-only protocol and wins synthesis | Someone else can build the public sequence; controlled knowledge is safer | She needs uncertainty to yield to expertise | S-78 is produced | Viable samples, prestige, permissive precedent | Jenn, then everyone |
+| 1 | Mara defeats the observation-only protocol and wins authorization to synthesize S-78 | Someone else can build the public sequence; controlled knowledge is safer | She needs uncertainty to yield to expertise | S-78 is produced under sealed containment; the method is not described | Viable samples, prestige, permissive precedent | Jenn, then everyone |
 | 2 | Jenn coaches the accidentally exposed Arlo to attend to the echo and delays the report that would separate them | Determine whether the impossible correlation is real and keep a frightened coworker from being treated as contaminated evidence | Jenn needs proof she is not merely hallucinating or damaged | The first two-host connection stabilizes | They create usable observations—and normalize cooperation with the infection | Arlo and the integrity of containment |
-| 3 | Deshpande drinks from the marked cup, then supervises Mel’s disclosed low-dose exposure | Produce clean longitudinal data and accompany Jenn | Affection and scientific ownership | The network gains a physician and a reproducible protocol | Orientation becomes safe and persuasive | Mel, his family, and every later recruit |
+| 3 | Deshpande accepts a marked voluntary exposure, then supervises Mel’s disclosed exposure | Produce longitudinal observations and accompany Jenn | Affection and scientific ownership | The network gains a physician and a repeatable care protocol | Orientation becomes persuasive | Mel, his family, and every later recruit |
 | 4 | Rios obtains containment authority | The network has penetrated defense systems and compromised consent | She needs threats to remain categorizable | Nodes are identified and isolated | Isolation teaches the Joined that secrecy cannot protect them | Stage 2–3 hosts |
 | 5 | Rios cuts coordinated communications and transport | Prevent compromised personnel from executing a global operation | She cannot accept that restraint may look like surrender | Raids interrupt local spread for eleven minutes | The Joined shift to accelerated mass exposure | The global public |
-| 6 | Mara chooses conscious orientation after the antisense treatment fails | Preserve observation and agency through the final transition | She needs her last act to remain scientifically useful | Her convergence is documented and survived | Her knowledge joins the collective; her private self does not | Mara and those who loved her |
+| 6 | Mara chooses conscious orientation after the antisense intervention fails | Preserve observation and agency through the final transition | She needs her last act to remain scientifically useful | Her convergence is documented and survived | Her knowledge joins the collective; her private self does not | Mara and those who loved her |
 
 ## S-78 rules
 
 ### Transmission
 
-- Primary routes: saliva, short-range droplets, bites, contaminated ready-to-eat food, and generated indoor aerosols.
-- Portals: oral, nasal, ocular, and broken skin. Intact skin and brief touch are ineffective.
-- Drying, UV, heat, oxidizers, and maintained water treatment reduce infectivity.
-- Presymptomatic shedding begins late in Stage 0. Dose and portal alter timing.
-- A deep bite progresses in roughly 36–60 hours; ordinary oral or respiratory exposure in four to eight days.
-- Mass spread requires thousands of local exposures. Contrails, outdoor magic clouds, and a single poisoned reservoir are prohibited.
+- Broad routes: saliva, short-range droplets, bites, contaminated ready-to-eat food, and generated indoor aerosols. Brief touch and intact skin are ineffective.
+- The story may name a route to preserve causality, but it never specifies exact quantity, performance threshold, environmental persistence, or delivery apparatus.
+- Presymptomatic transmission begins before obvious symptoms. Route and exposure intensity can alter timing, but only broad dramatic windows are used.
+- Mass spread requires thousands of local exposures. Contrails, an outdoor magic cloud, and a single poisoned reservoir are prohibited.
 
 ### Progression
 
-1. Exposure: 0–18 hours; local mucosal replication.
-2. Prodrome: 12–48 hours; thirst, salivation, smell disturbance, autonomic shivers, poor sleep.
+1. Exposure: first day; local biological activity without obvious symptoms.
+2. Prodrome: first two days; thirst, salivation, smell disturbance, autonomic shivers, poor sleep.
 3. Echo: days 2–5; source-less information, affective bleed, 78-second EEG correlations.
 4. Negotiation: days 4–8; voluntary attention to the shared state, memory transfer, compromised consent.
 5. Convergence: 15–90 minutes; tremor, autonomic instability, identity-boundary failure.
@@ -60,6 +58,7 @@ Mara, Jenn, Deshpande, Rios, Leah, and Davis may receive close-third interiority
 
 - RNA encodes the S-78 complex, a biological transceiver manufactured by neurons and glia. It does not encode a mind.
 - Brains process information; the complex permits participation in a nonlocal shared state.
+- The story may describe this architecture conceptually but never supplies a real sequence, target design, assembly procedure, or cultivation workflow.
 - Geographic distance adds no measurable latency. Radio shielding, jamming, bunkers, and telecommunications outages do nothing.
 - Attention governs conscious access. Anesthesia, sleep, brain injury, drugs, and seizure activity change a host’s contribution.
 - No central hub exists. Destroying a sample does not damage the network.
@@ -89,18 +88,18 @@ Mara, Jenn, Deshpande, Rios, Leah, and Davis may receive close-third interiority
 
 - During the peaceful month, orientation requires disclosure of route, known stages, medical risks, and the fact that Stage 2+ cognition may already be altered.
 - Active assent is required for deliberate exposure. The Joined wait when refused and provide ordinary care without conditioning it on joining.
-- Accidental transmission during the peaceful month can occur through ordinary shedding, but it must be distinguished explicitly from deliberate exposure; the network does not engineer an “accident” to evade assent.
+- Accidental transmission during the peaceful month can occur before obvious symptoms, but it must be distinguished explicitly from deliberate exposure; the network does not engineer an “accident” to evade assent.
 - The unresolved ethical problem: after exposure, relief from attending to the network is both genuine benefit and biological pressure.
 - After military containment, the Joined abandon individual assent. They reason that delayed mass exposure produces fewer deaths than war, fragmented infrastructure, or uncontrolled convergence.
 - This is the season’s decisive moral breach. Sincerity and arithmetic do not make it consensual.
 
 ## Antisense intervention ledger
 
-- Part 2: Mara orders antisense candidates as soon as S-78 RNA appears in Jenn’s tonsillar swab.
-- Part 3: cell culture shows that one candidate suppresses manufacture of new S-78 complex but cannot dismantle existing complexes.
-- Part 4: animal and organoid data show a narrow early-treatment window; supply remains measured in milligrams.
-- Part 5: Mara concentrates the research stock into one unsafe human dose and records the formulation.
-- Part 6: the dose reduces circulating particles but is too late to disconnect Mara’s established neural interface.
+- Part 2: Mara orders antisense candidates when an S-78 trace appears in Jenn’s sample; no target sequence or design method is given.
+- Part 3: observed testing shows that one candidate suppresses manufacture of new S-78 complex but cannot dismantle existing complexes; culture conditions remain unstated.
+- Part 4: further data show a narrow early-treatment window and very limited supply.
+- Part 5: Mara prepares the remaining research stock for one desperate use; dose, delivery, and formulation are never described.
+- Part 6: the intervention reduces new interface formation but is too late to disconnect Mara’s established neural interface.
 
 ## Relationship debts
 
@@ -115,7 +114,7 @@ Mara, Jenn, Deshpande, Rios, Leah, and Davis may receive close-third interiority
 
 - Tom wants a marriage containing fewer classified absences; Mara wants trust without disclosure.
 - Last care: he keeps building ordinary routines around her secrecy.
-- Betrayal: after choosing orientation during the peaceful month, his intimate knowledge lets the network recognize Mara’s safe-house grocery order; during acceleration, contaminated prepared food in that delivery becomes its route to her.
+- Betrayal: after choosing orientation during the peaceful month, his intimate knowledge lets the network recognize Mara’s safe-house grocery order; during acceleration, contaminated prepared food in that delivery becomes its route to her. The preparation method and quantity remain unstated.
 - Turning fact: the Joined version of Tom remembers loving her perfectly.
 
 ### Rios / Leah
@@ -134,11 +133,11 @@ Mara, Jenn, Deshpande, Rios, Leah, and Davis may receive close-third interiority
 
 ## Named cost continuity
 
-- **Arlo:** facilities cleaner; accidentally exposed during the initial cleanup when Jenn’s saliva reaches a fresh cut on his hand; his first echo occurs roughly forty-three hours later. He becomes the other half of the first documented two-host connection, and his observation notes carry Jenn’s delayed report forward as institutional residue.
+- **Arlo:** facilities cleaner; accidentally exposed during Jenn’s initial cleanup when contaminated material reaches a fresh cut on his hand; his first echo occurs roughly forty-three hours later. He becomes the other half of the first documented two-host connection, and his observation notes carry Jenn’s delayed report forward as institutional residue.
 - **Mel Ortega:** laboratory security officer; brings his daughter Sofia’s marching-band doughnuts; becomes the first documented voluntary secondary exposure.
 - **Sofia Ortega:** fourteen-year-old trombonist; remains uninfected when she refuses orientation during the peaceful month. During acceleration, Mel cannot preserve that refusal and can only make her school’s convergence setting safer.
 - **Tess Arnold:** tower-crane operator introduced during Rios’s investigation; follows safety procedure when prodromal symptoms begin, but an accelerated shared-state shift defeats her remaining margin.
-- **Omar Haddad:** airport airflow technician who identifies the suspicious aerosol calculations, then is exposed while collecting a sample; his maintenance knowledge later helps the Joined reduce doses and casualties.
+- **Omar Haddad:** airport airflow technician who recognizes that several maintenance requests imply a coordinated indoor-exposure plan, then is accidentally exposed while inspecting it. His maintenance knowledge later helps the Joined reduce casualties; calculations and equipment modifications are not described.
 - **Mateo Rios:** not merely a finale victim; his conflict with Evelyn about whether kindness can be hostile develops across Parts 4–6.
 - **Evelyn Rios:** enters Stage 4 while Leah treats Mateo, refuses sedation and comfort, and converges unwillingly rather than dying through an added accident chain.
 
@@ -148,5 +147,5 @@ Mara, Jenn, Deshpande, Rios, Leah, and Davis may receive close-third interiority
 2. Jenn and Arlo’s heart monitors synchronize across two floors.
 3. Mel opens the labeled specimen bag and eats the doughnut.
 4. Joined people in separate raid locations look up simultaneously: “They found us.”
-5. Aircraft turn onto parallel headings while aerosol packages travel below as ordinary cargo.
+5. Aircraft turn onto parallel headings while unmarked packages travel below as ordinary cargo; their contents and operation are never shown.
 6. Davis faces the camera, preparing to comfort Carol with the grief of the world behind his eyes.

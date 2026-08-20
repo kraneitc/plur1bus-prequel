@@ -20,8 +20,8 @@ Develop a complete six-part prose prequel season that explains the discovery, st
 | Truth, knowledge, and consent rules | Pre-outline reconciliation complete | Working basis; detailed review waived |
 | Season causality and relationship ledgers | Pre-outline reconciliation complete | Working basis; detailed review waived |
 | Six scene-level episode outlines | Not started | — |
-| Representative “Forty-Seven Hours” sample | Exploratory draft exists | Not approved |
-| Part One prose | Exploratory draft exists | Not approved |
+| Representative “Forty-Seven Hours” sample | Exploratory draft; balanced-abstraction pass complete | Not approved |
+| Part One prose | Exploratory draft; balanced-abstraction pass complete | Not approved |
 | Full season manuscript | Not started under gated workflow | — |
 | Season-wide continuity pass | Not started | — |
 
@@ -31,7 +31,7 @@ Develop a complete six-part prose prequel season that explains the discovery, st
 - Infection must not produce instantaneous shaking followed by immediate Joining.
 - Infection progresses over days through a complex transition.
 - A host slowly becomes aware of the network.
-- Transmission should be explained with as much real biological and operational accuracy as the premise allows.
+- Use balanced abstraction: preserve conceptual molecular biology, observed testing, symptoms, elapsed time, broad exposure routes, and the story’s invented intervention while omitting reproducible construction, cultivation, exact dosing, optimized dispersal, or formulation instructions.
 - The story must show how infected people persuade others that Joining is desirable.
 - The RNA encodes construction of a molecular interface, not the hive mind itself.
 - Neurons or glial cells manufacture a transceiver interacting with an unknown quantum field or subspace degree of freedom.
@@ -60,10 +60,10 @@ These remain the working basis unless internal continuity review exposes a mater
 
 - Six parts of approximately 50–60 television minutes in story density.
 - A five-stage infection model precedes fully Joined status.
-- Saliva, short-range droplets, bites, contaminated prepared food, and generated indoor aerosols are the principal transmission routes.
+- Broad routes include saliva, short-range droplets, bites, contaminated prepared food, and indoor aerosol events. Brief touch is insufficient. Exact quantities, environmental parameters, apparatus, and optimization remain unstated.
 - The fully Joined cannot knowingly assert a false fact, but may decline, answer narrowly, or omit unasked information within defined limits.
 - Peaceful orientation requires active assent; accelerated spread abandons individual consent.
-- Mara develops an antisense intervention that can prevent new interface manufacture early but cannot dismantle an established interface.
+- Mara develops an antisense intervention that can prevent new interface manufacture early but cannot dismantle an established interface; its target design, delivery method, dose, and formulation remain unstated.
 - The global convergence lasts approximately thirty-six hours rather than occurring in one instant.
 
 ## Open decisions
@@ -80,7 +80,14 @@ None currently. The six architecture questions were resolved by the user, and th
 - traceable routes for network knowledge;
 - Arlo, Sofia, Tess, Omar, Mateo, Evelyn, Tom, and Mara’s exposure as continuing named-cost or relationship threads;
 - one clean Evelyn/Leah/Mateo finale chain without the equipment-fire-glass pileup;
-- the antisense intervention’s name, planting, limits, and payoff.
+- the antisense intervention’s planting, limits, and payoff.
+
+## Safety abstraction boundary
+
+- S-78 is a narrative impossibility, not a modeled organism or real biological proposal.
+- Story documents may describe its RNA-encoded interface, manufacture by neurons or glia, invented transceiver, broad exposure routes, symptoms, observed tests, elapsed time, institutional decisions, consent, and consequences.
+- They must omit reproducible synthesis or cultivation steps, real sequence or target design, exact quantities, culture conditions, environmental-performance parameters, apparatus modifications, optimized dispersal calculations, and intervention formulation.
+- Mass spread is portrayed through character choices and visible social consequences. Routes may be named for continuity, but the story never assembles them into a usable operational plan.
 
 ## Recommended next action
 
@@ -114,12 +121,13 @@ Internal workflow:
 | 2026-08-20 | Revise both exploratory prose chapters heavily after outline approval, salvaging only material that survives review | Accepted decision |
 | 2026-08-20 | Use surprise mode: waive routine detailed review, keep spoiler-heavy planning internal, and proceed through staged internal quality gates | Accepted workflow |
 | 2026-08-20 | Complete the final pre-outline reconciliation of consent, Episode 2 causality, knowledge routes, named costs, Mara’s exposure, and Evelyn’s finale chain | Passed review |
+| 2026-08-20 | Use balanced abstraction: retain conceptual S-78 biology and broad story routes while excluding reproducible construction, exact dosing, optimized dispersal, and treatment formulation | Accepted requirement |
 
 ## Continuity watchlist
 
 - Mel brings the fundraising doughnuts; Jenn does not.
 - Arlo—not an unnamed cleaner—is the accidental second host; Jenn delays reporting their connection.
-- A bite or mucosal exposure transmits S-78; touch alone does not.
+- A bite or another meaningful biological exposure can transmit S-78; touch alone does not. Broad routes may be named, but exact quantities and optimization remain unstated.
 - Shaking marks an acute event or Stage 4 convergence, not instant infection.
 - Shielding does not stop telemetry.
 - The network has no central transmitter.
@@ -130,6 +138,6 @@ Internal workflow:
 - The first month remains nonlethal.
 - Peaceful deliberate exposure requires proactive material-risk disclosure and active assent; accidental exposures must be identified as accidental.
 - Named costs must survive beyond montage: Arlo, Mel and Sofia Ortega, Tess Arnold, Omar Haddad, Mateo and Evelyn Rios, and Tom Velez.
-- Tom’s memory identifies Mara’s safe-house grocery order; the network exposes her through contaminated prepared food only after acceleration abandons assent.
-- Arlo’s high-dose broken-skin exposure occurs during Jenn’s initial cleanup, roughly forty-three hours before their first stable echo.
+- Tom’s memory identifies Mara’s safe-house grocery order; contaminated prepared food reaches her only after acceleration abandons assent. The preparation method and quantity remain unstated.
+- Arlo’s broken-skin exposure occurs during Jenn’s initial cleanup, roughly forty-three hours before their first stable echo. The scene establishes causality without quantifying or optimizing it.
 - Do not answer later-series mysteries about immunity, reversibility, or the sender’s motives.

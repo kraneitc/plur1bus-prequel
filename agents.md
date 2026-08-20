@@ -58,16 +58,17 @@ Do not draft the complete season in one uninterrupted pass unless the user expli
 ## Story rules that must not drift
 
 - Infection is staged over days. Shaking is not instant conversion.
-- S-78 transmission requires a plausible biological exposure; brief touch is insufficient.
-- The RNA encodes a molecular interface, not a hive mind.
-- Infected neurons and glia manufacture the S-78 transceiver complex.
+- S-78 requires a meaningful exposure established by the story; brief touch is insufficient.
+- The RNA encodes construction of a molecular interface, not a hive mind.
+- Neurons or glial cells manufacture a transceiver interacting with an unknown quantum field or subspace degree of freedom.
+- Conceptual molecular biology, observed testing, symptoms, and broad exposure routes may be described. Do not specify a reproducible construction, cultivation, dosing, optimized dispersal, or treatment method for S-78.
 - The brain remains the processor and participates in a nonlocal shared state.
 - Distance and ordinary electromagnetic shielding do not block telemetry.
 - No central hive or transmitter exists to destroy.
 - Uninfected people cannot perceive the network, and the network cannot remotely read them.
 - The network knows only what connected hosts know, perceive, remember, or access through ordinary means.
 - Fully Joined speakers cannot knowingly assert a falsehood, but truthfulness is not omniscience or complete disclosure.
-- During the peaceful month, deliberate exposure requires disclosed risk and active assent. Acceleration abandons this rule and is the season’s decisive moral breach.
+- During the peaceful month, deliberate exposure requires disclosed risk and active assent. Acceleration abandons this rule and is the season’s decisive moral breach. Keep all exposure methods non-operational.
 - Preserve ambiguity about the sender’s motives, immunity, reversibility, and whether memory continuity equals personal continuity.
 
 If any requested scene requires breaking one of these rules, flag the change before writing the scene.
@@ -79,7 +80,7 @@ If any requested scene requires breaking one of these rules, flag the change bef
 - The first month of spread is peaceful and produces no deaths.
 - Military discovery triggers acceleration.
 - The canonical death count referenced through Episode 2 is 886,477,591.
-- The antisense intervention must be planted before the finale and cannot dismantle an already manufactured neural interface.
+- Mara’s antisense intervention must be planted before the finale and cannot dismantle an already established neural interface; its target design, dose, delivery, and formulation remain unstated.
 - Faraday cages, jammers, bunkers, and telecommunications outages may test the telemetry but cannot interrupt it.
 
 ## Quality gates

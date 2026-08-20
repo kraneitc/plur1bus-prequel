@@ -144,7 +144,7 @@ She looked at the signal again.
 
 Not four numbers. Four bases.
 
-She assigned guanine, uracil, adenine, and cytosine arbitrarily, then tried every permutation. Most produced nonsense. One produced runs that looked almost biological—not because they resembled a known gene, but because the errors had the texture of codons and the repetitions fell where folded structures might need them.
+She assigned the four states to a biological alphabet, then tried every permutation. Most produced nonsense. One produced long patterns with the internal repetition and variation of biological instructions without resembling anything in the databases.
 
 Mara forgot the sandwich.
 
@@ -166,7 +166,7 @@ Mara forgot the sandwich.
 
 The analyst pinched the bridge of his nose.
 
-Mara enlarged one predicted secondary structure. “A virus is not a bag of evil. It’s information with a delivery problem. This may be information that expects a cell to solve the delivery problem for it.”
+Mara enlarged one of the repeating regions. “A virus is not a bag of evil. It is information with a delivery problem. This may be information that expects a cell to solve the delivery problem for it.”
 
 Davis, still holding two unclaimed sandwiches, asked, “Whose cell?”
 
@@ -178,13 +178,13 @@ The signal acquired a project name, then a different project name after the firs
 
 Mara spent the next six weeks in rooms with filtered air and bad chairs.
 
-The sequence was too orderly to be random and too unfamiliar to annotate conventionally. Portions resembled a positive-sense RNA genome. Other regions suggested a reverse-transcribing phase. Long noncoding segments folded, in simulation, into repeated structures with no obvious catalytic purpose. There were packaging signals but no recognizable capsid. There were proteins that seemed designed to recruit host machinery across several mammalian species and one region that made an immunologist quietly take off her glasses.
+The sequence was too orderly to be random and too unfamiliar to annotate conventionally. Every team received a different fragment and returned the same uncomfortable verdict: it behaved like biological instruction without matching a known organism. Long regions appeared to specify architecture rather than ordinary metabolism. One model predicted that normal warning signs might arrive late. The immunologist who presented that result quietly took off her glasses.
 
-“It turns down the alarm without disabling it,” she said.
+“It could be active before we know what to call active,” she said.
 
 “Meaning?” asked the project director.
 
-“Meaning a cell could be infected without acting infected.”
+“Meaning our observations may lag behind the event.”
 
 Nobody wrote for several seconds. Then everybody did.
 
@@ -244,9 +244,9 @@ Havel leaned back. “Tell me the sentence you want in the authorization.”
 
 Mara knew what he was offering. Not agreement. Ownership.
 
-She said, “A staged, nonreplicating synthesis of predicted structural regions, followed by full-length assembly only after independent containment review.”
+She said, “A staged synthesis inside the sealed system, with independent review before anything leaves it.”
 
-“Nonreplicating first.”
+“No scale-up.”
 
 “Yes.”
 
@@ -254,7 +254,7 @@ She said, “A staged, nonreplicating synthesis of predicted structural regions,
 
 “Yes.”
 
-“No human cell lines capable of producing infectious particles.”
+“No work capable of producing a transmissible sample without another approval.”
 
 Mara hesitated.
 
@@ -262,7 +262,7 @@ The silence altered the room.
 
 Havel’s expression did not change. “That was the easiest condition.”
 
-“It makes the result uninterpretable if host-specific processing is required.”
+“It may make the result uninterpretable.”
 
 “Then we accept an uninterpretable result.”
 
@@ -272,7 +272,7 @@ There it was: the argument that made caution resemble negligence.
 
 Mara saw it work around the table. People who had arrived prepared to forbid the experiment began imagining unknown people performing it badly. Her scenario colonized their judgment one reasonable step at a time.
 
-The authorization passed with conditions. Human cell work would be permitted after the structural stages and an independent review. Full replication competence would require another approval.
+The authorization passed with conditions. Synthesis would occur inside the purpose-built sealed system, under a protocol Mara was not permitted to carry out herself. Animal work and any later expansion required separate approvals.
 
 Mara signed first.
 
@@ -298,7 +298,7 @@ Mara resumed walking. “That isn’t the same thing.”
 
 * * *
 
-The first synthesis took place at 2:10 in the morning because instrument time was cheaper then.
+The first synthesis run took place at 2:10 in the morning because instrument time was cheaper then.
 
 Mara watched through glass with Deshpande, who had joined the project during the third review and immediately improved it by refusing to be impressed.
 
@@ -312,7 +312,7 @@ Mara watched through glass with Deshpande, who had joined the project during the
 
 “Your oversight is fogging the window.”
 
-Inside the clean room, a technician loaded four reagent reservoirs. The liquid-handling robot woke with a small domestic hum. Its head moved to waste, rinsed, checked pressure, and paused while the software compared barcodes.
+Inside the clean room, a technician loaded four sealed reservoirs identified only by barcode. The liquid-handling robot woke with a small domestic hum. Its head moved, checked pressure, and paused while the software compared the labels.
 
 Green status lights traveled down the line.
 
@@ -323,4 +323,3 @@ She typed: **Soon.**
 The robot positioned itself above the first plate.
 
 Four pipettes descended toward four waiting wells.
-

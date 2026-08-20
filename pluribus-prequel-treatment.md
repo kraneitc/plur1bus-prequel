@@ -28,7 +28,7 @@ The series preserves the central ambiguity of *Pluribus*: the Joined are not pre
 
 The tone combines patient observation, bleak comedy, abrupt catastrophe, and small moral choices with enormous consequences. Global events are experienced through banal systems: an animal-room clipboard, a box of fundraising doughnuts, an agricultural conference call, a baggage carousel that never stops turning.
 
-The camera loves process. The first appearance of each important procedure remains legible enough for the reader to understand its purpose, sequence, and failure points. Later repetitions compress steps the reader already knows and slow down again only when a deviation changes the risk or meaning. Repeated actions become choreography: samples pass hand to hand; badges open successive doors; airport workers move identical coolers; ventilation technicians calibrate identical dampers. Before the infection, people perform these tasks imperfectly and complain. Afterward, the same work becomes silent, elegant, and terrifyingly coordinated.
+The camera loves process. The first appearance of each important procedure remains legible enough for the reader to understand its purpose, sequence, and failure points. S-78 can be conceptually precise without becoming reproducible: construction recipes, exact quantities, apparatus modifications, and optimized distribution calculations remain outside the frame. Repeated actions become choreography: samples pass hand to hand; badges open successive doors; airport workers move identical coolers; technicians calibrate identical systems. Before the infection, people perform these tasks imperfectly and complain. Afterward, the same work becomes silent, elegant, and terrifyingly coordinated.
 
 Violence is rare and ugly. The series avoids armies mowing down smiling civilians. Its largest set pieces are failures of ordinary motion: cars drifting through intersections, surgeons freezing mid-incision, aircraft losing human attention for seconds that cannot be returned.
 
@@ -36,29 +36,27 @@ Humor comes from character, bureaucracy, and the Joined taking language seriousl
 
 ## The infection model
 
-The extraterrestrial sequence produces what the project calls **S-78**: a virus-like, positive-sense RNA particle with an unusually durable protein shell and a reverse-transcribing phase. It is not a clean match for any terrestrial family. That lets characters truthfully call it a virus while admitting that the word is inadequate.
+The extraterrestrial sequence produces what the project calls **S-78**: a fictional RNA agent unlike any terrestrial family. Characters call it a virus because they need a noun, while admitting that the word is inadequate. Its RNA encodes construction of a molecular interface, not the hive mind itself. The story describes that architecture conceptually without supplying a real sequence, assembly procedure, or cultivation method.
 
-The biology obeys recognizable rules until it reaches the premise’s single impossible element.
+The biology obeys recognizable dramatic rules until it reaches the premise’s single impossible element.
 
 ### Transmission
 
-S-78 is carried most efficiently in saliva and short-range respiratory droplets. It enters through the mouth, nose, eyes, or a bite; intact skin is an effective barrier. Kissing, shared drinks, contaminated ready-to-eat food, and close unmasked conversation are efficient routes. Brief touch is not. It is not magically airborne across cities, and aircraft contrails cannot spread it.
+Broad routes include saliva, short-range respiratory droplets, bites, contaminated ready-to-eat food, and generated indoor aerosols. Jenn’s rat bite qualifies; brushing past an infected person does not. The story may identify which route caused an event, but it does not specify exact quantities, environmental-performance thresholds, apparatus, or optimization.
 
-The particle remains infectious for several hours in moist, protein- or sugar-rich material. That makes the measured dose Jenn later prepares from one of Mel’s glazed fundraising doughnuts credible without turning every doorknob into a death sentence. Drying, ultraviolet light, heat, oxidizing disinfectants, and properly maintained water treatment reduce infectivity. A high-pressure aerosol in an enclosed building can create a mass exposure; an open street cannot.
+People can carry S-78 before unmistakable symptoms, so ordinary travel hides the scale of spread. After the military discovers the network, acceleration still requires thousands of local choices by already connected people. There is no remote activation, magic cloud, poisoned reservoir, or single master switch.
 
-After the military discovers the spread, the Joined accelerate through thousands of local releases rather than one implausible master switch: airport lounges, barracks, shelters, factories, distribution kitchens, and other enclosed spaces staffed by people already in the network. Medical nebulizers and modified humidification units generate droplets of a known size inside recirculating ventilation zones; they do not somehow infect a city from one rooftop intake. Infected travelers carry S-78 between hubs during its presymptomatic phase. Municipal water is considered, then rejected in most cities because dose, dilution, chlorination, and travel time are too unreliable.
+Deliberate exposure scenes focus on disclosure, anticipation, observation, care, and consequence. They may show the human act that carries the choice—a cup, a doughnut, an ordinary room—without explaining a reproducible preparation method.
 
 ### Why transmission can remain hidden
 
-S-78 first replicates in the tonsils, nasal epithelium, and salivary tissue while suppressing the loud inflammatory signals that normally produce fever and malaise. Infectious shedding begins before unmistakable neurological symptoms. Routine respiratory panels find nothing because they are not designed for its sequence, and early blood tests are often negative because the agent prefers mucosa and nerve tissue.
-
-From the mucosa, it reaches the nervous system by two slow routes: infected immune cells crossing vascular barriers, and retrograde transport along olfactory, trigeminal, vagal, and other peripheral nerves. Inside the brain it moves circuit by circuit, exploiting synaptic-vesicle machinery rather than flooding every neuron at once. Dose and route matter: a deep bite may progress in 36–60 hours; ordinary oral exposure usually takes four to eight days.
+S-78 produces no distinctive early illness and is not recognized by ordinary clinical testing. It becomes detectable first near the exposure site, then reaches the nervous system gradually; the story does not name a real pathway or provide assay targets. Circumstances alter the pace, but only broad dramatic windows are used: Jenn’s bite moves unusually fast, while most people progress across several days.
 
 ### The five stages
 
-**Stage 0 — Exposure, 0–18 hours.** No symptoms. Local replication begins. A sufficiently exposed person may already be contagious near the end of this period.
+**Stage 0 — Exposure, first day.** No obvious symptoms. A person may already be carrying S-78 onward before realizing anything has changed.
 
-**Stage 1 — Prodrome, 12–48 hours.** Poor sleep, thirst, excess saliva, pressure behind the eyes, transient loss of smell, and brief autonomic events: gooseflesh, a racing heart, a single whole-body shiver. Patients remain fully themselves. Most blame travel, stress, or a mild virus.
+**Stage 1 — Prodrome, first two days.** Poor sleep, thirst, excess saliva, pressure behind the eyes, transient loss of smell, and brief autonomic events: gooseflesh, a racing heart, a single whole-body shiver. Patients remain fully themselves. Most blame travel, stress, or a mild virus.
 
 **Stage 2 — Echo, days 2–5.** The person experiences information without a remembered source: the answer to a coworker’s question, a stranger’s childhood nickname, the sensation of a room they have never entered. These are not clear voices. They feel like intuition arriving half a second too early. Pronouns begin to slip under fatigue. EEGs show narrow synchronization at intervals related to the signal’s 78-second repetition—even between infected subjects in separate buildings.
 
@@ -72,11 +70,11 @@ The form of an early echo follows the neural systems the infection has reached. 
 
 ### The mystical telemetry: the working model
 
-Real viruses can enter through mucosa, travel along nerves, cross into the central nervous system, and spread between neurons. Human brains also show measurable synchronization during shared attention and social interaction. No known biology can transmit autobiographical memory or expertise instantaneously between distant brains. The characters say this plainly.
+No known biology can transmit autobiographical memory or expertise instantaneously between distant brains. The characters say this plainly.
 
 The RNA does **not** encode a hive mind. It encodes biological construction instructions for an interface.
 
-As S-78 progresses through the brain, infected neurons and glial cells manufacture a novel ribonucleoprotein structure along synapses and astrocytic junctions. Mara provisionally calls it the **S-78 complex**. The complex interacts with a previously unknown quantum field—or what one exasperated physicist calls a “subspace degree of freedom” after exhausting less embarrassing terminology.
+As S-78 progresses through the brain, infected neurons and glial cells manufacture a novel transceiver complex. Mara provisionally calls it the **S-78 complex**. The complex interacts with a previously unknown quantum field—or what one exasperated physicist calls a “subspace degree of freedom” after exhausting less embarrassing terminology. Its conceptual role is fixed; its sequence, assembly, and physical implementation are not described.
 
 The structure is a transceiver. The brain remains the processor. It does not upload a complete person as data or house a second alien intelligence. It lets the electrochemical state of each infected nervous system participate in one nonlocal, distributed state.
 
@@ -85,8 +83,8 @@ This model produces firm story rules:
 - **Distance is almost irrelevant.** Two connected brains can influence the same shared state from adjacent rooms or opposite sides of Earth. Latency does not scale measurably with geographic separation.
 - **Ordinary shielding does nothing.** Faraday cages, radio jammers, underground bunkers, and severed telecommunications cannot block the network. The interface is not sending radio waves through normal space.
 - **The system does not require conventional bandwidth.** Billions of brains are not streaming sensory data to one another. Each nervous system participates in a shared state, and attention determines which memories, skills, or sensations become locally conscious.
-- **The brain still matters.** Injury, anesthesia, sleep, seizures, psychoactive drugs, and individual neuroanatomy change what a host contributes or can perceive. Destroying the S-78 complex—or preventing its expression—could theoretically disconnect a brain without “killing” a central hive, because no central hive exists.
-- **The extraterrestrial broadcast contains only a build recipe.** It transmits the RNA instructions for constructing the interface, not a prerecorded consciousness. Humanity supplies every mind in the resulting network.
+- **The brain still matters.** Injury, anesthesia, sleep, seizures, and medication change what a host contributes or can perceive. Interrupting the interface could theoretically disconnect a brain without “killing” a central hive, because no central hive exists.
+- **The extraterrestrial broadcast contains only a build recipe.** It transmits RNA instructions for constructing the interface, not a prerecorded consciousness. The actual recipe is never reproduced; humanity supplies every mind in the resulting network.
 - **Global synchronization is genuine.** A change in the shared state is effectively available to every mature interface at once. The dramatic worldwide transition is therefore a coordinated convergence of people infected days earlier, not the moment of their exposure.
 - **Uninfected people perceive nothing.** Without the S-78 complex, a brain has no physical interface with the shared state. Radios cannot tune into it, and thoughts cannot leak into an immune person.
 
@@ -99,7 +97,7 @@ The Joined do not advertise bliss in generic language. They tailor the case to t
 Their method is called **orientation**, never conversion.
 
 1. A familiar person approaches with one unfamiliar “witness,” preventing the encounter from looking like a private family breakdown.
-2. Before any deliberate exposure, they disclose the route, known stages, medical risks, and the fact that Stage 2+ cognition may already be altered. They answer follow-up questions truthfully and do not withhold information material to assent. They may decline irrelevant questions or omit unrelated facts, but active assent—not the absence of refusal—is required.
+2. Before any deliberate exposure, they disclose the broad route, known stages, medical risks, and the fact that Stage 2+ cognition may already be altered. They answer follow-up questions truthfully and do not withhold information material to assent. They may decline irrelevant questions or omit unrelated facts, but active assent—not the absence of refusal—is required. Preparation details are not described.
 3. They demonstrate the network with verifiable knowledge: a forgotten promise, a language the speaker never learned, a medical skill acquired from someone on another continent.
 4. They describe specific benefits rather than happiness: no misunderstanding, no concealed shame, shared grief, pooled expertise, and the physical certainty that somebody is always paying attention.
 5. If the person is already in Stage 2 or 3, they coach them through an “open-door” exercise—attend to the foreign intuition, verify it, then withdraw. The relief is real and becomes their strongest argument.
@@ -165,11 +163,11 @@ Mara Velez is asked to consult on the repeating 78-second signal. She dismisses 
 
 The episode tracks the signal through institutions. Each handoff is reasonable and faintly absurd. Astronomers resent classification rules. Intelligence officials resent metaphors. Biologists resent being summoned without raw data. A senior official asks whether six hundred light-years counts as foreign jurisdiction.
 
-Mara and Deshpande build a case that the sequence encodes a virus-like RNA replicator with a reverse-transcribing phase, though it does not fit cleanly within any known category. The question of synthesis divides the team. Mara argues that the sequence is already public in the only sense that matters: the sky is broadcasting it. If another lab builds it first, ignorance will not protect them.
+Mara and Deshpande build a case that the sequence encodes a virus-like RNA system unlike any known category. The question of synthesis divides the team. Mara argues that the sequence is already public in the only sense that matters: the sky is broadcasting it. If another laboratory builds it first, ignorance will not protect them.
 
 At home, Mara cannot tell her husband what she has found. She watches him sleep and listens to a recording of the signal. It repeats every 78 seconds with inhuman patience.
 
-The government authorizes synthesis. The order is delivered not with sinister music, but in a badly formatted PDF bearing six electronic signatures and the wrong project title.
+The government authorizes synthesis under invented maximum-containment rules. The order is delivered not with sinister music, but in a badly formatted PDF bearing six electronic signatures and the wrong project title. The actual construction method is not described.
 
 **Final image:** A liquid-handling robot lowers four pipettes in perfect unison. Cut to black before they touch the wells.
 
@@ -181,15 +179,15 @@ Macaques, rabbits, mice, guinea pigs, and finally rats show no clinical signs. C
 
 Jenn carries the episode. She moves between the grand rhetoric upstairs and the unglamorous animal work below. Mel from security has brought boxes of doughnuts for his fourteen-year-old daughter’s marching-band fundraiser. They sit beside the sign-in sheet, slowly going stale.
 
-A rat scheduled for euthanasia appears lifeless but has a powerful heartbeat. It bites Jenn through her glove at 3:36 a.m. Deshpande begins exposure protocol. Jenn suffers a violent autonomic episode—tremor, gasping, loss of muscle control—then stabilizes. During the cleanup, Arlo replaces a cracked splash shield; its edge opens the skin on his knuckle, and a drop from Jenn’s saliva-wet respirator strap reaches the cut. Nobody yet considers Jenn infectious, so the event is logged as a housekeeping injury rather than a biological exposure. Jenn does not wake transformed. She wakes embarrassed, frightened, and furious that the occupational-health physician keeps describing a bite she can plainly see as a “potential exposure.”
+A rat scheduled for euthanasia appears lifeless but has a powerful heartbeat. It bites Jenn through her glove at 3:36 a.m. Deshpande begins the emergency protocol. Jenn suffers a violent autonomic episode—tremor, gasping, loss of muscle control—then stabilizes. During the cleanup, contaminated material reaches a fresh cut on Arlo’s hand. Nobody yet considers Jenn capable of passing anything on, so the event is logged as a housekeeping injury rather than a biological exposure. Jenn does not wake transformed. She wakes embarrassed, frightened, and furious that the occupational-health physician keeps describing a bite she can plainly see as a “potential exposure.”
 
 Jenn is placed in negative-pressure observation. For the first twelve hours, every test is normal. At hour nineteen she cannot smell coffee. At hour twenty-six she answers a question Deshpande has not yet asked. At hour thirty-one she dreams from the viewpoint of the bitten rat: fluorescent light, gloved hands, no concept of a self that ends at the skin.
 
-Mara finds low levels of novel RNA in Jenn’s tonsillar swab but not her blood. Deshpande argues this indicates contamination. Mara orders serial saliva, nasal, blood, and cerebrospinal-fluid testing. Their competence delays disaster and reveals it at the same time.
+Mara finds low levels of S-78 RNA in a sample taken near Jenn’s bite while her blood remains negative. Deshpande argues that it is contamination. Mara orders independent confirmation and begins an antisense intervention line; its target design and formulation remain unstated. Their competence delays disaster and reveals it at the same time.
 
 At hour forty, Jenn begins recognizing the emotions of people in adjacent rooms. She believes she is hallucinating until she correctly identifies that Mel is hiding a panic attack and that Arlo is alone in a supply room, staring at the inflamed cut on his knuckle and trying not to panic. She barely knows either man.
 
-At hour forty-seven, roughly forty-three hours after Arlo’s high-dose broken-skin exposure, Jenn hears a thought that is not hers. It is not a sentence. It is Arlo’s recognition of her, arriving through a wall before he has consciously remembered her face.
+At hour forty-seven, roughly forty-three hours after Arlo’s accidental exposure, Jenn hears a thought that is not hers. It is not a sentence. It is Arlo’s recognition of her, arriving through a wall before he has consciously remembered her face.
 
 Jenn understands what the correlation will trigger: separate transfers, deeper isolation, and two frightened people converted into evidence before either can describe what is happening. She coaches Arlo to attend to the echo long enough to stabilize his breathing, then withholds the correlation when Mara asks whether anything has changed. Jenn tells herself she is preserving an observation until morning. The delay closes the cleanest remaining exit from a two-host network.
 
@@ -203,7 +201,7 @@ Jenn and Arlo remain individuals in Stage 2. They can attend to each other’s p
 
 Deshpande insists on examining both of them. Jenn gives him the complete risk as she understands it. She does not lunge, trick, or promise bliss. She demonstrates: eyes closed, she describes a photograph Arlo took and remembers clearly but has never shown her, still stored inside his locked phone. The information comes through Arlo’s connected memory, not remote access to the device. She tells Deshpande that the connection has not made her happier. It has made being misunderstood briefly impossible.
 
-Deshpande chooses exposure by drinking from a marked cup. The act is quiet, clinical, and appalling. He documents the time, route, estimated volume, oral lesions, and baseline cognitive scores before he does it. He wants usable data if his judgment changes later.
+Deshpande chooses exposure by drinking from a marked cup. He documents the time, the broad route, his health, and baseline cognitive scores before he proceeds because he wants usable observations if his judgment changes later. The preparation and quantity remain unstated. The act is quiet, clinical, and appalling.
 
 Over four days, the three map the progression while experiencing it. Attention strengthens conscious access; sensory overload weakens it. A Faraday cage, a radio jammer, and the hospital’s shielded imaging room make no difference. Distance makes no difference either: Jenn and Arlo remain synchronized after one is transferred across the state. Deep anesthesia suppresses what a brain can contribute, but the connection returns as the patient emerges. They conclude that S-78 has not built a communications channel through ordinary space. It has altered what the brain can participate in.
 
@@ -215,19 +213,19 @@ The first orientation follows. Jenn speaks to Deshpande as herself where possibl
 
 Deshpande converges by choice. Through him, the audience experiences full Joining once—and only once: private humiliations exposed, contextualized by other lives, and forgiven before he can defend them. The sensation is not euphoria. It is the sudden removal of the labor required to be known.
 
-The network now wants to grow. Direct exposure is slow but controllable. Jenn retrieves Mel’s fundraising doughnuts, moistens one glazed surface with a measured quantity of infectious saliva, and seals it in a specimen bag. The gesture is mundane, intimate, and medically purposeful.
+The network now wants to grow. Deliberate exposure is slow and individually supervised. Jenn retrieves Mel’s fundraising doughnuts and prepares one as the vehicle for his disclosed choice, then seals it in a specimen bag. The story does not state the preparation method or quantity.
 
 Mel asks whether saying yes for himself also places Sofia inside the experiment. Jenn says no: his assent belongs only to him. She records Sofia as no-contact and admits that she can promise only what the present collective controls, not what a future and larger network may decide.
 
-**Final image:** Jenn offers the sealed doughnut to Mel and says exactly what it contains. She tells him what happened to her, including the worst part. Mel looks at the trombone drawn on the fundraiser label. After a long silence, he opens the bag and eats it anyway.
+**Final image:** Jenn offers the sealed doughnut to Mel and says exactly what it represents. She tells him what happened to her, including the worst part. Mel looks at the trombone drawn on the fundraiser label. After a long silence, he opens the bag and eats it anyway.
 
 ### Episode 4 — “No One Is Sick”
 
 One month after Patient Zero, the peaceful spread has become a hidden global network. Its logistical achievement is less impressive than its clinical one: thousands of people have passed through a dangerous neurological transition without a single death.
 
-The Joined deliberately avoid deaths. They expose pilots only before scheduled leave, surgeons only after procedures, and drivers only after parking. They route around the elderly, pregnant, medically fragile, and anyone whose anticonvulsants or cardiac conditions make Stage 4 unsafe. The operation is vast but intimate, coordinated through ordinary travel, food distribution, laboratories, and human trust.
+The Joined deliberately avoid deaths. They time each consenting person’s transition around work, travel, health, and family obligations, and they defer anyone medically fragile. The operation is vast but intimate, coordinated through ordinary travel and human trust. Its practical exposure methods remain unspecified.
 
-Orientation centers become the episode’s unsettling recurring location. They resemble well-run outpatient infusion clinics: intake history, informed-risk script, baseline ECG, antiemetics, crash cart, low lighting, a familiar anchor, and a Joined clinician who has supervised hundreds of convergences. Patients in Stage 2 are allowed to leave. Most return because the network’s absence now feels like phantom-limb pain.
+Orientation centers become the episode’s unsettling recurring location. They resemble well-run outpatient clinics: intake history, informed-risk conversation, baseline observations, low lighting, a familiar anchor, and a Joined clinician who has supervised hundreds of convergences. Patients in Stage 2 are allowed to leave. Most return because the network’s absence now feels like phantom-limb pain.
 
 Arlo’s notes from the first two-host observation become part of the standard orientation protocol: keep the room quiet, make each perceived fact verifiable, and place ordinary cleaning supplies where a disoriented patient cannot mistake them for medical equipment. Jenn’s delayed report has become institutional knowledge.
 
@@ -237,13 +235,13 @@ The persuasion is individualized. An exhausted nurse is offered pooled clinical 
 
 Mara remains unjoined and in hiding. She tries to warn public-health authorities but cannot demonstrate conventional illness. Every fully Joined “patient” is healthy, calm, helpful, and willing to be examined. Every partially infected patient says the episodes are frightening but the connection is helping. No law cleanly permits quarantine of people for excessive cooperation, and isolating Stage 3 patients causes measurable distress.
 
-After Mara stops contacting him to keep him outside the investigation, Tom goes to an orientation center voluntarily. The Joined disclose the route, stages, medical risks, and altered-consent problem. They do not ask him to locate Mara. Tom accepts exposure because a life without classified absences sounds, to him, like care rather than conquest. Once he joins, the network inherits the domestic routines Mara treated as harmless background.
+After Mara stops contacting him to keep him outside the investigation, Tom goes to an orientation center voluntarily. The Joined disclose the broad route, stages, medical risks, and altered-consent problem without describing preparation details. They do not ask him to locate Mara. Tom accepts exposure because a life without classified absences sounds, to him, like care rather than conquest. Once he joins, the network inherits the domestic routines Mara treated as harmless background.
 
 Lieutenant Colonel Evelyn Rios finds the pattern through mistakes too small for civilian systems to connect: military personnel in three countries use identical phrasing in unrelated wellness reports; two radar operators exchange duties without speaking; a logistics unit eliminates six months of inventory discrepancies overnight.
 
-Two civilian reports give the pattern names. Tess Arnold, a tower-crane operator known for meticulous safety logs, reports that substitute riggers completed an altered lift sequence nobody had briefed them on; her timestamps give Rios another cross-site synchronization. Omar Haddad, an airport airflow technician, recognizes that several innocuous maintenance requests together specify an aerosol exposure calculation; while collecting condensate from a modified humidification unit, an ocular splash accidentally exposes him.
+Two civilian reports give the pattern names. Tess Arnold, a tower-crane operator known for meticulous safety logs, reports that substitute riggers completed an altered lift sequence nobody had briefed them on; her timestamps give Rios another cross-site synchronization. Omar Haddad, an airport airflow technician, recognizes that several innocuous maintenance requests imply one coordinated indoor-exposure plan. While inspecting the changes, he is accidentally exposed. The treatment names neither the equipment modifications nor the calculations.
 
-Rios interviews an airman in Stage 3. Exposure reconstruction shows that a presymptomatic bunkmate infected him accidentally during prolonged close respiratory contact in shared barracks; nobody selected him for orientation. He is still visibly himself and asks to answer without the network’s help. Shielding has already failed, so military physicians use a tightly controlled propofol anesthetic and question him during the short, confused emergence interval before he can consciously attend to the shared state. He is shaky and slow but also angry—an emotion absent whenever the network can regulate him. He says he did not consent to the exposure. He also says he intends to complete convergence because returning to isolation now feels like volunteering to go blind. Ninety seconds later, access returns. He answers classified questions by drawing on connected personnel whose access Rios can verify. When he says she has not spoken to Mateo in nine days, he identifies the source: a Joined administrative aide saw the unanswered reminders on Rios’s briefing calendar. The network’s reach is invasive but traceable; it has not read her mind.
+Rios interviews an airman in Stage 3. Reconstruction shows that a presymptomatic bunkmate exposed him accidentally during prolonged shared quarters; nobody selected him for orientation. He is still visibly himself and asks to answer without the network’s help. Shielding has already failed, so military physicians use short-acting anesthesia under controlled clinical supervision and question him during the confused emergence interval before he can consciously attend to the shared state. He is shaky and slow but also angry—an emotion absent whenever the network can regulate him. He says he did not consent to the exposure. He also says he intends to complete convergence because returning to isolation now feels like volunteering to go blind. When access returns, he answers classified questions by drawing on connected personnel whose access Rios can verify. When he says she has not spoken to Mateo in nine days, he identifies the source: a Joined administrative aide saw the unanswered reminders on Rios’s briefing calendar. The network’s reach is invasive but traceable; it has not read her mind.
 
 At home, Mateo accuses Evelyn of wanting the phenomenon to be hostile because hostility would make her useful. Leah, treating Joined people in the emergency department, reports that none want medication and none appear distressed. Their family argument is painful, specific, and unresolved—the kind of friction the Joined would remove.
 
@@ -263,9 +261,9 @@ The move confirms the collective’s fear that secrecy can no longer prevent con
 
 This decision is not made in a command center. It emerges everywhere. A baggage handler changes a routing tag. A pharmacist unlocks a cabinet. A food-safety manager releases a refrigerated shipment. A flight crew files an unusual but legal plan. Each action is harmless in isolation. Together, they constitute the largest operation in human history.
 
-The plan is competent rather than magical. The Joined calculate the dose required for mucosal infection, environmental decay under local temperature and humidity, building air-exchange rates, travel times, and the delay from exposure to shedding. They abandon outdoor dispersal and most municipal water systems as inefficient. They favor enclosed transit hubs and prepared food because those routes can produce known exposures while preserving several days in which newly infected people continue normal travel.
+The plan is competent rather than magical. The Joined coordinate many local exposure events through transit, food distribution, and other ordinary systems, allow for broad progression windows, and rely on travel by people who do not yet know they are affected. The treatment never supplies quantities, environmental-performance parameters, apparatus modifications, or optimization calculations.
 
-Omar, now able to attend to the network, contributes the airport’s actual damper maps and corrects an exposure model that would have overdosed two terminals. His competence reduces casualties while enabling the operation that causes them.
+Omar, now able to attend to the network, spots a dangerous mistake in the airport plan and prevents two terminals from receiving a much heavier exposure than intended. His competence reduces casualties while enabling the operation that causes them; the calculation itself is not described.
 
 Military epidemiologists work backward from convergence dates and discover what the audience already knows: the network is not spreading at impossible speed. It has been spreading ahead of its symptoms. The apparent explosion is a detection artifact.
 
@@ -277,7 +275,7 @@ Deshpande meets Mara alone. Because the Joined cannot lie, she asks whether they
 
 He gives her the numbers: predicted infections, predicted failed convergences, predicted deaths from accidents and interrupted care. He does not round them down. Then he apologizes for the pain they are about to prevent.
 
-A Joined grocery worker flags a safe-house order containing the obscure olive brand Tom always bought for Mara. Tom recognizes her habit of annotating substitutions and identifies the order as hers. During acceleration, contaminated prepared food in that delivery becomes the network’s route to her. His intimate care supplies the clue; the collective’s new policy turns it into coercion.
+A Joined grocery worker flags a safe-house order containing the obscure olive brand Tom always bought for Mara. Tom recognizes her habit of annotating substitutions and identifies the order as hers. During acceleration, contaminated prepared food in that delivery becomes the network’s route to her; its preparation and quantity remain unstated. His intimate care supplies the clue; the collective’s new policy turns it into coercion.
 
 Mara attempts to destroy the original samples. Jenn stops her without striking her, placing her own hand beneath a descending piece of machinery. Mara must either crush Jenn’s hand or release the control. She releases it.
 
@@ -295,19 +293,19 @@ Fully Joined workers position help near roads, hospitals, airports, and schools,
 
 At Sofia’s school, Mel helps move the marching band away from risers and concrete steps. The no-contact notation he made the collective honor during the peaceful month no longer protects her; acceleration has erased that category. He cannot exempt his daughter from exposure. He can only arrange the room in which she will lose the right to refuse.
 
-Rios understands what is coming and races to reach Mateo and Leah. Her military network is failing without sabotage: operators in Stage 3 keep abandoning conflicting orders whenever they attend to the network. She dismisses her own thirst and hand tremor as exhaustion. Mara traces her exposure to prepared food delivered four days earlier and understands that only Tom would have recognized the olive substitution note that identified her safe house. Already experiencing echoes, she heads for the original lab to destroy the remaining transmissible samples and retrieve an antisense treatment that might halt production of new S-78 complexes. She knows there is no central hive to switch off; she is trying to preserve whatever parts of her brain have not yet built the interface. Davis is evacuated with senior officials because his portfolio is mistakenly included on a continuity list. On the bus to the bunker, he writes the time of each symptom in the margins of an agriculture briefing.
+Rios understands what is coming and races to reach Mateo and Leah. Her military network is failing without sabotage: operators in Stage 3 keep abandoning conflicting orders whenever they attend to the network. She dismisses her own thirst and hand tremor as exhaustion. Mara traces her exposure to prepared food delivered four days earlier and understands that only Tom would have recognized the olive substitution note that identified her safe house. Already experiencing echoes, she heads for the original lab to destroy the remaining S-78 samples and retrieve an antisense intervention that might halt production of new S-78 complexes. Its target, formulation, and dose remain unstated. She knows there is no central hive to switch off; she is trying to preserve whatever parts of her brain have not yet built the interface. Davis is evacuated with senior officials because his portfolio is mistakenly included on a continuity list. On the bus to the bunker, he writes the time of each symptom in the margins of an agriculture briefing.
 
 The Joined do not “activate” uninfected people with a command. They shift the shared state in controlled 78-second steps. Every mature S-78 interface can register that shift without a radio signal or geographic delay. Stage 3 hosts are drawn into synchronized convergence so the Joined can monitor and support them as a coordinated cohort rather than as scattered emergencies. The plan is medically rational and morally monstrous.
 
 The first wave enters Stage 4. Shaking is the beginning of the final transition, not the whole of it. Some people remain conscious for an hour, reporting other people’s memories as their own. Some become delirious. Some beg the network to come closer; others beg it to get out. Each eventually passes through a period in which “I” and “we” alternate before only “we” remains.
 
-The Joining is shown through specific interrupted tasks rather than spectacle. A school bus rolls after its driver loses motor control. Tess Arnold feels the tremor beginning and follows the crane shutdown sequence she documented earlier, but synchronized convergence reaches her before the suspended load is fully secured. Omar’s corrected airflow model spares two airport terminals from dangerous doses while exposing them efficiently. A woman halfway up a ladder experiences another person’s vertigo and reaches for a handhold that is not there. An anesthetist asks for relief, is replaced, and begins converging in the corridor. The Joined positioned nearby save many people, but no distributed intelligence can catch everyone.
+The Joining is shown through specific interrupted tasks rather than spectacle. A school bus rolls after its driver loses motor control. Tess Arnold feels the tremor beginning and follows the crane shutdown sequence she documented earlier, but synchronized convergence reaches her before the suspended load is fully secured. Omar’s correction spares two airport terminals from the worst predicted outcome. A woman halfway up a ladder experiences another person’s vertigo and reaches for a handhold that is not there. An anesthetist asks for relief, is replaced, and begins converging in the corridor. The Joined positioned nearby save many people, but no distributed intelligence can catch everyone.
 
 For thirty-six hours, humanity is simultaneously becoming incapable of intentional harm and dying by accident.
 
 Mara reaches the lab and finds Jenn waiting with a complete orientation setup. Jenn does not need to touch or infect her; that happened days ago. Mara demands to know how many will die. Jenn gives the current model, its uncertainty interval, and the categories of failure contributing to it. She cannot soften the answer.
 
-Mara injects herself with the prepared antisense dose. It reduces circulating particles but cannot dismantle the S-78 complexes her neurons and glia have already manufactured. The echoes continue inside the shielded imaging room. Mara watches the radio-spectrum analyzer produce a perfectly flat trace while Jenn, across the glass, answers a number Mara has only imagined. It is the cleanest negative result of Mara’s career: the telemetry is not electromagnetic.
+Mara injects herself with the prepared antisense intervention. It reduces new interface formation but cannot dismantle the S-78 complexes her neurons and glia have already manufactured; its formulation and dose are never described. The echoes continue inside the shielded imaging room. Mara watches the radio-spectrum analyzer produce a perfectly flat trace while Jenn, across the glass, answers a number Mara has only imagined. It is the cleanest negative result of Mara’s career: the telemetry is not electromagnetic.
 
 Jenn offers no sales pitch. She reviews Mara’s own Stage 4 protocol, obtains consent to treat complications, and asks whether Mara wants sedation or conscious orientation. Mara understands that either answer is being made by an infected brain. She chooses to remain awake anyway.
 
@@ -368,8 +366,8 @@ The prequel turns on four questions already embedded in the parent series:
 - It is discovered fourteen months before the Joining and synthesized by human scientists.
 - Eight months of animal testing include macaques, rabbits, mice, guinea pigs, and rats without obvious clinical signs.
 - Jenn becomes Patient Zero after a rat bite at 3:36 a.m.
-- Jenn’s initial shaking is an acute exposure response. Full convergence takes place after progressive mucosal replication, neuroinvasion, network awareness, and a prolonged Stage 4 transition.
-- Saliva, short-range droplets, bites, contaminated food, and high-dose indoor aerosols are viable transmission routes; touch, contrails, and casually poisoned municipal water are not.
+- Jenn’s initial shaking is an acute exposure response. Full convergence takes place only after progressive interface formation, network awareness, and a prolonged Stage 4 transition.
+- Saliva, short-range droplets, bites, contaminated food, and indoor aerosols are broad story routes; brief touch is not. Exact quantities, environmental-performance parameters, apparatus, and optimization remain unspecified.
 - The spread is peaceful and individually managed for its first month, reaching thousands per day without deaths.
 - Military discovery causes the Joined to accelerate.
 - The accelerated Joining produces 886,477,591 deaths by the count given in Episode 2, now accumulated through a thirty-six-hour global convergence rather than an instantaneous switch.
@@ -383,14 +381,10 @@ The parent series asks whether Carol is right to want the old world back. The pr
 
 By ending at the exact threshold of Carol’s story, *Before We Were Us* changes the emotional meaning of the pilot while preserving its visible milestones. The shaking Carol witnesses is the crisis point of infections acquired days earlier, not an instantaneous conversion. Every smiling stranger who later approaches her has lived through the largest shared trauma in history. Every offer of help is sincere. Every reassurance is also the voice of the thing that took everyone away.
 
-## Scientific grounding
+## Fictional-science boundary
 
-The treatment borrows its plausible biology from known neurotropic pathways rather than claiming S-78 could exist:
+S-78 is not presented as a plausible organism or research proposal. The story may describe its RNA-encoded molecular interface, manufacture by neurons or glia, broad neuroanatomical progression, observed testing, broad exposure routes, and nonlocal field effect.
 
-- Neurotropic viruses can enter through oral or nasal mucosa, reach peripheral nerves, and move toward the central nervous system through retrograde axonal transport.
-- Viruses can cross neural barriers through blood, infected immune cells, olfactory pathways, or peripheral nerves; different routes can produce different incubation periods.
-- Some viruses spread within neural circuits through synapse-associated mechanisms, supporting a slow circuit-by-circuit progression rather than an instant whole-brain change.
-- Salivary shedding after neural infection is biologically precedented, making a bite and oral contamination coherent parts of the same transmission cycle.
-- Measurable inter-brain synchronization occurs during real human interaction, but it reflects correlated activity—not telepathy or shared memory. S-78’s distant host network remains intentionally fictional.
+The grounding remains high level: neurotropic agents can move from peripheral exposure sites toward the central nervous system over time; some neurological infections progress through circuits rather than affecting the whole brain at once; salivary transmission has real precedents; and ordinary human interaction can produce correlated brain activity without telepathy. These ideas justify the story’s pacing and observations, not S-78’s impossible mechanism.
 
-Research touchstones: [viral routes into the central nervous system](https://pmc.ncbi.nlm.nih.gov/articles/PMC4715944/), [oral transmission and neural spread of enterovirus 71](https://pmc.ncbi.nlm.nih.gov/articles/PMC8029433/), [salivary shedding and axonal transport in neurotropic infection](https://pmc.ncbi.nlm.nih.gov/articles/PMC7158194/), [synapse-specific viral spread](https://www.nature.com/articles/s41593-026-02254-8), and [brain-to-brain synchrony during natural social interaction](https://www.nature.com/articles/s41598-017-17339-5).
+No project document should supply a real sequence, reproducible synthesis or cultivation workflow, exact test-target design, culture conditions, exact dose, environmental-performance thresholds, apparatus modifications, optimized dispersal calculations, or intervention formulation. Scientific credibility comes from conceptual coherence, competent characters, consistent elapsed time, honest uncertainty, and consequences—not from a usable protocol.

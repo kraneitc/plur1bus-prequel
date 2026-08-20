@@ -31,7 +31,7 @@ The project proceeds through staged internal gates rather than drafting the whol
 Freeze and reconcile:
 
 - infection stages and timing;
-- transmission routes and dose logic;
+- broad transmission routes, progression, and timing under the balanced-abstraction boundary;
 - mystical telemetry and its limitations;
 - Joined knowledge and truthfulness;
 - the consent problem;
@@ -57,7 +57,7 @@ Create scene-level episode outlines before writing further chapters. Each episod
 The preferred calibration sample is Jenn’s first forty-seven hours after the rat bite. It should test:
 
 - close-third prose and interiority;
-- procedural and scientific density;
+- procedural and scientific density without reproducible construction, exact dosing, or optimized dispersal;
 - the pace of infection;
 - dry humor;
 - the phenomenology of network awareness;
@@ -73,7 +73,7 @@ For each episode:
 
 1. lock the scene outline against the season ledgers;
 2. write a first draft;
-3. run a focused causality, science, continuity, and style review;
+3. run a focused causality, science, balanced-abstraction, continuity, and style review;
 4. perform one focused revision;
 5. update the ledgers and progress tracker;
 6. complete the episode’s continuity check before advancing.
@@ -82,7 +82,7 @@ For each episode:
 
 After all six episodes exist, audit:
 
-- elapsed time, incubation, contagious periods, and travel;
+- elapsed time, progression, exposure windows, and travel;
 - character knowledge and information access;
 - telemetry and shielding rules;
 - truth and consent behavior;

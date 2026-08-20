@@ -92,7 +92,7 @@ Each is formidable inside their frame and dangerous outside it.
 
 Gilligan's speculative work gains force from ordinary reality behaving precisely. Establish one irreducible impossibility, then make logistics, institutions, biology, travel time, injuries, and human error obey rules.
 
-For *Before We Were Us*, the miracle is remote transfer of memory and expertise through the S-78 field effect. It should not also provide convenient transmission, perfect prediction, instant access to unobserved facts, or selective exceptions.
+For *Before We Were Us*, the miracle is remote transfer of memory and expertise through the S-78 field effect. Transmission and progression remain biologically legible, while construction, exact dosing, optimized dispersal, and intervention formulation remain outside scope. The phenomenon should not also provide perfect prediction, instant access to unobserved facts, or selective exceptions.
 
 Maintain a **rule ledger** with:
 
@@ -199,7 +199,7 @@ Suspense usually depends less on hiding facts from the audience than on distribu
 
 ### C. Rules and logistics ledger
 
-Track transmission dose, incubation, contagious period, testing limits, field effect, shielding, geographical spread, institutional authority, and elapsed time. Every exception requires either a rule revision or a visible price.
+Track broad transmission routes, progression windows, contagious period, testing limits, field effect, shielding, geographical spread, institutional authority, and elapsed time. Every exception requires either a rule revision or a visible price.
 
 ### D. Relationship debt ledger
 
@@ -233,7 +233,7 @@ An episode earns its place by containing a choice that closes a door. Suggested 
 
 1. Mara defeats the observation-only protocol and wins authorization to synthesize S-78.
 2. Jenn coaches the accidentally exposed Arlo through their first stable echo and delays the report that would separate them.
-3. Deshpande chooses a documented exposure, then supervises Mel’s disclosed low-dose exposure after he joins.
+3. Deshpande chooses a documented exposure, then supervises Mel’s disclosed voluntary exposure after he joins.
 4. Rios classifies the Joined as an adversarial biological network and wins authority to isolate it.
 5. Rios applies the simultaneous-isolation doctrine she authored; its brief success helps drive the Joined to abandon assent and accelerate.
 6. Mara uses the antisense intervention she planted, then chooses conscious orientation when it cannot dismantle her established interface.
@@ -480,7 +480,7 @@ Do not answer questions whose ambiguity generates *Pluribus*. Explain mechanisms
 2. **The Joined are sincere.** Refusing secret cruelty protects the difficult moral experiment.
 3. **Process carries scale.** Pipettes, badges, coolers, valves, calls, and doughnuts give the premise a filmable physical life.
 4. **Institutions behave legibly.** Astronomy, biology, public health, agriculture, and military systems each see a different valid problem.
-5. **The speculative rule is disciplined.** One impossible field effect is surrounded by plausible biological constraints.
+5. **The speculative rule is disciplined.** One impossible field effect is surrounded by plausible biological constraints, described conceptually rather than as a usable protocol.
 6. **The final handoff to Carol has emotional meaning.** Davis is not merely an Easter egg; he embodies the new world's sincere coercive care.
 
 ### Diagnostic status after the pre-outline reconciliation
@@ -490,10 +490,10 @@ The original diagnostic identified eight blockers. They are now resolved at trea
 1. **Viewpoint:** Mara is the declared continuous spine, with one governing owner per episode and no private viewpoint after convergence.
 2. **Character causality:** Mara’s synthesis argument defeats observation-only caution; Rios applies a simultaneous-isolation doctrine she authored after an earlier failure; the Joined compare explicit harm models before choosing acceleration.
 3. **Truth and consent:** fully Joined speakers cannot knowingly assert false facts, and peaceful deliberate exposure requires proactive material-risk disclosure and active assent.
-4. **Transmission:** Arlo is infected when Jenn’s saliva reaches broken skin; brief touch remains ineffective.
-5. **Antisense intervention:** the candidate is ordered in Part 2, tested and limited across Parts 3–4, concentrated in Part 5, and fails for an established mechanistic reason in Part 6.
+4. **Transmission:** Arlo is infected when contaminated material from Jenn reaches broken skin; brief touch remains ineffective.
+5. **Antisense intervention:** the candidate is ordered in Part 2, tested and limited across Parts 3–4, prepared in Part 5, and fails for an established mechanistic reason in Part 6. Target design, dose, delivery, and formulation remain unstated.
 6. **Evelyn’s final chain:** the equipment-fire-glass pileup is removed. Mateo dies despite Leah’s collective skill; Evelyn’s own Stage 4 transition then forces the autonomy conflict into her body.
-7. **Mel’s exposure:** Jenn prepares a measured dose from the doughnuts Mel brought, discloses the route and risks, and recognizes that Mel’s assent cannot include Sofia.
+7. **Mel’s exposure:** Jenn uses the doughnuts Mel brought for a disclosed, voluntary exposure without specifying preparation or quantity, and recognizes that Mel’s assent cannot include Sofia.
 8. **Named continuity:** Arlo, Mel, Sofia, Tess, Omar, Mateo, and Evelyn now have planted costs that recur rather than disappearing into montage.
 
 The outlines must still prove these repairs scene by scene. In particular, every network fact needs a visible knowledge route, every accidental exposure must remain distinct from deliberate orientation, and the named-cost threads must appear before their payoff rather than being added retrospectively.

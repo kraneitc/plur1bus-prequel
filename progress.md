@@ -2,7 +2,7 @@
 
 **Last updated:** 2026-08-20  
 **Spoiler boundary:** *Pluribus* S01E04  
-**Current phase:** Episode-by-episode drafting in surprise mode; Parts One–Two internally complete
+**Current phase:** Episode-by-episode drafting in surprise mode; Parts One–Three internally complete
 **Drafting permission:** Authorized. Preserve surprise by keeping spoiler-heavy planning internal; pause only for a material contradiction that requires the user’s creative authority.
 
 ## Project goal
@@ -23,7 +23,8 @@ Develop a complete six-part prose prequel season that explains the discovery, st
 | Representative “Forty-Seven Hours” sample | Polished calibration revision complete; internal prose gate passed | Working basis; not user-approved |
 | Part One prose | Separate full revision complete; internal episode gate passed | Working draft; not user-approved |
 | Part Two prose | Separate full revision complete; internal episode gate passed | Working draft; not user-approved |
-| Full season manuscript | Parts One–Two drafted; Parts Three–Six pending | — |
+| Part Three prose | Separate full revision complete; internal episode gate passed | Working draft; not user-approved |
+| Full season manuscript | Parts One–Three drafted; Parts Four–Six pending | — |
 | Season-wide continuity pass | Not started | — |
 
 ## Accepted user requirements
@@ -108,11 +109,17 @@ The revision remains unapproved until the user explicitly approves it. Internal 
 
 The revision remains unapproved until the user explicitly approves it. Internal passage advances the staged workflow but does not convert the draft into an approved deliverable.
 
+## Part Three result
+
+**Passed internally on 2026-08-20.** `manuscript/03-have-one-revision.md` is a complete episode revision built from the finished outline and established prose standard. Its consent, knowledge-route, telemetry, progression, convergence-viewpoint, causality, safety, and prose checks are recorded in `audits/03-have-one-audit.md`.
+
+The revision remains unapproved until the user explicitly approves it. Internal passage advances the staged workflow but does not convert the draft into an approved deliverable.
+
 ## Recommended next action
 
-**Draft Part Three, “Have One,” as a complete episode revision from its finished outline and the established prose standard.**
+**Draft Part Four, “No One Is Sick,” as a complete episode revision from its finished outline and the established prose standard.**
 
-After Part Three passes its internal episode gate, continue one episode at a time without exposing later turns, then assemble and perform a season-wide continuity, science, style, and spoiler audit.
+After Part Four passes its internal episode gate, continue one episode at a time without exposing later turns, then assemble and perform a season-wide continuity, science, style, and spoiler audit.
 
 ## Decision log
 
@@ -138,6 +145,7 @@ After Part Three passes its internal episode gate, continue one episode at a tim
 | 2026-08-20 | Complete a separate polished “Forty-Seven Hours” calibration sample and record the reusable prose standard without overwriting exploratory prose | Passed internal gate; working basis, not user-approved |
 | 2026-08-20 | Complete a separate full Part One revision and pass the causality, character, continuity, process, safety, and prose-quality episode audit | Passed internal gate; working draft, not user-approved |
 | 2026-08-20 | Expand the calibration material into a separate complete Part Two revision and pass the timeline, knowledge-route, causality, process, safety, and prose-quality episode audit | Passed internal gate; working draft, not user-approved |
+| 2026-08-20 | Complete a separate full Part Three revision and pass the consent, knowledge-route, telemetry, progression, convergence-viewpoint, causality, safety, and prose-quality episode audit | Passed internal gate; working draft, not user-approved |
 
 ## Continuity watchlist
 

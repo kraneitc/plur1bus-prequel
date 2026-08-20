@@ -9,7 +9,7 @@ The full season targets 55,000–75,000 words. Each important procedure is rende
 When the prequel overlaps material shown in the parent series’ Episode 1, it approaches the event through a new viewpoint and replays only the brief causal anchors required for continuity.
 
 1. **Four Notes — Mara:** wins authorization to synthesize S-78.
-2. **Forty-Seven Hours — Jenn:** chooses to stabilize and study the first accidental human-to-human connection instead of reporting it through a system that would separate both hosts.
+2. **Forty-Seven Hours — Jenn:** chooses to stabilize and study her accidental connection with Arlo instead of reporting it through a system that would separate both hosts.
 3. **Have One — Deshpande:** chooses exposure, documents his own compromised consent, and converges.
 4. **No One Is Sick — Rios:** classifies the Joined as an adversarial biological network and wins containment authority.
 5. **For Your Own Good — Rios:** executes containment, succeeds locally, and provokes acceleration.
@@ -22,7 +22,7 @@ Mara, Jenn, Deshpande, Rios, Leah, and Davis may receive close-third interiority
 | Part | Choice | Defensible reason | Compromised need | Immediate success | Residue and consequence | Who pays? |
 |---|---|---|---|---|---|---|
 | 1 | Mara defeats the observation-only protocol and wins synthesis | Someone else can build the public sequence; controlled knowledge is safer | She needs uncertainty to yield to expertise | S-78 is produced | Viable samples, prestige, permissive precedent | Jenn, then everyone |
-| 2 | Jenn coaches the accidentally exposed cleaner to attend to the echo and delays the report that would separate them | Determine whether the impossible correlation is real and keep a frightened coworker from being treated as contaminated evidence | Jenn needs proof she is not merely hallucinating or damaged | The first two-host connection stabilizes | They create usable observations—and normalize cooperation with the infection | The cleaner and the integrity of containment |
+| 2 | Jenn coaches the accidentally exposed Arlo to attend to the echo and delays the report that would separate them | Determine whether the impossible correlation is real and keep a frightened coworker from being treated as contaminated evidence | Jenn needs proof she is not merely hallucinating or damaged | The first two-host connection stabilizes | They create usable observations—and normalize cooperation with the infection | Arlo and the integrity of containment |
 | 3 | Deshpande drinks from the marked cup, then supervises Mel’s disclosed low-dose exposure | Produce clean longitudinal data and accompany Jenn | Affection and scientific ownership | The network gains a physician and a reproducible protocol | Orientation becomes safe and persuasive | Mel, his family, and every later recruit |
 | 4 | Rios obtains containment authority | The network has penetrated defense systems and compromised consent | She needs threats to remain categorizable | Nodes are identified and isolated | Isolation teaches the Joined that secrecy cannot protect them | Stage 2–3 hosts |
 | 5 | Rios cuts coordinated communications and transport | Prevent compromised personnel from executing a global operation | She cannot accept that restraint may look like surrender | Raids interrupt local spread for eleven minutes | The Joined shift to accelerated mass exposure | The global public |
@@ -74,6 +74,7 @@ Mara, Jenn, Deshpande, Rios, Leah, and Davis may receive close-third interiority
 - A skill can be made locally available, but the receiving body still imposes physical limits. A delivery driver can access surgical knowledge but does not acquire a surgeon’s hand conditioning instantly.
 - Attention is scarce. The collective can make billions of facts available without making every fact conscious in every body.
 - New access can improve decisions while also producing overload, cross-talk, and mistaken ownership during Stages 2–4.
+- Every surprising fact used onscreen must have a traceable route through a connected host’s perception or memory, or through ordinary equipment and records a connected host accessed. A locked device, private room, or uninfected mind is not remotely searchable.
 
 ## Truth rules
 
@@ -88,6 +89,7 @@ Mara, Jenn, Deshpande, Rios, Leah, and Davis may receive close-third interiority
 
 - During the peaceful month, orientation requires disclosure of route, known stages, medical risks, and the fact that Stage 2+ cognition may already be altered.
 - Active assent is required for deliberate exposure. The Joined wait when refused and provide ordinary care without conditioning it on joining.
+- Accidental transmission during the peaceful month can occur through ordinary shedding, but it must be distinguished explicitly from deliberate exposure; the network does not engineer an “accident” to evade assent.
 - The unresolved ethical problem: after exposure, relief from attending to the network is both genuine benefit and biological pressure.
 - After military containment, the Joined abandon individual assent. They reason that delayed mass exposure produces fewer deaths than war, fragmented infrastructure, or uncontrolled convergence.
 - This is the season’s decisive moral breach. Sincerity and arithmetic do not make it consensual.
@@ -113,7 +115,7 @@ Mara, Jenn, Deshpande, Rios, Leah, and Davis may receive close-third interiority
 
 - Tom wants a marriage containing fewer classified absences; Mara wants trust without disclosure.
 - Last care: he keeps building ordinary routines around her secrecy.
-- Betrayal: after exposure, his intimate knowledge becomes the network’s route to her.
+- Betrayal: after choosing orientation during the peaceful month, his intimate knowledge lets the network recognize Mara’s safe-house grocery order; during acceleration, contaminated prepared food in that delivery becomes its route to her.
 - Turning fact: the Joined version of Tom remembers loving her perfectly.
 
 ### Rios / Leah
@@ -121,7 +123,7 @@ Mara, Jenn, Deshpande, Rios, Leah, and Davis may receive close-third interiority
 - Rios wants Leah to treat risk as threat; Leah wants Rios to distinguish health from obedience.
 - Last care: each protects Mateo in the other’s professional language.
 - Betrayal: Rios uses Leah’s clinical observations to justify containment; Leah later chooses convergence to treat Mateo.
-- Turning fact: perfect collective medicine still cannot guarantee their son’s survival.
+- Turning fact: perfect collective medicine still cannot guarantee their son’s survival, and Evelyn’s unwilling convergence carries her indictment into the collective.
 
 ### Jenn / Deshpande
 
@@ -132,16 +134,18 @@ Mara, Jenn, Deshpande, Rios, Leah, and Davis may receive close-third interiority
 
 ## Named cost continuity
 
+- **Arlo:** facilities cleaner; accidentally exposed when Jenn’s saliva reaches a cut on his hand; becomes the other half of the first documented two-host connection. His observation notes become part of the orientation protocol, carrying Jenn’s delayed report forward as institutional residue.
 - **Mel Ortega:** laboratory security officer; brings his daughter Sofia’s marching-band doughnuts; becomes the first documented voluntary secondary exposure.
-- **Sofia Ortega:** fourteen-year-old trombonist; remains uninfected during the peaceful month and becomes Mel’s test of whether the Joined can love without coercing.
+- **Sofia Ortega:** fourteen-year-old trombonist; remains uninfected when she refuses orientation during the peaceful month. During acceleration, Mel cannot preserve that refusal and can only make her school’s convergence setting safer.
 - **Tess Arnold:** tower-crane operator introduced during Rios’s investigation; follows safety procedure when prodromal symptoms begin, but an accelerated shared-state shift defeats her remaining margin.
 - **Omar Haddad:** airport airflow technician who identifies the suspicious aerosol calculations, then is exposed while collecting a sample; his maintenance knowledge later helps the Joined reduce doses and casualties.
 - **Mateo Rios:** not merely a finale victim; his conflict with Evelyn about whether kindness can be hostile develops across Parts 4–6.
+- **Evelyn Rios:** enters Stage 4 while Leah treats Mateo, refuses sedation and comfort, and converges unwillingly rather than dying through an added accident chain.
 
 ## Episode-end image chain
 
 1. Four pipettes descend toward four wells.
-2. Jenn and the cleaner’s heart monitors synchronize across two floors.
+2. Jenn and Arlo’s heart monitors synchronize across two floors.
 3. Mel opens the labeled specimen bag and eats the doughnut.
 4. Joined people in separate raid locations look up simultaneously: “They found us.”
 5. Aircraft turn onto parallel headings while aerosol packages travel below as ordinary cargo.

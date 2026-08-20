@@ -15,10 +15,10 @@ Develop a complete six-part prose prequel season that explains the discovery, st
 |---|---|---|
 | Project README | Complete | Administrative |
 | Workspace instructions | Complete | Administrative |
-| Six-episode treatment | Working basis for autonomous development | Detailed review waived |
-| S-78 and telemetry rules | Working basis for autonomous development | Detailed review waived |
-| Truth, knowledge, and consent rules | Working basis for autonomous development | Detailed review waived |
-| Season causality and relationship ledgers | Working basis for autonomous development | Detailed review waived |
+| Six-episode treatment | Pre-outline reconciliation complete | Working basis; detailed review waived |
+| S-78 and telemetry rules | Pre-outline reconciliation complete | Working basis; detailed review waived |
+| Truth, knowledge, and consent rules | Pre-outline reconciliation complete | Working basis; detailed review waived |
+| Season causality and relationship ledgers | Pre-outline reconciliation complete | Working basis; detailed review waived |
 | Six scene-level episode outlines | Not started | — |
 | Representative “Forty-Seven Hours” sample | Exploratory draft exists | Not approved |
 | Part One prose | Exploratory draft exists | Not approved |
@@ -68,7 +68,19 @@ These remain the working basis unless internal continuity review exposes a mater
 
 ## Open decisions
 
-None currently. The six architecture questions listed here were resolved by the user on 2026-08-20 and are recorded under **Accepted creative decisions** and in the decision log.
+None currently. The six architecture questions were resolved by the user, and the final pre-outline review conflicts were reconciled on 2026-08-20 without requiring a new creative choice.
+
+## Pre-outline review result
+
+**Passed after reconciliation on 2026-08-20.** The treatment, rules, ledgers, and craft diagnostic now agree on:
+
+- proactive material-risk disclosure and active assent during peaceful deliberate exposure;
+- accidental exposure as distinct from orientation, including Arlo, Omar, and the Stage 3 airman;
+- Jenn’s report delay as Episode 2’s governing choice;
+- traceable routes for network knowledge;
+- Arlo, Sofia, Tess, Omar, Mateo, Evelyn, Tom, and Mara’s exposure as continuing named-cost or relationship threads;
+- one clean Evelyn/Leah/Mateo finale chain without the equipment-fire-glass pileup;
+- the antisense intervention’s name, planting, limits, and payoff.
 
 ## Recommended next action
 
@@ -101,17 +113,22 @@ Internal workflow:
 | 2026-08-20 | Approach parent-series Episode 1 overlap from new viewpoints and replay only brief causal anchors | Accepted decision |
 | 2026-08-20 | Revise both exploratory prose chapters heavily after outline approval, salvaging only material that survives review | Accepted decision |
 | 2026-08-20 | Use surprise mode: waive routine detailed review, keep spoiler-heavy planning internal, and proceed through staged internal quality gates | Accepted workflow |
+| 2026-08-20 | Complete the final pre-outline reconciliation of consent, Episode 2 causality, knowledge routes, named costs, Mara’s exposure, and Evelyn’s finale chain | Passed review |
 
 ## Continuity watchlist
 
 - Mel brings the fundraising doughnuts; Jenn does not.
+- Arlo—not an unnamed cleaner—is the accidental second host; Jenn delays reporting their connection.
 - A bite or mucosal exposure transmits S-78; touch alone does not.
 - Shaking marks an acute event or Stage 4 convergence, not instant infection.
 - Shielding does not stop telemetry.
 - The network has no central transmitter.
 - Uninfected minds remain inaccessible.
+- Every surprising network fact requires a connected-host perception or memory, or ordinary access to equipment or records.
 - Presymptomatic travel explains much of the apparent speed.
 - Municipal water and aircraft contrails are not universal shortcuts.
 - The first month remains nonlethal.
-- Named costs must survive beyond montage: Mel and Sofia Ortega, Tess Arnold, Omar Haddad, Mateo Rios.
+- Peaceful deliberate exposure requires proactive material-risk disclosure and active assent; accidental exposures must be identified as accidental.
+- Named costs must survive beyond montage: Arlo, Mel and Sofia Ortega, Tess Arnold, Omar Haddad, Mateo and Evelyn Rios, and Tom Velez.
+- Tom’s memory identifies Mara’s safe-house grocery order; the network exposes her through contaminated prepared food only after acceleration abandons assent.
 - Do not answer later-series mysteries about immunity, reversibility, or the sender’s motives.

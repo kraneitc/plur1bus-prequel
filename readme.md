@@ -95,9 +95,9 @@ After all six episodes exist, audit:
 
 | File | Purpose | Status |
 |---|---|---|
-| `pluribus-prequel-treatment.md` | Six-episode treatment | Working basis; detailed review waived for surprise mode |
-| `season-rules-and-ledgers.md` | Rules and causality bible | Working basis; detailed review waived for surprise mode |
-| `gilligan-quality-writing-guide.md` | Craft framework | Active reference |
+| `pluribus-prequel-treatment.md` | Six-episode treatment | Pre-outline reconciliation passed; working basis for surprise mode |
+| `season-rules-and-ledgers.md` | Rules and causality bible | Pre-outline reconciliation passed; working basis for surprise mode |
+| `gilligan-quality-writing-guide.md` | Craft framework | Active reference; diagnostic reconciled |
 | `manuscript/01-four-notes.md` | Part One prose | Exploratory; heavy revision deferred until outline approval |
 | `manuscript/02-forty-seven-hours.md` | Part Two prose | Exploratory; heavy revision deferred until outline approval |
 

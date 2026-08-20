@@ -483,56 +483,20 @@ Do not answer questions whose ambiguity generates *Pluribus*. Explain mechanisms
 5. **The speculative rule is disciplined.** One impossible field effect is surrounded by plausible biological constraints.
 6. **The final handoff to Carol has emotional meaning.** Davis is not merely an Easter egg; he embodies the new world's sincere coercive care.
 
-### The highest-value problems to solve
+### Diagnostic status after the pre-outline reconciliation
 
-#### A. The promised point-of-view relay is not yet the actual architecture
+The original diagnostic identified eight blockers. They are now resolved at treatment-and-ledger level:
 
-The treatment promises that perspective passes from a converged character to someone still alone. But Mara is described as the first central consciousness and remains the final private viewpoint; Jenn “carries” Episode 2 without a sustained relay through several hosts.
+1. **Viewpoint:** Mara is the declared continuous spine, with one governing owner per episode and no private viewpoint after convergence.
+2. **Character causality:** Mara’s synthesis argument defeats observation-only caution; Rios applies a simultaneous-isolation doctrine she authored after an earlier failure; the Joined compare explicit harm models before choosing acceleration.
+3. **Truth and consent:** fully Joined speakers cannot knowingly assert false facts, and peaceful deliberate exposure requires proactive material-risk disclosure and active assent.
+4. **Transmission:** Arlo is infected when Jenn’s saliva reaches broken skin; brief touch remains ineffective.
+5. **Antisense intervention:** the candidate is ordered in Part 2, tested and limited across Parts 3–4, concentrated in Part 5, and fails for an established mechanistic reason in Part 6.
+6. **Evelyn’s final chain:** the equipment-fire-glass pileup is removed. Mateo dies despite Leah’s collective skill; Evelyn’s own Stage 4 transition then forces the autonomy conflict into her body.
+7. **Mel’s exposure:** Jenn prepares a measured dose from the doughnuts Mel brought, discloses the route and risks, and recognizes that Mel’s assent cannot include Sofia.
+8. **Named continuity:** Arlo, Mel, Sofia, Tess, Omar, Mateo, and Evelyn now have planted costs that recur rather than disappearing into montage.
 
-**Choose one:**
-
-- Make the relay formal: Jenn → Mara → Deshpande or another holdout → Rios → Leah → Mara, with convergence ending each ownership period; or
-- Remove the relay promise and make Mara's continuous resistance the declared spine.
-
-The relay is more original and better expresses the loss of privacy, but it demands rigorous episode ownership.
-
-#### B. Several decisive turns need more character-specific causality
-
-The broad choices are sound, but some arrive at treatment level as institutional decisions. Make each hinge inseparable from a flaw:
-
-- Mara should not merely support synthesis; her exact argument should defeat the safer option and later return as the Joined's logic.
-- Rios's containment plan should bear the mark of a lesson from her past, making its failure personally authored.
-- The Joined's acceleration should emerge from a demonstrated moral calculation, not only collective fear of the next crackdown.
-
-#### C. The truth and consent rules need hard edges
-
-“Never claim,” “do not volunteer,” “cannot comfortably deceive,” and “cannot lie” currently imply different rules. Fix the ontology before writing orientation scenes. Otherwise suspense will depend on whatever the episode needs the Joined to omit.
-
-#### D. The transmission staging contains a possible contradiction
-
-The model says brief touch is ineffective. In Episode 2, Jenn and the cleaner touch hands, followed by an intimate smile of recognition. If the smile signals transmission, the rules conflict. If it does not, the scene invites the wrong inference.
-
-**Repair:** Give the cleaner a prior plausible mucosal exposure, or make the hand contact a test Jenn hopes will work but does not.
-
-#### E. The antiviral is not yet earned
-
-Mara's prepared injection in the finale risks feeling like a last-minute device. Plant its origin, limitations, and moral hazard early. It should be the residue of one of her prior choices, not a new tool produced for the climax.
-
-#### F. Evelyn's final chain is over-concentrated
-
-Mateo's collision, death, local transition instability, equipment failure, fire, damaged glass, and Evelyn's fatal fall arrive in one run. The quantity of calamity may make the author visible.
-
-**Repair:** Choose one clean physical chain. Let the emotional contradiction, not added incident, enlarge it. For example, Leah's collective medical perfection cannot save Mateo; Evelyn refuses Leah's touch; one already-established structural hazard causes the fatal fall.
-
-#### G. Jenn's doughnut act may read as villain coding
-
-The image is memorable, but secret methodical licking carries malice and contamination-horror associations. The treatment says the Joined see isolation as suffering and initially orient people personally. Jenn's action must express that ethic, not generic infection behavior.
-
-**Repair:** Clarify her mixed Stage 3 agency, her belief about relief, and why she chooses a low-dose route. Her relief when it works should hurt because it is recognizably Jenn's practical care.
-
-#### H. The cost needs more named continuity
-
-The finale has potent glimpses of global accidents, but most victims vanish with the shot. Plant two or three ordinary workers or families earlier, then revisit their interrupted processes during the Joining. This converts scale into consequence without sentimental montage.
+The outlines must still prove these repairs scene by scene. In particular, every network fact needs a visible knowledge route, every accidental exposure must remain distinct from deliberate orientation, and the named-cost threads must appear before their payoff rather than being added retrospectively.
 
 ---
 
@@ -540,14 +504,14 @@ The finale has potent glimpses of global accidents, but most victims vanish with
 
 Do not polish dialogue yet.
 
-1. Decide whether the point-of-view relay is real.
-2. Freeze S-78, Joined-truth, knowledge-access, and consent rules.
-3. Build the six-choice season chain and consequence ledger.
-4. Re-break each episode around one irreversible character decision.
-5. Seed the finale's physical mechanisms and named human costs.
+1. Treat the viewpoint architecture, S-78 rules, truth, knowledge, consent, six-choice chain, and consequence ledgers as frozen unless scene breaking exposes a material contradiction.
+2. Break all six episodes at scene level around their irreversible character decisions.
+3. Trace every surprising network fact to a connected host, perception, memory, ordinary record, or ordinary device access.
+4. Distinguish every accidental exposure from deliberate orientation and verify disclosure and assent before each peaceful deliberate exposure.
+5. Seed Arlo, Mel, Sofia, Tess, Omar, Mateo, Evelyn, Tom, and the antisense intervention before their consequences mature.
 6. Audit every canon connection for dramatic value beyond recognition.
-7. Build cold opens and final images as paired visual arguments.
-8. Only then write scene cards, sequences, and dialogue.
+7. Build cold opens and final images as paired visual arguments, then score every episode before prose drafting.
+8. Only then write the calibration sample, sequences, and dialogue.
 
 ---
 

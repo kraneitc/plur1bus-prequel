@@ -4,6 +4,10 @@
 
 The manuscript uses cinematic close-third prose. Mara is the continuous spine, but each part has one governing owner:
 
+The full season targets 55,000–75,000 words. Each important procedure is rendered fully enough on its first appearance for the reader to understand its purpose, sequence, and failure points. Later repetitions compress established steps unless a deviation changes the risk or meaning.
+
+When the prequel overlaps material shown in the parent series’ Episode 1, it approaches the event through a new viewpoint and replays only the brief causal anchors required for continuity.
+
 1. **Four Notes — Mara:** wins authorization to synthesize S-78.
 2. **Forty-Seven Hours — Jenn:** chooses to stabilize and study the first accidental human-to-human connection instead of reporting it through a system that would separate both hosts.
 3. **Have One — Deshpande:** chooses exposure, documents his own compromised consent, and converges.
@@ -43,6 +47,14 @@ Mara, Jenn, Deshpande, Rios, Leah, and Davis may receive close-third interiority
 4. Negotiation: days 4–8; voluntary attention to the shared state, memory transfer, compromised consent.
 5. Convergence: 15–90 minutes; tremor, autonomic instability, identity-boundary failure.
 6. Joined: shared memory and regulation; no private interiority.
+
+### Echo phenomenology
+
+- Early echoes vary predictably with the neural systems S-78 has reached; they are not assigned arbitrarily for dramatic convenience.
+- Olfactory and sensory pathways produce borrowed smells, textures, sounds, or spatial impressions.
+- Insular, autonomic, and limbic involvement produces interoceptive or emotional bleed.
+- Hippocampal involvement produces memory fragments; association-cortex involvement produces source-less semantic knowledge.
+- These modes may overlap as infection spreads through additional circuits. A host’s injury, medication, neuroanatomy, and attention can change intensity without breaking the anatomical pattern.
 
 ### Telemetry
 

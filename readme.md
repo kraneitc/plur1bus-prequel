@@ -16,7 +16,7 @@ The prose should be original. It may pursue high-level qualities associated with
 
 Read the project in this order:
 
-1. [progress.md](progress.md) — current status, approvals, open decisions, and next action.
+1. [progress.md](progress.md) — current status, approvals, accepted decisions, open decisions, and next action.
 2. [pluribus-prequel-treatment.md](pluribus-prequel-treatment.md) — the six-part premise and episode arcs.
 3. [season-rules-and-ledgers.md](season-rules-and-ledgers.md) — continuity, transmission, telemetry, truth, consent, causality, and relationship rules.
 4. [gilligan-quality-writing-guide.md](gilligan-quality-writing-guide.md) — the project’s craft and quality framework.
@@ -36,7 +36,7 @@ Review and approve:
 - Joined knowledge and truthfulness;
 - the consent problem;
 - viewpoint architecture;
-- deliberate departures from Episode 1.
+- the policy for overlap with Episode 1.
 
 Rule changes must be recorded in progress.md and reconciled with the treatment and season ledger before new prose is written.
 
@@ -95,10 +95,10 @@ After all six episodes exist, audit:
 
 | File | Purpose | Status |
 |---|---|---|
-| `pluribus-prequel-treatment.md` | Six-episode treatment | Working draft; needs user review |
-| `season-rules-and-ledgers.md` | Rules and causality bible | Working draft; needs user review |
+| `pluribus-prequel-treatment.md` | Six-episode treatment | Six architecture decisions reconciled; needs user approval |
+| `season-rules-and-ledgers.md` | Rules and causality bible | Six architecture decisions reconciled; needs user approval |
 | `gilligan-quality-writing-guide.md` | Craft framework | Active reference |
-| `manuscript/01-four-notes.md` | Part One prose | Exploratory, not approved |
-| `manuscript/02-forty-seven-hours.md` | Part Two prose | Exploratory, not approved |
+| `manuscript/01-four-notes.md` | Part One prose | Exploratory; heavy revision deferred until outline approval |
+| `manuscript/02-forty-seven-hours.md` | Part Two prose | Exploratory; heavy revision deferred until outline approval |
 
 For the authoritative status, always use [progress.md](progress.md).

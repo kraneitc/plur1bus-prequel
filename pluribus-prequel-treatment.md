@@ -3,8 +3,10 @@
 ## Prequel limited-series treatment
 
 **Format:** Six episodes, 50–60 minutes each  
+**Target length:** Approximately 55,000–75,000 words  
 **Timeline:** Fourteen months before the Joining through the first night after global convergence  
 **Canon boundary:** Built only from information established through *Pluribus* S01E04  
+**Canon-overlap policy:** Approach material seen in the parent series’ Episode 1 from new viewpoints and replay only brief causal anchors  
 **Continuity variation:** Infection and Joining are a staged process lasting days, not an instantaneous transformation  
 **Genre:** Science-fiction drama, procedural thriller, deadpan apocalypse  
 
@@ -26,7 +28,7 @@ The series preserves the central ambiguity of *Pluribus*: the Joined are not pre
 
 The tone combines patient observation, bleak comedy, abrupt catastrophe, and small moral choices with enormous consequences. Global events are experienced through banal systems: an animal-room clipboard, a box of fundraising doughnuts, an agricultural conference call, a baggage carousel that never stops turning.
 
-The camera loves process. Repeated actions become choreography: samples pass hand to hand; badges open successive doors; airport workers move identical coolers; ventilation technicians calibrate identical dampers. Before the infection, people perform these tasks imperfectly and complain. Afterward, the same work becomes silent, elegant, and terrifyingly coordinated.
+The camera loves process. The first appearance of each important procedure remains legible enough for the reader to understand its purpose, sequence, and failure points. Later repetitions compress steps the reader already knows and slow down again only when a deviation changes the risk or meaning. Repeated actions become choreography: samples pass hand to hand; badges open successive doors; airport workers move identical coolers; ventilation technicians calibrate identical dampers. Before the infection, people perform these tasks imperfectly and complain. Afterward, the same work becomes silent, elegant, and terrifyingly coordinated.
 
 Violence is rare and ugly. The series avoids armies mowing down smiling civilians. Its largest set pieces are failures of ordinary motion: cars drifting through intersections, surgeons freezing mid-incision, aircraft losing human attention for seconds that cannot be returned.
 
@@ -59,6 +61,8 @@ From the mucosa, it reaches the nervous system by two slow routes: infected immu
 **Stage 1 — Prodrome, 12–48 hours.** Poor sleep, thirst, excess saliva, pressure behind the eyes, transient loss of smell, and brief autonomic events: gooseflesh, a racing heart, a single whole-body shiver. Patients remain fully themselves. Most blame travel, stress, or a mild virus.
 
 **Stage 2 — Echo, days 2–5.** The person experiences information without a remembered source: the answer to a coworker’s question, a stranger’s childhood nickname, the sensation of a room they have never entered. These are not clear voices. They feel like intuition arriving half a second too early. Pronouns begin to slip under fatigue. EEGs show narrow synchronization at intervals related to the signal’s 78-second repetition—even between infected subjects in separate buildings.
+
+The form of an early echo follows the neural systems the infection has reached. Olfactory and sensory pathways produce borrowed smells, textures, or spatial impressions; insular and limbic involvement produces interoceptive or emotional bleed; hippocampal involvement produces memory fragments; association-cortex involvement produces source-less semantic knowledge. The modes can overlap as S-78 spreads, but they do not change merely for scene convenience.
 
 **Stage 3 — Negotiation, days 4–8.** The host can deliberately attend to the network. At first it resembles standing outside a crowded room and choosing whether to open the door. Pain, panic, and indecision diminish when the host lets more of it in. Resistance is possible, exhausting, and increasingly difficult to distinguish from self-harm. Memories begin to move both ways. The host is still legally and psychologically an individual, which makes every apparent consent ethically compromised.
 

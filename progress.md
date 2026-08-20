@@ -15,8 +15,8 @@ Develop a complete six-part prose prequel season that explains the discovery, st
 |---|---|---|
 | Project README | Complete | Administrative |
 | Workspace instructions | Complete | Administrative |
-| Six-episode treatment | Working draft | Not yet approved |
-| S-78 and telemetry rules | Working draft | Not yet approved |
+| Six-episode treatment | Six architecture decisions reconciled | Not yet approved |
+| S-78 and telemetry rules | Six architecture decisions reconciled | Not yet approved |
 | Truth, knowledge, and consent rules | Working draft | Not yet approved |
 | Season causality and relationship ledgers | Working draft | Not yet approved |
 | Six scene-level episode outlines | Not started | — |
@@ -44,10 +44,18 @@ Develop a complete six-part prose prequel season that explains the discovery, st
 - Preferred reading format is cinematic prose rather than a screenplay.
 - Development should use gated review rather than writing the whole season immediately.
 
+## Accepted creative decisions
+
+- The finished season will target 55,000–75,000 words.
+- Mara remains the continuous spine, with rotating close-third sections for other unjoined characters.
+- Each important procedure will be fully legible on its first appearance; repeated procedures may compress established steps while preserving meaningful deviations.
+- Early network echoes vary predictably with the infected brain regions involved rather than following one uniform sensory, emotional, or mnemonic mode.
+- Material overlapping the parent series’ Episode 1 will be approached from new viewpoints, with only brief causal anchors replayed.
+- `manuscript/01-four-notes.md` and `manuscript/02-forty-seven-hours.md` remain exploratory and will be revised heavily only after the outlines are approved; only passages that survive rules and causality review should be salvaged.
+
 ## Provisional creative decisions awaiting review
 
 - Six parts of approximately 50–60 television minutes in story density.
-- Mara is the continuous spine, with close-third sections for other unjoined characters.
 - A five-stage infection model precedes fully Joined status.
 - Saliva, short-range droplets, bites, contaminated prepared food, and generated indoor aerosols are the principal transmission routes.
 - The fully Joined cannot knowingly assert a false fact, but may decline, answer narrowly, or omit unasked information within defined limits.
@@ -57,22 +65,15 @@ Develop a complete six-part prose prequel season that explains the discovery, st
 
 ## Open decisions
 
-These should be resolved before scene-level outlining is finalized:
-
-1. **Season length:** compact novella season, approximately 30,000–45,000 words, or fuller novel season, approximately 55,000–75,000 words?
-2. **Viewpoint:** confirm Mara as the continuous spine with rotating close-third sections, rather than a strict relay between characters who converge.
-3. **Scientific density:** should procedures be fully legible on the page, or slightly compressed to prioritize emotion and pace?
-4. **Network phenomenology:** should early echoes feel predominantly sensory, emotional, mnemonic, or vary predictably by infected brain region?
-5. **Episode 1 overlap:** how much of the observatory and rat-bite material seen onscreen should be replayed, versus approached from new viewpoints?
-6. **Existing exploratory prose:** salvage, revise heavily, or set aside `manuscript/01-four-notes.md` and `manuscript/02-forty-seven-hours.md`?
+None currently. The six architecture questions listed here were resolved by the user on 2026-08-20 and are recorded under **Accepted creative decisions** and in the decision log.
 
 ## Recommended next action
 
-**Await user review of the treatment, rules, and open decisions. Do not write additional prose yet.**
+**Await explicit user approval of the reconciled treatment and rules. Do not write outlines or additional prose yet.**
 
 After review:
 
-1. Create scene-level outlines for all six episodes in `OUTLINES/`.
+1. Create scene-level outlines for all six episodes in `outlines/`.
 2. Quality-check the six irreversible choices and cross-episode consequences.
 3. Produce one polished calibration sample centered on Jenn’s first forty-seven hours.
 4. Revise that sample with user feedback and record the accepted prose standard.
@@ -87,9 +88,15 @@ After review:
 | 2026-08-20 | Restrict canon and spoilers through S01E04 | Accepted requirement |
 | 2026-08-20 | Replace instantaneous Joining with a staged infection lasting days | Accepted requirement |
 | 2026-08-20 | Use a biological transceiver and nonlocal shared-state model for mystical telemetry | Accepted requirement |
-| 2026-08-20 | Prefer cinematic prose over screenplay format | Recommended; awaiting final confirmation |
+| 2026-08-20 | Prefer cinematic prose over screenplay format | Accepted requirement |
 | 2026-08-20 | Pause whole-season drafting and proceed through review gates | Accepted workflow |
 | 2026-08-20 | Treat the two existing prose chapters as exploratory, not approved | Current status |
+| 2026-08-20 | Target a fuller novel season of approximately 55,000–75,000 words | Accepted decision |
+| 2026-08-20 | Keep Mara as the continuous spine with rotating close-third sections for other unjoined characters | Accepted decision |
+| 2026-08-20 | Make each important procedure fully legible once, then compress repeated steps | Accepted decision |
+| 2026-08-20 | Make early network echoes vary predictably with infected brain regions | Accepted decision |
+| 2026-08-20 | Approach parent-series Episode 1 overlap from new viewpoints and replay only brief causal anchors | Accepted decision |
+| 2026-08-20 | Revise both exploratory prose chapters heavily after outline approval, salvaging only material that survives review | Accepted decision |
 
 ## Continuity watchlist
 

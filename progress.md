@@ -2,7 +2,7 @@
 
 **Last updated:** 2026-08-20  
 **Spoiler boundary:** *Pluribus* S01E04  
-**Current phase:** Episode-by-episode drafting in surprise mode; Parts One–Four internally complete
+**Current phase:** Episode-by-episode drafting in surprise mode; Parts One–Five internally complete
 **Drafting permission:** Authorized. Preserve surprise by keeping spoiler-heavy planning internal; pause only for a material contradiction that requires the user’s creative authority.
 
 ## Project goal
@@ -25,7 +25,8 @@ Develop a complete six-part prose prequel season that explains the discovery, st
 | Part Two prose | Separate full revision complete; internal episode gate passed | Working draft; not user-approved |
 | Part Three prose | Separate full revision complete; internal episode gate passed | Working draft; not user-approved |
 | Part Four prose | Separate full revision complete; internal episode gate passed | Working draft; not user-approved |
-| Full season manuscript | Parts One–Four drafted; Parts Five–Six pending | — |
+| Part Five prose | Separate full revision complete; internal episode gate passed | Working draft; not user-approved |
+| Full season manuscript | Parts One–Five drafted; Part Six pending | — |
 | Season-wide continuity pass | Not started | — |
 
 ## Accepted user requirements
@@ -122,11 +123,17 @@ The revision remains unapproved until the user explicitly approves it. Internal 
 
 The revision remains unapproved until the user explicitly approves it. Internal passage advances the staged workflow but does not convert the draft into an approved deliverable.
 
+## Part Five result
+
+**Passed internally on 2026-08-20.** `manuscript/05-for-your-own-good-revision.md` is a complete episode revision built from the finished outline and established prose standard. Its causality, explicit consent-breach, knowledge-route, progression, telemetry, viewpoint, institutional-process, continuity, safety, and prose checks are recorded in `audits/05-for-your-own-good-audit.md`.
+
+The revision remains unapproved until the user explicitly approves it. Internal passage advances the staged workflow but does not convert the draft into an approved deliverable.
+
 ## Recommended next action
 
-**Draft Part Five, “For Your Own Good,” as a complete episode revision from its finished outline and the established prose standard.**
+**Draft Part Six, “Everybody Okay?,” as a complete episode revision from its finished outline and the established prose standard.**
 
-After Part Five passes its internal episode gate, continue one episode at a time without exposing later turns, then assemble and perform a season-wide continuity, science, style, and spoiler audit.
+After Part Six passes its internal episode gate, assemble the six working episode revisions and perform the season-wide continuity, science, style, length, and spoiler audit before requesting user approval.
 
 ## Decision log
 
@@ -155,6 +162,7 @@ After Part Five passes its internal episode gate, continue one episode at a time
 | 2026-08-20 | Complete a separate full Part Three revision and pass the consent, knowledge-route, telemetry, progression, convergence-viewpoint, causality, safety, and prose-quality episode audit | Passed internal gate; working draft, not user-approved |
 | 2026-08-20 | Resolve the Part Four outline’s incompatible Sofia-driver wording through the higher-priority continuity ledger and treatment: Mel remains the driver; Sofia agrees only to wait and ride home | Continuity correction; no story turn changed |
 | 2026-08-20 | Complete a separate full Part Four revision and pass the causality, consent, knowledge-route, progression, telemetry, viewpoint, institutional-process, continuity, safety, and prose-quality episode audit | Passed internal gate; working draft, not user-approved |
+| 2026-08-20 | Complete a separate full Part Five revision and pass the causality, consent-breach, knowledge-route, progression, telemetry, viewpoint, institutional-process, continuity, safety, and prose-quality episode audit | Passed internal gate; working draft, not user-approved |
 
 ## Continuity watchlist
 

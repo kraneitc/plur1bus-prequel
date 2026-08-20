@@ -2,8 +2,8 @@
 
 **Last updated:** 2026-08-20  
 **Spoiler boundary:** *Pluribus* S01E04  
-**Current phase:** Rule review and structured development  
-**Drafting permission:** Paused. Do not write further story prose without explicit user approval.
+**Current phase:** Autonomous staged development in surprise mode  
+**Drafting permission:** Authorized. Preserve surprise by keeping spoiler-heavy planning internal; pause only for a material contradiction that requires the user’s creative authority.
 
 ## Project goal
 
@@ -15,10 +15,10 @@ Develop a complete six-part prose prequel season that explains the discovery, st
 |---|---|---|
 | Project README | Complete | Administrative |
 | Workspace instructions | Complete | Administrative |
-| Six-episode treatment | Six architecture decisions reconciled | Not yet approved |
-| S-78 and telemetry rules | Six architecture decisions reconciled | Not yet approved |
-| Truth, knowledge, and consent rules | Working draft | Not yet approved |
-| Season causality and relationship ledgers | Working draft | Not yet approved |
+| Six-episode treatment | Working basis for autonomous development | Detailed review waived |
+| S-78 and telemetry rules | Working basis for autonomous development | Detailed review waived |
+| Truth, knowledge, and consent rules | Working basis for autonomous development | Detailed review waived |
+| Season causality and relationship ledgers | Working basis for autonomous development | Detailed review waived |
 | Six scene-level episode outlines | Not started | — |
 | Representative “Forty-Seven Hours” sample | Exploratory draft exists | Not approved |
 | Part One prose | Exploratory draft exists | Not approved |
@@ -42,7 +42,8 @@ Develop a complete six-part prose prequel season that explains the discovery, st
 - Global synchronization is a change in the shared state visible simultaneously to connected nervous systems.
 - Uninfected people lack the interface and cannot perceive the network.
 - Preferred reading format is cinematic prose rather than a screenplay.
-- Development should use gated review rather than writing the whole season immediately.
+- Development should retain staged internal quality gates, but routine user review is waived to preserve surprise.
+- Do not reveal scene-level outlines, major turns, or planned payoffs in routine progress updates unless the user asks.
 
 ## Accepted creative decisions
 
@@ -53,7 +54,9 @@ Develop a complete six-part prose prequel season that explains the discovery, st
 - Material overlapping the parent series’ Episode 1 will be approached from new viewpoints, with only brief causal anchors replayed.
 - `manuscript/01-four-notes.md` and `manuscript/02-forty-seven-hours.md` remain exploratory and will be revised heavily only after the outlines are approved; only passages that survive rules and causality review should be salvaged.
 
-## Provisional creative decisions awaiting review
+## Delegated working creative decisions
+
+These remain the working basis unless internal continuity review exposes a material contradiction:
 
 - Six parts of approximately 50–60 television minutes in story density.
 - A five-stage infection model precedes fully Joined status.
@@ -69,15 +72,15 @@ None currently. The six architecture questions listed here were resolved by the 
 
 ## Recommended next action
 
-**Await explicit user approval of the reconciled treatment and rules. Do not write outlines or additional prose yet.**
+**Proceed in surprise mode without a spoiler-heavy approval stop.**
 
-After review:
+Internal workflow:
 
 1. Create scene-level outlines for all six episodes in `outlines/`.
 2. Quality-check the six irreversible choices and cross-episode consequences.
 3. Produce one polished calibration sample centered on Jenn’s first forty-seven hours.
-4. Revise that sample with user feedback and record the accepted prose standard.
-5. Draft one approved episode at a time.
+4. Revise that sample internally against the rules and quality gates and record the resulting prose standard.
+5. Draft one episode at a time without exposing later turns.
 6. Assemble and perform a season-wide continuity, science, style, and spoiler audit.
 
 ## Decision log
@@ -97,6 +100,7 @@ After review:
 | 2026-08-20 | Make early network echoes vary predictably with infected brain regions | Accepted decision |
 | 2026-08-20 | Approach parent-series Episode 1 overlap from new viewpoints and replay only brief causal anchors | Accepted decision |
 | 2026-08-20 | Revise both exploratory prose chapters heavily after outline approval, salvaging only material that survives review | Accepted decision |
+| 2026-08-20 | Use surprise mode: waive routine detailed review, keep spoiler-heavy planning internal, and proceed through staged internal quality gates | Accepted workflow |
 
 ## Continuity watchlist
 

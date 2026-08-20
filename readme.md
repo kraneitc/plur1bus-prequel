@@ -24,11 +24,11 @@ Read the project in this order:
 
 ## Development workflow
 
-The project should proceed through explicit gates rather than drafting the whole season at once.
+The project proceeds through staged internal gates rather than drafting the whole season in one pass. Routine spoiler-heavy review is waived so the finished story can remain a surprise.
 
 ### 1. Freeze the creative rules
 
-Review and approve:
+Freeze and reconcile:
 
 - infection stages and timing;
 - transmission routes and dose logic;
@@ -38,7 +38,7 @@ Review and approve:
 - viewpoint architecture;
 - the policy for overlap with Episode 1.
 
-Rule changes must be recorded in progress.md and reconciled with the treatment and season ledger before new prose is written.
+Rule changes must be recorded in progress.md and reconciled with the treatment and season ledger before affected prose is written. Pause for the user only when a material contradiction requires creative authority.
 
 ### 2. Break all six episodes
 
@@ -63,20 +63,20 @@ The preferred calibration sample is Jenn’s first forty-seven hours after the r
 - the phenomenology of network awareness;
 - whether persuasion feels attractive without becoming benign.
 
-### 4. Revise the sample with the user
+### 4. Revise the sample internally
 
-Do not extrapolate one unreviewed sample into an entire season. Use user feedback to create a stable prose standard first.
+Do not extrapolate an unchecked sample into an entire season. Test it against the rules and quality gates, revise it, and record a stable prose standard first.
 
 ### 5. Draft one episode at a time
 
 For each episode:
 
-1. approve the scene outline;
+1. lock the scene outline against the season ledgers;
 2. write a first draft;
-3. collect user notes;
+3. run a focused causality, science, continuity, and style review;
 4. perform one focused revision;
 5. update the ledgers and progress tracker;
-6. obtain approval before advancing.
+6. complete the episode’s continuity check before advancing.
 
 ### 6. Complete season-wide revisions
 
@@ -95,8 +95,8 @@ After all six episodes exist, audit:
 
 | File | Purpose | Status |
 |---|---|---|
-| `pluribus-prequel-treatment.md` | Six-episode treatment | Six architecture decisions reconciled; needs user approval |
-| `season-rules-and-ledgers.md` | Rules and causality bible | Six architecture decisions reconciled; needs user approval |
+| `pluribus-prequel-treatment.md` | Six-episode treatment | Working basis; detailed review waived for surprise mode |
+| `season-rules-and-ledgers.md` | Rules and causality bible | Working basis; detailed review waived for surprise mode |
 | `gilligan-quality-writing-guide.md` | Craft framework | Active reference |
 | `manuscript/01-four-notes.md` | Part One prose | Exploratory; heavy revision deferred until outline approval |
 | `manuscript/02-forty-seven-hours.md` | Part Two prose | Exploratory; heavy revision deferred until outline approval |

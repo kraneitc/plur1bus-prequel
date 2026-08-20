@@ -14,7 +14,6 @@ export default function Home() {
   const readerRef = useRef<HTMLElement>(null);
   const fileRef = useRef<HTMLInputElement>(null);
   const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const minimapMomentum = useRef<number | null>(null);
   const [book, setBook] = useState<ReaderBook | null>(null);
   const [progress, setProgress] = useState(0);
   const [partIndex, setPartIndex] = useState(0);
@@ -83,25 +82,6 @@ export default function Home() {
     if (!reader) return;
     reader.scrollTo({ top: Math.max(0, Math.min(1, next)) * (reader.scrollHeight - reader.clientHeight), behavior: "smooth" });
   };
-  const moveReaderBy = (delta: number) => {
-    const reader = readerRef.current;
-    if (!reader) return;
-    reader.scrollTop += delta;
-  };
-  const coastMinimap = (velocity: number) => {
-    if (minimapMomentum.current) cancelAnimationFrame(minimapMomentum.current);
-    let speed = velocity;
-    let previous = performance.now();
-    const frame = (now: number) => {
-      const elapsed = Math.min(32, now - previous);
-      previous = now;
-      moveReaderBy(speed * elapsed);
-      speed *= Math.pow(.92, elapsed / 16.67);
-      if (Math.abs(speed) > .025) minimapMomentum.current = requestAnimationFrame(frame);
-      else minimapMomentum.current = null;
-    };
-    minimapMomentum.current = requestAnimationFrame(frame);
-  };
   const jumpToPart = (index: number) => {
     readerRef.current?.querySelector<HTMLElement>(`#part-${index}`)?.scrollIntoView({ behavior: "smooth", block: "start" });
     setContentsOpen(false);
@@ -166,42 +146,13 @@ export default function Home() {
         </article>
       </section>
 
-      <aside className="minimap" aria-label="Zoomed-out book preview" tabIndex={0} onWheel={(event) => {
-        event.preventDefault();
-        moveReaderBy(event.deltaY * 3.2);
-      }} onKeyDown={(event) => {
-        if (event.key === "ArrowDown") moveReaderBy(180);
-        if (event.key === "ArrowUp") moveReaderBy(-180);
-        if (event.key === "PageDown") moveReaderBy((readerRef.current?.clientHeight || 600) * .82);
-        if (event.key === "PageUp") moveReaderBy(-(readerRef.current?.clientHeight || 600) * .82);
-      }} onPointerDown={(event) => {
+      <aside className="minimap" aria-label="Zoomed-out book preview" onPointerDown={(event) => {
         const element = event.currentTarget;
-        if (minimapMomentum.current) cancelAnimationFrame(minimapMomentum.current);
         element.setPointerCapture(event.pointerId);
-        element.dataset.dragging = "true";
-        const startY = event.clientY;
-        const startScroll = readerRef.current?.scrollTop || 0;
-        let lastY = startY;
-        let lastTime = performance.now();
-        let velocity = 0;
-        const gain = 6.5;
-        element.onpointermove = (moveEvent) => {
-          const now = performance.now();
-          const elapsed = Math.max(1, now - lastTime);
-          velocity = (-(moveEvent.clientY - lastY) * gain) / elapsed;
-          if (readerRef.current) readerRef.current.scrollTop = startScroll - (moveEvent.clientY - startY) * gain;
-          lastY = moveEvent.clientY;
-          lastTime = now;
-        };
-        const release = () => {
-          delete element.dataset.dragging;
-          element.onpointermove = null;
-          element.onpointerup = null;
-          element.onpointercancel = null;
-          coastMinimap(velocity);
-        };
-        element.onpointerup = release;
-        element.onpointercancel = release;
+        const move = (clientY: number) => { const rect = element.getBoundingClientRect(); jumpTo((clientY - rect.top) / rect.height); };
+        move(event.clientY);
+        element.onpointermove = (moveEvent) => move(moveEvent.clientY);
+        element.onpointerup = () => { element.onpointermove = null; element.onpointerup = null; };
       }}>
         <div className="map-tape" aria-hidden="true">{mapLines.map((line) => <i key={line.index} className={`${line.active ? "active" : ""} ${line.break ? "break" : ""}`} style={{ width: `${line.width}%` }} />)}</div>
         <div className="map-focus" /><div className="map-rail"><i style={{ top: `${progress * 100}%` }} /></div>

@@ -2,7 +2,7 @@
 
 **Last updated:** 2026-08-20  
 **Spoiler boundary:** *Pluribus* S01E04  
-**Current phase:** Episode-by-episode drafting in surprise mode
+**Current phase:** Episode-by-episode drafting in surprise mode; Part One internally complete
 **Drafting permission:** Authorized. Preserve surprise by keeping spoiler-heavy planning internal; pause only for a material contradiction that requires the user’s creative authority.
 
 ## Project goal
@@ -21,8 +21,8 @@ Develop a complete six-part prose prequel season that explains the discovery, st
 | Season causality and relationship ledgers | Pre-outline reconciliation complete | Working basis; detailed review waived |
 | Six scene-level episode outlines | Complete; season outline audit passed | Working basis; detailed review waived |
 | Representative “Forty-Seven Hours” sample | Polished calibration revision complete; internal prose gate passed | Working basis; not user-approved |
-| Part One prose | Exploratory draft; balanced-abstraction pass complete | Not approved |
-| Full season manuscript | Not started under gated workflow | — |
+| Part One prose | Separate full revision complete; internal episode gate passed | Working draft; not user-approved |
+| Full season manuscript | Part One drafted; Parts Two–Six pending | — |
 | Season-wide continuity pass | Not started | — |
 
 ## Accepted user requirements
@@ -95,11 +95,17 @@ None currently. The six architecture questions were resolved by the user, and th
 
 The sample remains unapproved until the user explicitly approves it. Under surprise mode, internal passage is sufficient to continue staged drafting without a spoiler-heavy review stop.
 
+## Part One result
+
+**Passed internally on 2026-08-20.** `manuscript/01-four-notes-revision.md` is a complete separate revision built from the approved outline and calibration standard. The exploratory `manuscript/01-four-notes.md` remains unchanged. The episode audit is recorded in `audits/01-four-notes-audit.md`.
+
+The revision remains unapproved until the user explicitly approves it. Internal passage advances the staged workflow but does not convert the draft into an approved deliverable.
+
 ## Recommended next action
 
-**Draft Part One, “Four Notes,” as a separate manuscript revision from the completed outline, preserving `manuscript/01-four-notes.md` as exploratory.**
+**Draft Part Two, “Forty-Seven Hours,” as a complete episode revision from its finished outline, using the calibration sample as the prose standard while preserving both exploratory and calibration files.**
 
-After Part One passes its internal episode gate, continue one episode at a time without exposing later turns, then assemble and perform a season-wide continuity, science, style, and spoiler audit.
+After Part Two passes its internal episode gate, continue one episode at a time without exposing later turns, then assemble and perform a season-wide continuity, science, style, and spoiler audit.
 
 ## Decision log
 
@@ -123,6 +129,7 @@ After Part One passes its internal episode gate, continue one episode at a time 
 | 2026-08-20 | Use balanced abstraction: retain conceptual S-78 biology and broad story routes while excluding reproducible construction, exact dosing, optimized dispersal, and treatment formulation | Accepted requirement |
 | 2026-08-20 | Complete all six scene-level outlines and pass the cross-episode causality, continuity, rules, viewpoint, consent, safety, and craft audit | Passed internal gate; working basis under surprise mode |
 | 2026-08-20 | Complete a separate polished “Forty-Seven Hours” calibration sample and record the reusable prose standard without overwriting exploratory prose | Passed internal gate; working basis, not user-approved |
+| 2026-08-20 | Complete a separate full Part One revision and pass the causality, character, continuity, process, safety, and prose-quality episode audit | Passed internal gate; working draft, not user-approved |
 
 ## Continuity watchlist
 

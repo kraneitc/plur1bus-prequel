@@ -2,7 +2,7 @@
 
 **Last updated:** 2026-08-20  
 **Spoiler boundary:** *Pluribus* S01E04  
-**Current phase:** Episode-by-episode drafting in surprise mode; Parts One–Five internally complete
+**Current phase:** All six episode revisions internally complete; season-wide assembly and revision pending
 **Drafting permission:** Authorized. Preserve surprise by keeping spoiler-heavy planning internal; pause only for a material contradiction that requires the user’s creative authority.
 
 ## Project goal
@@ -26,7 +26,8 @@ Develop a complete six-part prose prequel season that explains the discovery, st
 | Part Three prose | Separate full revision complete; internal episode gate passed | Working draft; not user-approved |
 | Part Four prose | Separate full revision complete; internal episode gate passed | Working draft; not user-approved |
 | Part Five prose | Separate full revision complete; internal episode gate passed | Working draft; not user-approved |
-| Full season manuscript | Parts One–Five drafted; Part Six pending | — |
+| Part Six prose | Separate full revision complete; internal episode gate passed | Working draft; not user-approved |
+| Full season manuscript | All six working revisions drafted; 41,479 words; assembly and target-length expansion pending | Not user-approved |
 | Season-wide continuity pass | Not started | — |
 
 ## Accepted user requirements
@@ -129,11 +130,17 @@ The revision remains unapproved until the user explicitly approves it. Internal 
 
 The revision remains unapproved until the user explicitly approves it. Internal passage advances the staged workflow but does not convert the draft into an approved deliverable.
 
+## Part Six result
+
+**Passed internally on 2026-08-20.** `manuscript/06-everybody-okay-revision.md` is a complete finale revision built from the finished outline and established prose standard. Its causality, thirty-six-hour progression, knowledge-route, convergence-viewpoint, named-cost, continuity, consent, safety, and prose checks are recorded in `audits/06-everybody-okay-audit.md`.
+
+The revision remains unapproved until the user explicitly approves it. All six working episode revisions now exist, but the assembled working manuscript is 41,479 words and remains below the accepted 55,000–75,000-word season target.
+
 ## Recommended next action
 
-**Draft Part Six, “Everybody Okay?,” as a complete episode revision from its finished outline and the established prose standard.**
+**Assemble the six working episode revisions and perform the season-wide continuity, science, style, length, and spoiler pass.**
 
-After Part Six passes its internal episode gate, assemble the six working episode revisions and perform the season-wide continuity, science, style, length, and spoiler audit before requesting user approval.
+The season pass must reconcile all cross-episode clocks and knowledge routes, preserve the S01E04 spoiler boundary, and expand the 41,479-word working manuscript to the accepted 55,000–75,000-word range through character causality, relationship, process, and residue rather than operational exposure detail or redundant spectacle. User approval remains required afterward.
 
 ## Decision log
 
@@ -163,6 +170,8 @@ After Part Six passes its internal episode gate, assemble the six working episod
 | 2026-08-20 | Resolve the Part Four outline’s incompatible Sofia-driver wording through the higher-priority continuity ledger and treatment: Mel remains the driver; Sofia agrees only to wait and ride home | Continuity correction; no story turn changed |
 | 2026-08-20 | Complete a separate full Part Four revision and pass the causality, consent, knowledge-route, progression, telemetry, viewpoint, institutional-process, continuity, safety, and prose-quality episode audit | Passed internal gate; working draft, not user-approved |
 | 2026-08-20 | Complete a separate full Part Five revision and pass the causality, consent-breach, knowledge-route, progression, telemetry, viewpoint, institutional-process, continuity, safety, and prose-quality episode audit | Passed internal gate; working draft, not user-approved |
+| 2026-08-20 | Complete a separate full Part Six revision and pass the causality, progression, knowledge-route, convergence-viewpoint, named-cost, continuity, consent, safety, and prose-quality episode audit | Passed internal gate; working draft, not user-approved |
+| 2026-08-20 | Record the six-revision working total of 41,479 words against the accepted 55,000–75,000-word target | Required season-pass expansion; do not pad with operational detail or spectacle |
 
 ## Continuity watchlist
 

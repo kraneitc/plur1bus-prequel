@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
 import test from "node:test";
 import {
   getScrollbarMetrics,
@@ -41,4 +42,14 @@ test("produces the same geometry from render-friendly ratios", () => {
   const metrics = getScrollbarVisualMetrics(800, .2, .5);
   assert.equal(metrics.thumbSize, 160);
   assert.equal(metrics.thumbTop, 320);
+});
+
+test("keeps direct dragging free of smooth-scroll tweening", async () => {
+  const [css, page] = await Promise.all([
+    readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
+    readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
+  ]);
+
+  assert.match(css, /\.reading-pane\s*\{[^}]*scroll-behavior:\s*auto/);
+  assert.match(page, /reader\.scrollTop\s*=\s*getScrollPositionForPointer/);
 });

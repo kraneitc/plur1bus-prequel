@@ -110,9 +110,9 @@ export default function Home() {
     if (book) sessionStorage.setItem(`${storageKey(book)}:scroll-history`, JSON.stringify(nextHistory));
   }, [book]);
 
-  const recordNavigation = useCallback((origin: ScrollPoint, destination: number) => {
+  const recordNavigation = useCallback((origin: ScrollPoint, destination: number, force = false) => {
     const reader = readerRef.current;
-    if (!reader || !isMeaningfulScrollJump(origin.scrollTop, destination, reader.clientHeight)) return false;
+    if (!reader || (!force && !isMeaningfulScrollJump(origin.scrollTop, destination, reader.clientHeight))) return false;
     updateScrollHistory(recordScrollNavigation(scrollHistoryRef.current, origin));
     return true;
   }, [updateScrollHistory]);

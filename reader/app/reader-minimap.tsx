@@ -7,6 +7,7 @@ import { getMinimapPreviewMetrics, getScrollbarMetrics, getScrollPositionForPoin
 
 const minimapLinePitch = 3;
 const minimapScrollbarWidth = 14;
+const minimapTrackInsetTop = 8;
 const fallbackReaderLineHeight = 33;
 const maximumMinimapItems = 4000;
 
@@ -66,7 +67,7 @@ type ReaderMinimapProps = {
   progress: number;
   geometry: ReaderGeometry;
   onGeometryChange: (geometry: ReaderGeometry) => void;
-  onNavigation: (origin: ScrollPoint, destination: number) => void;
+  onNavigation: (origin: ScrollPoint, destination: number, force?: boolean) => void;
   onPositionCommit: () => void;
 };
 
@@ -89,14 +90,34 @@ export const ReaderMinimap = forwardRef<ReaderMinimapHandle, ReaderMinimapProps>
   onPositionCommit,
 }, forwardedRef) {
   const minimapRef = useRef<HTMLElement>(null);
+  const positionControlRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const tapeRef = useRef<HTMLDivElement>(null);
   const viewportRef = useRef<HTMLDivElement>(null);
+  const previousSectionRef = useRef<HTMLButtonElement>(null);
+  const nextSectionRef = useRef<HTMLButtonElement>(null);
   const scrollbarThumbRef = useRef<HTMLDivElement>(null);
   const progressRef = useRef<HTMLSpanElement>(null);
   const dragRef = useRef<MinimapDrag | null>(null);
   const revealTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const sectionOffsetsRef = useRef<number[]>([]);
   const [mapItems, setMapItems] = useState<MinimapItem[]>([]);
+
+  const syncSectionControls = useCallback((scrollPosition: number, viewportSize: number, viewportTop: number, viewportHeight: number) => {
+    const offsets = sectionOffsetsRef.current;
+    const focus = scrollPosition + viewportSize * .36;
+    let current = 0;
+    offsets.forEach((offset, index) => { if (offset <= focus) current = index; });
+
+    if (previousSectionRef.current) {
+      previousSectionRef.current.style.top = `${minimapTrackInsetTop + viewportTop}px`;
+      previousSectionRef.current.disabled = offsets.length === 0 || current === 0;
+    }
+    if (nextSectionRef.current) {
+      nextSectionRef.current.style.top = `${minimapTrackInsetTop + viewportTop + viewportHeight}px`;
+      nextSectionRef.current.disabled = offsets.length === 0 || current >= offsets.length - 1;
+    }
+  }, []);
 
   const applyPosition = useCallback((scrollPosition: number, nextGeometry: ReaderGeometry, reveal = false) => {
     const previewMetrics = getMinimapPreviewMetrics(nextGeometry.trackSize, nextGeometry.viewportSize, nextGeometry.scrollSize, scrollPosition, nextGeometry.previewScale);
@@ -118,8 +139,9 @@ export const ReaderMinimap = forwardRef<ReaderMinimapHandle, ReaderMinimapProps>
       scrollbarThumbRef.current.style.height = `${scrollbarMetrics.thumbSize}px`;
     }
     if (progressRef.current) progressRef.current.textContent = `${percent}%`;
-    minimapRef.current?.setAttribute("aria-valuenow", String(percent));
-    minimapRef.current?.setAttribute("aria-valuetext", `${percent}% through the book`);
+    positionControlRef.current?.setAttribute("aria-valuenow", String(percent));
+    positionControlRef.current?.setAttribute("aria-valuetext", `${percent}% through the book`);
+    syncSectionControls(scrollPosition, nextGeometry.viewportSize, previewMetrics.thumbTop, previewMetrics.thumbSize);
 
     if (reveal && minimapRef.current) {
       minimapRef.current.dataset.scrolling = "true";
@@ -128,7 +150,7 @@ export const ReaderMinimap = forwardRef<ReaderMinimapHandle, ReaderMinimapProps>
         if (minimapRef.current) delete minimapRef.current.dataset.scrolling;
       }, 760);
     }
-  }, []);
+  }, [syncSectionControls]);
 
   useImperativeHandle(forwardedRef, () => ({
     applyPosition,
@@ -145,6 +167,8 @@ export const ReaderMinimap = forwardRef<ReaderMinimapHandle, ReaderMinimapProps>
       const reader = readerRef.current;
       if (!reader || geometry.previewScale <= 0) return;
       const readerTop = reader.getBoundingClientRect().top;
+      sectionOffsetsRef.current = Array.from(reader.querySelectorAll<HTMLElement>(".book-part"))
+        .map((section) => getElementScrollTop(reader, section, readerTop));
       const nodes = selectMinimapNodes(Array.from(reader.querySelectorAll<HTMLElement>("[data-minimap-kind]")));
       let headingIndex = 0;
       const nextItems = nodes.map((node, index): MinimapItem => {
@@ -163,9 +187,10 @@ export const ReaderMinimap = forwardRef<ReaderMinimapHandle, ReaderMinimapProps>
         };
       });
       setMapItems(nextItems);
+      applyPosition(reader.scrollTop, geometry);
     });
     return () => cancelAnimationFrame(frame);
-  }, [book, geometry.previewScale, geometry.scrollSize, readerRef]);
+  }, [applyPosition, book, geometry, readerRef]);
 
   const mapItemElements = useMemo(() => mapItems.map((item) => {
     const style = { top: `${item.top}px`, height: `${item.height}px`, width: `${item.width}%` };
@@ -180,6 +205,8 @@ export const ReaderMinimap = forwardRef<ReaderMinimapHandle, ReaderMinimapProps>
   const viewportStyle = { top: `${previewMetrics.thumbTop}px`, height: `${previewMetrics.thumbSize}px` };
   const tapeStyle = { height: `${previewMetrics.contentSize}px`, transform: `translate3d(0, ${previewMetrics.contentOffset}px, 0)` } as CSSProperties;
   const scrollbarThumbStyle = { top: `${scrollbarMetrics.thumbTop}px`, height: `${scrollbarMetrics.thumbSize}px` };
+  const previousSectionStyle = { top: `${minimapTrackInsetTop + previewMetrics.thumbTop}px` };
+  const nextSectionStyle = { top: `${minimapTrackInsetTop + previewMetrics.thumbTop + previewMetrics.thumbSize}px` };
 
   const beginDrag = (event: React.PointerEvent<HTMLElement>) => {
     if (!event.isPrimary || (event.pointerType === "mouse" && event.button !== 0)) return;
@@ -205,7 +232,7 @@ export const ReaderMinimap = forwardRef<ReaderMinimapHandle, ReaderMinimapProps>
       applyPosition(reader.scrollTop, nextGeometry);
     }
     element.dataset.dragging = "true";
-    element.focus({ preventScroll: true });
+    positionControlRef.current?.focus({ preventScroll: true });
     element.setPointerCapture(event.pointerId);
   };
 
@@ -257,15 +284,48 @@ export const ReaderMinimap = forwardRef<ReaderMinimapHandle, ReaderMinimapProps>
     reader.scrollTop += event.deltaY * unit;
   };
 
-  return <div className="minimap" ref={minimapRef} role="scrollbar" aria-label="Book position" aria-controls="book-reading-pane" aria-orientation="vertical" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(progress * 100)} aria-valuetext={`${Math.round(progress * 100)}% through the book`} tabIndex={0}
+  const navigateSection = (direction: -1 | 1) => {
+    const reader = readerRef.current;
+    if (!reader) return;
+    const readerTop = reader.getBoundingClientRect().top;
+    const sections = Array.from(reader.querySelectorAll<HTMLElement>(".book-part"));
+    const offsets = sections.map((section) => getElementScrollTop(reader, section, readerTop));
+    sectionOffsetsRef.current = offsets;
+    const focus = reader.scrollTop + reader.clientHeight * .36;
+    let current = 0;
+    offsets.forEach((offset, index) => { if (offset <= focus) current = index; });
+    const targetIndex = Math.max(0, Math.min(sections.length - 1, current + direction));
+    if (targetIndex === current) return;
+
+    const target = Math.max(0, Math.min(reader.scrollHeight - reader.clientHeight, offsets[targetIndex]));
+    onNavigation(captureScrollPoint(reader), target, true);
+    reader.scrollTop = target;
+    const nextGeometry = getReaderGeometry(reader, trackRef.current?.clientHeight ?? geometry.trackSize);
+    applyPosition(target, nextGeometry, true);
+    onPositionCommit();
+  };
+
+  const stopSectionControlPointer = (event: React.PointerEvent<HTMLButtonElement>) => event.stopPropagation();
+  const stopSectionControlKey = (event: React.KeyboardEvent<HTMLButtonElement>) => event.stopPropagation();
+
+  return <div className="minimap" ref={minimapRef}
     onPointerDown={beginDrag} onPointerMove={moveDrag} onPointerUp={endDrag} onPointerCancel={endDrag} onLostPointerCapture={endDrag}
-    onWheel={handleWheel} onKeyDown={handleKey}>
+    onWheel={handleWheel}>
+    <div className="map-position-control" ref={positionControlRef} role="scrollbar" aria-label="Book position" aria-controls="book-reading-pane" aria-orientation="vertical" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(progress * 100)} aria-valuetext={`${Math.round(progress * 100)}% through the book`} tabIndex={0} onKeyDown={handleKey} />
     <div className="map-scroll-area" ref={trackRef} aria-hidden="true">
       <div className="map-tape" ref={tapeRef} style={tapeStyle}>{mapItemElements}</div>
       <div className="map-viewport" ref={viewportRef} style={viewportStyle} />
       <div className="map-scrollbar-track" />
       <div className="map-scrollbar-thumb" ref={scrollbarThumbRef} style={scrollbarThumbStyle} />
     </div>
+    <button className="map-section-button previous" ref={previousSectionRef} type="button" style={previousSectionStyle} aria-label="Previous section" title="Previous section"
+      onClick={() => navigateSection(-1)} onPointerDown={stopSectionControlPointer} onPointerMove={stopSectionControlPointer} onPointerUp={stopSectionControlPointer} onPointerCancel={stopSectionControlPointer} onKeyDown={stopSectionControlKey}>
+      <span aria-hidden="true">&#8593;</span>
+    </button>
+    <button className="map-section-button next" ref={nextSectionRef} type="button" style={nextSectionStyle} aria-label="Next section" title="Next section"
+      onClick={() => navigateSection(1)} onPointerDown={stopSectionControlPointer} onPointerMove={stopSectionControlPointer} onPointerUp={stopSectionControlPointer} onPointerCancel={stopSectionControlPointer} onKeyDown={stopSectionControlKey}>
+      <span aria-hidden="true">&#8595;</span>
+    </button>
     <span className="map-progress" ref={progressRef}>{Math.round(progress * 100)}%</span>
   </div>;
 });

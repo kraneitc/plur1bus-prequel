@@ -126,3 +126,23 @@ test("maps semantic structure and rendered paragraph depth", async () => {
   assert.match(css, /\.map-paragraph[^}]*repeating-linear-gradient/);
   assert.match(css, /\.map-scene-break::before/);
 });
+
+test("keeps section navigation attached to the viewport and separate from dragging", async () => {
+  const [page, minimap, css] = await Promise.all([
+    readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/reader-minimap.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
+  ]);
+
+  assert.match(minimap, /aria-label="Previous section"/);
+  assert.match(minimap, /aria-label="Next section"/);
+  assert.doesNotMatch(minimap, /title="(?:Previous|Next) section" disabled/);
+  assert.match(minimap, /previousSectionRef\.current\.disabled =/);
+  assert.match(minimap, /nextSectionRef\.current\.disabled =/);
+  assert.match(minimap, /onNavigation\(captureScrollPoint\(reader\), target, true\)/);
+  assert.match(minimap, /reader\.scrollTop = target/);
+  assert.match(minimap, /onPointerDown=\{stopSectionControlPointer\}/);
+  assert.match(page, /\(!force && !isMeaningfulScrollJump/);
+  assert.match(css, /\.map-section-button[^}]*translate:\s*0 -50%/);
+  assert.match(css, /@media \(pointer: coarse\)[^{]*\{[^}]*\.map-section-button/);
+});

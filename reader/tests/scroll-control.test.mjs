@@ -74,23 +74,38 @@ test("pans an overflowing preview on a different travel range", () => {
 });
 
 test("keeps direct dragging free of smooth-scroll tweening", async () => {
-  const [css, page] = await Promise.all([
+  const [css, minimap] = await Promise.all([
     readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
-    readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/reader-minimap.tsx", import.meta.url), "utf8"),
   ]);
 
   assert.match(css, /\.reading-pane\s*\{[^}]*scroll-behavior:\s*auto/);
-  assert.match(page, /reader\.scrollTop\s*=\s*getScrollPositionForPointer/);
+  assert.match(minimap, /reader\.scrollTop\s*=\s*getScrollPositionForPointer/);
 });
 
 test("keeps layout measurement and React commits out of pointer movement", async () => {
-  const page = await readFile(new URL("../app/page.tsx", import.meta.url), "utf8");
-  const start = page.indexOf("const moveMinimapDrag");
-  const end = page.indexOf("const endMinimapDrag");
-  const handler = page.slice(start, end);
+  const [page, minimap] = await Promise.all([
+    readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/reader-minimap.tsx", import.meta.url), "utf8"),
+  ]);
+  const start = minimap.indexOf("const moveDrag");
+  const end = minimap.indexOf("const endDrag");
+  const handler = minimap.slice(start, end);
 
   assert.match(handler, /drag\.metrics/);
   assert.match(handler, /drag\.trackTop/);
   assert.doesNotMatch(handler, /getBoundingClientRect|getMinimapScale|clientHeight|scrollHeight/);
-  assert.match(page, /if \(minimapDrag\.current \|\| positionCommitTimer\.current\) return;/);
+  assert.match(page, /if \(minimapRef\.current\?\.isDragging\(\)\) return;/);
+});
+
+test("keeps the minimap implementation outside the reader page", async () => {
+  const [page, minimap] = await Promise.all([
+    readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/reader-minimap.tsx", import.meta.url), "utf8"),
+  ]);
+
+  assert.match(page, /<ReaderMinimap\b/);
+  assert.doesNotMatch(page, /className="minimap"/);
+  assert.match(minimap, /className="minimap"/);
+  assert.match(minimap, /onPointerDown=\{beginDrag\}/);
 });

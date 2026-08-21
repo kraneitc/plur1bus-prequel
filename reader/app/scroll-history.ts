@@ -22,6 +22,39 @@ export function createEmptyScrollHistory(): ScrollHistory {
   return { back: [], forward: [] };
 }
 
+export function getElementScrollTop(reader: HTMLElement, element: HTMLElement, readerTop = reader.getBoundingClientRect().top) {
+  return element.getBoundingClientRect().top - readerTop + reader.scrollTop;
+}
+
+export function captureScrollPoint(reader: HTMLElement): ScrollPoint {
+  const anchors = reader.querySelectorAll<HTMLElement>("[data-scroll-anchor]");
+  const readerTop = reader.getBoundingClientRect().top;
+  const targetTop = reader.scrollTop + 1;
+  let low = 0;
+  let high = anchors.length - 1;
+  let anchor = anchors[0] ?? null;
+
+  while (low <= high) {
+    const middle = Math.floor((low + high) / 2);
+    const candidate = anchors[middle];
+    if (getElementScrollTop(reader, candidate, readerTop) <= targetTop) {
+      anchor = candidate;
+      low = middle + 1;
+    } else {
+      high = middle - 1;
+    }
+  }
+
+  const range = Math.max(0, reader.scrollHeight - reader.clientHeight);
+  const anchorTop = anchor ? getElementScrollTop(reader, anchor, readerTop) : reader.scrollTop;
+  return {
+    anchor: anchor?.dataset.scrollAnchor ?? null,
+    anchorOffset: anchor ? (reader.scrollTop - anchorTop) / Math.max(1, anchor.offsetHeight) : 0,
+    progress: range > 0 ? reader.scrollTop / range : 0,
+    scrollTop: reader.scrollTop,
+  };
+}
+
 function isScrollPoint(value: unknown): value is ScrollPoint {
   if (!value || typeof value !== "object") return false;
   const point = value as Partial<ScrollPoint>;

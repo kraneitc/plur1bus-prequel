@@ -82,3 +82,15 @@ test("keeps direct dragging free of smooth-scroll tweening", async () => {
   assert.match(css, /\.reading-pane\s*\{[^}]*scroll-behavior:\s*auto/);
   assert.match(page, /reader\.scrollTop\s*=\s*getScrollPositionForPointer/);
 });
+
+test("keeps layout measurement and React commits out of pointer movement", async () => {
+  const page = await readFile(new URL("../app/page.tsx", import.meta.url), "utf8");
+  const start = page.indexOf("const moveMinimapDrag");
+  const end = page.indexOf("const endMinimapDrag");
+  const handler = page.slice(start, end);
+
+  assert.match(handler, /drag\.metrics/);
+  assert.match(handler, /drag\.trackTop/);
+  assert.doesNotMatch(handler, /getBoundingClientRect|getMinimapScale|clientHeight|scrollHeight/);
+  assert.match(page, /if \(minimapDrag\.current \|\| positionCommitTimer\.current\) return;/);
+});

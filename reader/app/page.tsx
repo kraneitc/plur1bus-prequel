@@ -10,6 +10,10 @@ const defaultPreferences: Preferences = { fontSize: 22, lineHeight: 1.5, measure
 const builtInKey = "before-we-were-us";
 const minimapLinePitch = 3;
 const minimapScrollbarWidth = 14;
+const positionCommitInterval = 80;
+
+type ReaderGeometry = { trackSize: number; viewportSize: number; scrollSize: number; previewScale: number };
+const defaultReaderGeometry: ReaderGeometry = { trackSize: 0, viewportSize: 0, scrollSize: 0, previewScale: minimapLinePitch / (defaultPreferences.fontSize * defaultPreferences.lineHeight) };
 
 function storageKey(book: ReaderBook) { return `story-reader:${book.title.toLowerCase().replace(/\W+/g, "-")}`; }
 
@@ -23,14 +27,22 @@ export default function Home() {
   const readerRef = useRef<HTMLElement>(null);
   const minimapRef = useRef<HTMLElement>(null);
   const minimapTrackRef = useRef<HTMLDivElement>(null);
-  const minimapDrag = useRef<{ pointerId: number; grabOffset: number; target: "preview" | "scrollbar" } | null>(null);
+  const minimapTapeRef = useRef<HTMLDivElement>(null);
+  const minimapViewportRef = useRef<HTMLDivElement>(null);
+  const minimapScrollbarThumbRef = useRef<HTMLDivElement>(null);
+  const minimapProgressRef = useRef<HTMLSpanElement>(null);
+  const statusProgressRef = useRef<HTMLElement>(null);
+  const statusPercentRef = useRef<HTMLSpanElement>(null);
+  const readerGeometryRef = useRef<ReaderGeometry>(defaultReaderGeometry);
+  const minimapDrag = useRef<{ pointerId: number; grabOffset: number; trackTop: number; metrics: ReturnType<typeof getScrollbarMetrics>; geometry: ReaderGeometry } | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
   const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const scrollRevealTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const positionCommitTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [book, setBook] = useState<ReaderBook | null>(null);
   const [progress, setProgress] = useState(0);
   const [minimapTrackSize, setMinimapTrackSize] = useState(0);
-  const [readerGeometry, setReaderGeometry] = useState({ viewportSize: 0, scrollSize: 0, previewScale: minimapLinePitch / (defaultPreferences.fontSize * defaultPreferences.lineHeight) });
+  const [readerGeometry, setReaderGeometry] = useState(defaultReaderGeometry);
   const [partIndex, setPartIndex] = useState(0);
   const [partProgress, setPartProgress] = useState(0);
   const [summaryOpen, setSummaryOpen] = useState(false);
@@ -66,14 +78,38 @@ export default function Home() {
 
   useEffect(() => { localStorage.setItem("story-reader:preferences", JSON.stringify(preferences)); }, [preferences]);
 
-  const updatePosition = useCallback(() => {
+  const applyLivePosition = useCallback((scrollPosition: number, geometry = readerGeometryRef.current) => {
+    const previewMetrics = getMinimapPreviewMetrics(geometry.trackSize, geometry.viewportSize, geometry.scrollSize, scrollPosition, geometry.previewScale);
+    const scrollbarMetrics = getScrollbarMetrics(geometry.trackSize, geometry.viewportSize, geometry.scrollSize, scrollPosition);
+    const range = Math.max(0, geometry.scrollSize - geometry.viewportSize);
+    const nextProgress = range > 0 ? Math.max(0, Math.min(1, scrollPosition / range)) : 0;
+    const percent = Math.round(nextProgress * 100);
+
+    if (minimapTapeRef.current) {
+      minimapTapeRef.current.style.height = `${previewMetrics.contentSize}px`;
+      minimapTapeRef.current.style.transform = `translate3d(0, ${previewMetrics.contentOffset}px, 0)`;
+    }
+    if (minimapViewportRef.current) {
+      minimapViewportRef.current.style.top = `${previewMetrics.thumbTop}px`;
+      minimapViewportRef.current.style.height = `${previewMetrics.thumbSize}px`;
+    }
+    if (minimapScrollbarThumbRef.current) {
+      minimapScrollbarThumbRef.current.style.top = `${scrollbarMetrics.thumbTop}px`;
+      minimapScrollbarThumbRef.current.style.height = `${scrollbarMetrics.thumbSize}px`;
+    }
+    if (minimapProgressRef.current) minimapProgressRef.current.textContent = `${percent}%`;
+    if (statusProgressRef.current) statusProgressRef.current.style.width = `${nextProgress * 100}%`;
+    if (statusPercentRef.current) statusPercentRef.current.textContent = `${percent}%`;
+    minimapRef.current?.setAttribute("aria-valuenow", String(percent));
+    minimapRef.current?.setAttribute("aria-valuetext", `${percent}% through the book`);
+  }, []);
+
+  const commitPosition = useCallback(() => {
     const reader = readerRef.current;
     if (!reader || !book) return;
     const range = reader.scrollHeight - reader.clientHeight;
     const next = range > 0 ? reader.scrollTop / range : 0;
     setProgress(next);
-    const nextGeometry = { viewportSize: reader.clientHeight, scrollSize: reader.scrollHeight, previewScale: getMinimapScale(reader) };
-    setReaderGeometry((current) => current.viewportSize === nextGeometry.viewportSize && current.scrollSize === nextGeometry.scrollSize && current.previewScale === nextGeometry.previewScale ? current : nextGeometry);
     const sections = Array.from(reader.querySelectorAll<HTMLElement>(".book-part"));
     const focus = reader.scrollTop + reader.clientHeight * .36;
     let current = 0;
@@ -84,21 +120,37 @@ export default function Home() {
     setPartProgress(Math.max(0, Math.min(1, (focus - section.offsetTop) / (sectionEnd - section.offsetTop))));
     if (saveTimer.current) clearTimeout(saveTimer.current);
     saveTimer.current = setTimeout(() => localStorage.setItem(`${storageKey(book)}:progress`, String(next)), 180);
+  }, [book]);
+
+  const handleReaderScroll = useCallback(() => {
+    const reader = readerRef.current;
+    if (!reader) return;
+    applyLivePosition(reader.scrollTop);
     const minimap = minimapRef.current;
     if (minimap) {
       minimap.dataset.scrolling = "true";
       if (scrollRevealTimer.current) clearTimeout(scrollRevealTimer.current);
       scrollRevealTimer.current = setTimeout(() => { delete minimap.dataset.scrolling; }, 760);
     }
-  }, [book]);
+    if (minimapDrag.current || positionCommitTimer.current) return;
+    positionCommitTimer.current = setTimeout(() => {
+      positionCommitTimer.current = null;
+      commitPosition();
+    }, positionCommitInterval);
+  }, [applyLivePosition, commitPosition]);
 
   useEffect(() => {
     const reader = readerRef.current;
     if (!reader) return;
-    reader.addEventListener("scroll", updatePosition, { passive: true });
+    reader.addEventListener("scroll", handleReaderScroll, { passive: true });
     const measure = () => {
-      setMinimapTrackSize(minimapTrackRef.current?.clientHeight ?? 0);
-      updatePosition();
+      const trackSize = minimapTrackRef.current?.clientHeight ?? 0;
+      const nextGeometry = { trackSize, viewportSize: reader.clientHeight, scrollSize: reader.scrollHeight, previewScale: getMinimapScale(reader) };
+      readerGeometryRef.current = nextGeometry;
+      setMinimapTrackSize(trackSize);
+      setReaderGeometry((current) => current.trackSize === nextGeometry.trackSize && current.viewportSize === nextGeometry.viewportSize && current.scrollSize === nextGeometry.scrollSize && current.previewScale === nextGeometry.previewScale ? current : nextGeometry);
+      applyLivePosition(reader.scrollTop, nextGeometry);
+      commitPosition();
     };
     const resizeObserver = typeof ResizeObserver === "undefined" ? null : new ResizeObserver(measure);
     resizeObserver?.observe(reader);
@@ -107,12 +159,13 @@ export default function Home() {
     window.addEventListener("resize", measure);
     measure();
     return () => {
-      reader.removeEventListener("scroll", updatePosition);
+      reader.removeEventListener("scroll", handleReaderScroll);
       window.removeEventListener("resize", measure);
       resizeObserver?.disconnect();
       if (scrollRevealTimer.current) clearTimeout(scrollRevealTimer.current);
+      if (positionCommitTimer.current) clearTimeout(positionCommitTimer.current);
     };
-  }, [updatePosition]);
+  }, [applyLivePosition, commitPosition, handleReaderScroll]);
 
   const jumpTo = (next: number) => {
     const reader = readerRef.current;
@@ -138,16 +191,25 @@ export default function Home() {
     event.preventDefault();
     const element = event.currentTarget;
     const rect = track.getBoundingClientRect();
+    const geometry = { trackSize: rect.height, viewportSize: reader.clientHeight, scrollSize: reader.scrollHeight, previewScale: getMinimapScale(reader) };
+    readerGeometryRef.current = geometry;
     const target = event.clientX >= rect.right - minimapScrollbarWidth ? "scrollbar" : "preview";
     const metrics = target === "scrollbar"
-      ? getScrollbarMetrics(rect.height, reader.clientHeight, reader.scrollHeight, reader.scrollTop)
-      : getMinimapPreviewMetrics(rect.height, reader.clientHeight, reader.scrollHeight, reader.scrollTop, getMinimapScale(reader));
+      ? getScrollbarMetrics(geometry.trackSize, geometry.viewportSize, geometry.scrollSize, reader.scrollTop)
+      : getMinimapPreviewMetrics(geometry.trackSize, geometry.viewportSize, geometry.scrollSize, reader.scrollTop, geometry.previewScale);
     const pointerOffset = Math.max(0, Math.min(rect.height, event.clientY - rect.top));
     const withinThumb = pointerOffset >= metrics.thumbTop && pointerOffset <= metrics.thumbTop + metrics.thumbSize;
     const grabOffset = withinThumb ? pointerOffset - metrics.thumbTop : metrics.thumbSize / 2;
 
-    if (!withinThumb) reader.scrollTop = getScrollPositionForPointer(pointerOffset, grabOffset, metrics);
-    minimapDrag.current = { pointerId: event.pointerId, grabOffset, target };
+    if (positionCommitTimer.current) {
+      clearTimeout(positionCommitTimer.current);
+      positionCommitTimer.current = null;
+    }
+    minimapDrag.current = { pointerId: event.pointerId, grabOffset, trackTop: rect.top, metrics, geometry };
+    if (!withinThumb) {
+      reader.scrollTop = getScrollPositionForPointer(pointerOffset, grabOffset, metrics);
+      applyLivePosition(reader.scrollTop, geometry);
+    }
     element.dataset.dragging = "true";
     element.focus({ preventScroll: true });
     element.setPointerCapture(event.pointerId);
@@ -156,24 +218,24 @@ export default function Home() {
   const moveMinimapDrag = (event: React.PointerEvent<HTMLElement>) => {
     const drag = minimapDrag.current;
     const reader = readerRef.current;
-    const track = minimapTrackRef.current;
-    if (!drag || drag.pointerId !== event.pointerId || !reader || !track) return;
+    if (!drag || drag.pointerId !== event.pointerId || !reader) return;
 
     event.preventDefault();
     const samples = event.nativeEvent.getCoalescedEvents?.() ?? [];
     const latest = samples.at(-1) ?? event.nativeEvent;
-    const rect = track.getBoundingClientRect();
-    const metrics = drag.target === "scrollbar"
-      ? getScrollbarMetrics(rect.height, reader.clientHeight, reader.scrollHeight, reader.scrollTop)
-      : getMinimapPreviewMetrics(rect.height, reader.clientHeight, reader.scrollHeight, reader.scrollTop, getMinimapScale(reader));
-    reader.scrollTop = getScrollPositionForPointer(latest.clientY - rect.top, drag.grabOffset, metrics);
+    reader.scrollTop = getScrollPositionForPointer(latest.clientY - drag.trackTop, drag.grabOffset, drag.metrics);
+    applyLivePosition(reader.scrollTop, drag.geometry);
   };
 
   const endMinimapDrag = (event: React.PointerEvent<HTMLElement>) => {
-    if (minimapDrag.current?.pointerId !== event.pointerId) return;
+    const drag = minimapDrag.current;
+    if (drag?.pointerId !== event.pointerId) return;
     minimapDrag.current = null;
     delete event.currentTarget.dataset.dragging;
     if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
+    setMinimapTrackSize(drag.geometry.trackSize);
+    setReaderGeometry(drag.geometry);
+    commitPosition();
   };
 
   const handleMinimapKey = (event: React.KeyboardEvent<HTMLElement>) => {
@@ -269,15 +331,15 @@ export default function Home() {
         onWheel={(event) => { event.preventDefault(); const unit = event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? (readerRef.current?.clientHeight ?? 1) : 1; moveReaderBy(event.deltaY * unit); }}
         onKeyDown={handleMinimapKey}>
         <div className="map-scroll-area" ref={minimapTrackRef} aria-hidden="true">
-          <div className="map-tape" style={minimapTapeStyle}>{mapLineElements}</div>
-          <div className="map-viewport" style={minimapViewportStyle} />
+          <div className="map-tape" ref={minimapTapeRef} style={minimapTapeStyle}>{mapLineElements}</div>
+          <div className="map-viewport" ref={minimapViewportRef} style={minimapViewportStyle} />
           <div className="map-scrollbar-track" />
-          <div className="map-scrollbar-thumb" style={scrollbarThumbStyle} />
+          <div className="map-scrollbar-thumb" ref={minimapScrollbarThumbRef} style={scrollbarThumbStyle} />
         </div>
-        <span className="map-progress">{Math.round(progress * 100)}%</span>
+        <span className="map-progress" ref={minimapProgressRef}>{Math.round(progress * 100)}%</span>
       </div>
 
-      <footer className="statusbar"><span>{activePart?.label} of {book.parts.length}</span><button className="status-line" onClick={(event) => { const rect = event.currentTarget.getBoundingClientRect(); jumpTo((event.clientX - rect.left) / rect.width); }}><i style={{ width: `${progress * 100}%` }} /></button><span>{Math.round(progress * 100)}%</span></footer>
+      <footer className="statusbar"><span>{activePart?.label} of {book.parts.length}</span><button className="status-line" onClick={(event) => { const rect = event.currentTarget.getBoundingClientRect(); jumpTo((event.clientX - rect.left) / rect.width); }}><i ref={statusProgressRef} style={{ width: `${progress * 100}%` }} /></button><span ref={statusPercentRef}>{Math.round(progress * 100)}%</span></footer>
 
       {(summaryOpen || welcomeOpen) && <div className="scrim" onClick={() => { setSummaryOpen(false); setWelcomeOpen(false); }} />}
       {(summaryOpen || welcomeOpen) && <aside className="memory-drawer open" aria-live="polite">

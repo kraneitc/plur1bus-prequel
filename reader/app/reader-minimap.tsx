@@ -63,6 +63,7 @@ export type ReaderMinimapHandle = {
 
 type ReaderMinimapProps = {
   book: ReaderBook;
+  activePartId: string;
   readerRef: RefObject<HTMLElement | null>;
   progress: number;
   geometry: ReaderGeometry;
@@ -82,6 +83,7 @@ type MinimapDrag = {
 
 export const ReaderMinimap = forwardRef<ReaderMinimapHandle, ReaderMinimapProps>(function ReaderMinimap({
   book,
+  activePartId,
   readerRef,
   progress,
   geometry,
@@ -105,7 +107,7 @@ export const ReaderMinimap = forwardRef<ReaderMinimapHandle, ReaderMinimapProps>
 
   const syncSectionControls = useCallback((scrollPosition: number, viewportSize: number, viewportTop: number, viewportHeight: number) => {
     const offsets = sectionOffsetsRef.current;
-    const focus = scrollPosition + viewportSize * .36;
+    const focus = scrollPosition + Math.min(24, viewportSize * .05);
     let current = 0;
     offsets.forEach((offset, index) => { if (offset <= focus) current = index; });
 
@@ -167,7 +169,7 @@ export const ReaderMinimap = forwardRef<ReaderMinimapHandle, ReaderMinimapProps>
       const reader = readerRef.current;
       if (!reader || geometry.previewScale <= 0) return;
       const readerTop = reader.getBoundingClientRect().top;
-      sectionOffsetsRef.current = Array.from(reader.querySelectorAll<HTMLElement>(".book-part"))
+      sectionOffsetsRef.current = Array.from(reader.querySelectorAll<HTMLElement>("[data-reader-section]"))
         .map((section) => getElementScrollTop(reader, section, readerTop));
       const nodes = selectMinimapNodes(Array.from(reader.querySelectorAll<HTMLElement>("[data-minimap-kind]")));
       let headingIndex = 0;
@@ -190,7 +192,7 @@ export const ReaderMinimap = forwardRef<ReaderMinimapHandle, ReaderMinimapProps>
       applyPosition(reader.scrollTop, geometry);
     });
     return () => cancelAnimationFrame(frame);
-  }, [applyPosition, book, geometry, readerRef]);
+  }, [activePartId, applyPosition, book, geometry, readerRef]);
 
   const mapItemElements = useMemo(() => mapItems.map((item) => {
     const style = { top: `${item.top}px`, height: `${item.height}px`, width: `${item.width}%` };
@@ -288,10 +290,10 @@ export const ReaderMinimap = forwardRef<ReaderMinimapHandle, ReaderMinimapProps>
     const reader = readerRef.current;
     if (!reader) return;
     const readerTop = reader.getBoundingClientRect().top;
-    const sections = Array.from(reader.querySelectorAll<HTMLElement>(".book-part"));
+    const sections = Array.from(reader.querySelectorAll<HTMLElement>("[data-reader-section]"));
     const offsets = sections.map((section) => getElementScrollTop(reader, section, readerTop));
     sectionOffsetsRef.current = offsets;
-    const focus = reader.scrollTop + reader.clientHeight * .36;
+    const focus = reader.scrollTop + Math.min(24, reader.clientHeight * .05);
     let current = 0;
     offsets.forEach((offset, index) => { if (offset <= focus) current = index; });
     const targetIndex = Math.max(0, Math.min(sections.length - 1, current + direction));

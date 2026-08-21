@@ -4,6 +4,21 @@ export type BookBlock = { type: "p" | "break"; html: string };
 export type BookPart = { id: string; label: string; title: string; blocks: BookBlock[] };
 export type ReaderBook = { format: string; title: string; author: string; parts: BookPart[] };
 
+export function splitPartSections(blocks: BookBlock[]) {
+  const sections: BookBlock[][] = [];
+  let current: BookBlock[] = [];
+  for (const block of blocks) {
+    if (block.type === "break" && current.some((item) => item.type === "p")) {
+      sections.push(current);
+      current = [block];
+    } else {
+      current.push(block);
+    }
+  }
+  if (current.length || sections.length === 0) sections.push(current);
+  return sections;
+}
+
 export const formatSupport = [
   { extension: ".epub", label: "EPUB", status: "available" },
   { extension: ".md", label: "Markdown", status: "planned" },

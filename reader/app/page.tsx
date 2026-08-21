@@ -1,7 +1,7 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
-import { formatSupport, parseEpub, type ReaderBook } from "./formats";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { formatSupport, parseEpub, splitPartSections, type ReaderBook } from "./formats";
 import { getRecap } from "./recaps";
 import { ReaderMinimap, defaultReaderGeometry, getReaderGeometry, type ReaderGeometry, type ReaderMinimapHandle } from "./reader-minimap";
 import {
@@ -23,6 +23,8 @@ const builtInKey = "before-we-were-us";
 const positionCommitInterval = 80;
 
 function storageKey(book: ReaderBook) { return `story-reader:${book.title.toLowerCase().replace(/\W+/g, "-")}`; }
+function partProgressKey(book: ReaderBook, partId: string) { return `${storageKey(book)}:part:${partId}:progress`; }
+function partHistoryKey(book: ReaderBook, partId: string) { return `${storageKey(book)}:part:${partId}:scroll-history`; }
 
 export default function Home() {
   const readerRef = useRef<HTMLElement>(null);
@@ -34,6 +36,8 @@ export default function Home() {
   const fileRef = useRef<HTMLInputElement>(null);
   const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const positionCommitTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const pendingPartProgressRef = useRef(0);
+  const pendingWelcomeRef = useRef(false);
   const [book, setBook] = useState<ReaderBook | null>(null);
   const [progress, setProgress] = useState(0);
   const [readerGeometry, setReaderGeometry] = useState(defaultReaderGeometry);
@@ -47,33 +51,59 @@ export default function Home() {
   const [preferences, setPreferences] = useState<Preferences>(defaultPreferences);
   const [importError, setImportError] = useState("");
 
+  const activePart = book?.parts[partIndex];
+  const activeSections = useMemo(() => activePart ? splitPartSections(activePart.blocks) : [], [activePart]);
+
+  const openBook = useCallback((nextBook: ReaderBook) => {
+    const key = storageKey(nextBook);
+    const savedPartValue = localStorage.getItem(`${key}:part-index`);
+    const legacyProgress = Math.max(0, Math.min(1, Number(localStorage.getItem(`${key}:progress`) || 0)));
+    const legacyPosition = legacyProgress * Math.max(1, nextBook.parts.length);
+    const savedPartIndex = savedPartValue === null
+      ? Math.min(nextBook.parts.length - 1, Math.floor(legacyPosition))
+      : Math.max(0, Math.min(nextBook.parts.length - 1, Number(savedPartValue) || 0));
+    const savedPart = nextBook.parts[savedPartIndex];
+    const savedPartProgress = savedPartValue === null
+      ? Math.min(1, legacyPosition - savedPartIndex)
+      : Math.max(0, Math.min(1, Number(localStorage.getItem(partProgressKey(nextBook, savedPart.id)) || 0)));
+
+    pendingPartProgressRef.current = savedPartProgress;
+    pendingWelcomeRef.current = savedPartIndex > 0 || savedPartProgress > .004;
+    setPartIndex(savedPartIndex);
+    setProgress(savedPartProgress);
+    setPartProgress(savedPartProgress);
+    setBook(nextBook);
+  }, []);
+
   useEffect(() => {
     const savedPrefs = localStorage.getItem("story-reader:preferences");
     if (savedPrefs) setPreferences({ ...defaultPreferences, ...JSON.parse(savedPrefs) });
     const imported = localStorage.getItem("story-reader:imported-book");
     if (imported) {
-      try { setBook(JSON.parse(imported)); return; } catch { localStorage.removeItem("story-reader:imported-book"); }
+      try { openBook(JSON.parse(imported)); return; } catch { localStorage.removeItem("story-reader:imported-book"); }
     }
-    fetch("/book.json").then((response) => response.json()).then(setBook);
-  }, []);
+    fetch("/book.json").then((response) => response.json()).then(openBook);
+  }, [openBook]);
 
   useEffect(() => {
-    if (!book || !readerRef.current) return;
+    if (!book || !activePart || !readerRef.current) return;
     const reader = readerRef.current;
-    const saved = Number(localStorage.getItem(`${storageKey(book)}:progress`) || 0);
+    const saved = pendingPartProgressRef.current;
+    pendingPartProgressRef.current = 0;
     requestAnimationFrame(() => requestAnimationFrame(() => {
       reader.scrollTop = saved * Math.max(0, reader.scrollHeight - reader.clientHeight);
-      if (saved > .004 && !sessionStorage.getItem(`welcomed:${storageKey(book)}`)) {
+      if (pendingWelcomeRef.current && !sessionStorage.getItem(`welcomed:${storageKey(book)}`)) {
         setWelcomeOpen(true);
         sessionStorage.setItem(`welcomed:${storageKey(book)}`, "yes");
       }
+      pendingWelcomeRef.current = false;
     }));
-  }, [book]);
+  }, [activePart, book]);
 
   useEffect(() => {
-    const nextHistory = book ? readScrollHistory(sessionStorage.getItem(`${storageKey(book)}:scroll-history`)) : createEmptyScrollHistory();
+    const nextHistory = book && activePart ? readScrollHistory(sessionStorage.getItem(partHistoryKey(book, activePart.id))) : createEmptyScrollHistory();
     scrollHistoryRef.current = nextHistory;
-  }, [book]);
+  }, [activePart, book]);
 
   useEffect(() => { localStorage.setItem("story-reader:preferences", JSON.stringify(preferences)); }, [preferences]);
 
@@ -89,26 +119,22 @@ export default function Home() {
 
   const commitPosition = useCallback(() => {
     const reader = readerRef.current;
-    if (!reader || !book) return;
+    if (!reader || !book || !activePart) return;
     const range = reader.scrollHeight - reader.clientHeight;
     const next = range > 0 ? reader.scrollTop / range : 0;
     setProgress(next);
-    const sections = Array.from(reader.querySelectorAll<HTMLElement>(".book-part"));
-    const focus = reader.scrollTop + reader.clientHeight * .36;
-    let current = 0;
-    sections.forEach((section, index) => { if (section.offsetTop <= focus) current = index; });
-    const section = sections[current];
-    const sectionEnd = sections[current + 1]?.offsetTop ?? reader.scrollHeight;
-    setPartIndex(current);
-    setPartProgress(Math.max(0, Math.min(1, (focus - section.offsetTop) / (sectionEnd - section.offsetTop))));
+    setPartProgress(next);
     if (saveTimer.current) clearTimeout(saveTimer.current);
-    saveTimer.current = setTimeout(() => localStorage.setItem(`${storageKey(book)}:progress`, String(next)), 180);
-  }, [book]);
+    saveTimer.current = setTimeout(() => {
+      localStorage.setItem(`${storageKey(book)}:part-index`, String(partIndex));
+      localStorage.setItem(partProgressKey(book, activePart.id), String(next));
+    }, 180);
+  }, [activePart, book, partIndex]);
 
   const updateScrollHistory = useCallback((nextHistory: ScrollHistory) => {
     scrollHistoryRef.current = nextHistory;
-    if (book) sessionStorage.setItem(`${storageKey(book)}:scroll-history`, JSON.stringify(nextHistory));
-  }, [book]);
+    if (book && activePart) sessionStorage.setItem(partHistoryKey(book, activePart.id), JSON.stringify(nextHistory));
+  }, [activePart, book]);
 
   const recordNavigation = useCallback((origin: ScrollPoint, destination: number, force = false) => {
     const reader = readerRef.current;
@@ -208,13 +234,22 @@ export default function Home() {
     recordNavigation(captureScrollPoint(reader), target);
     reader.scrollTo({ top: target, behavior: "smooth" });
   };
-  const jumpToPart = (index: number) => {
+  const navigateToPart = (index: number) => {
     const reader = readerRef.current;
-    const part = reader?.querySelector<HTMLElement>(`#part-${index}`);
-    if (reader && part) {
-      recordNavigation(captureScrollPoint(reader), getElementScrollTop(reader, part));
-      part.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
+    if (!book || !activePart || !reader) return;
+    const targetIndex = Math.max(0, Math.min(book.parts.length - 1, index));
+    if (targetIndex === partIndex) { setContentsOpen(false); return; }
+    const range = Math.max(0, reader.scrollHeight - reader.clientHeight);
+    const currentProgress = range > 0 ? reader.scrollTop / range : 0;
+    if (saveTimer.current) clearTimeout(saveTimer.current);
+    localStorage.setItem(partProgressKey(book, activePart.id), String(currentProgress));
+    localStorage.setItem(`${storageKey(book)}:part-index`, String(targetIndex));
+    pendingPartProgressRef.current = 0;
+    scrollHistoryRef.current = createEmptyScrollHistory();
+    reader.scrollTop = 0;
+    setProgress(0);
+    setPartProgress(0);
+    setPartIndex(targetIndex);
     setContentsOpen(false);
   };
 
@@ -224,25 +259,31 @@ export default function Home() {
     try {
       if (!file.name.toLowerCase().endsWith(".epub")) throw new Error("EPUB is the first enabled format. The others are ready in the format roadmap.");
       const imported = await parseEpub(file);
-      setBook(imported);
+      openBook(imported);
       setLibraryOpen(false);
       if (JSON.stringify(imported).length < 4_000_000) localStorage.setItem("story-reader:imported-book", JSON.stringify(imported));
     } catch (error) { setImportError(error instanceof Error ? error.message : "That book could not be opened."); }
   };
 
-  const activePart = book?.parts[partIndex];
   const recap = getRecap(partIndex, partProgress);
 
-  if (!book) return <main className="loading-room"><span>Preparing your place in the story…</span></main>;
+  if (!book || !activePart) return <main className="loading-room"><span>Preparing your place in the story…</span></main>;
 
   return (
     <main className="reader-shell" style={{ "--reader-size": `${preferences.fontSize}px`, "--reader-leading": preferences.lineHeight, "--reader-measure": `${preferences.measure}ch` } as React.CSSProperties}>
       <header className="topbar">
-        <button className="book-mark" onClick={() => setLibraryOpen(true)} aria-label="Open library">BW</button>
-        <button className="book-id" onClick={() => setContentsOpen(true)}>
-          <span className="eyebrow">{book.title}</span>
-          <span className="location">{activePart?.label} · {activePart?.title}</span>
-        </button>
+        <div className="book-identity">
+          <button className="book-mark" onClick={() => setLibraryOpen(true)} aria-label="Open library">BW</button>
+          <button className="book-id" onClick={() => setContentsOpen(true)}>
+            <span className="eyebrow">{book.title}</span>
+            <span className="location">{activePart?.label} · {activePart?.title}</span>
+          </button>
+        </div>
+        <nav className="part-navigation" aria-label="Part navigation">
+          <button type="button" onClick={() => navigateToPart(partIndex - 1)} disabled={partIndex === 0} aria-label="Previous part" title="Previous part"><span aria-hidden="true">&#8592;</span></button>
+          <span className="part-position" aria-live="polite"><b>Part</b> {partIndex + 1} / {book.parts.length}</span>
+          <button type="button" onClick={() => navigateToPart(partIndex + 1)} disabled={partIndex === book.parts.length - 1} aria-label="Next part" title="Next part"><span aria-hidden="true">&#8594;</span></button>
+        </nav>
         <div className="top-actions">
           <button className="memory-button" onClick={() => setSummaryOpen(true)}><span className="memory-spark">✦</span><span>What should I remember?</span></button>
           <button className="icon-button" onClick={() => setSettingsOpen((value) => !value)} aria-label="Reading settings">Aa</button>
@@ -258,15 +299,17 @@ export default function Home() {
 
       <section className="reading-pane" id="book-reading-pane" ref={readerRef} tabIndex={0} aria-label={`${book.title} reading area`}>
         <article className="page">
-          {book.parts.map((part, index) => <section className="book-part" id={`part-${index}`} key={part.id}>
-            <header className="part-heading" data-minimap-kind="heading" data-minimap-key={`heading:${part.id}`}><p className="kicker">{part.label}</p><h1>{part.title}</h1><div className="ornament"><span /><i /><span /></div></header>
-            {part.blocks.map((block, blockIndex) => block.type === "break" ? <div className="scene-break" data-minimap-kind="break" data-scroll-anchor={`${part.id}:${blockIndex}`} aria-label="Scene break" key={blockIndex}><i /></div> : <p data-minimap-kind="paragraph" data-scroll-anchor={`${part.id}:${blockIndex}`} key={blockIndex} dangerouslySetInnerHTML={{ __html: block.html }} />)}
-          </section>)}
-          <div className="end-mark"><i />End<i /></div>
+          <section className="book-part" id={`part-${partIndex}`} key={activePart.id}>
+            {activeSections.map((blocks, sectionIndex) => <section className="part-section" data-reader-section data-scroll-anchor={`${activePart.id}:section:${sectionIndex}`} key={`${activePart.id}:section:${sectionIndex}`}>
+              {sectionIndex === 0 && <header className="part-heading" data-minimap-kind="heading" data-minimap-key={`heading:${activePart.id}`}><p className="kicker">{activePart.label}</p><h1>{activePart.title}</h1><div className="ornament"><span /><i /><span /></div></header>}
+              {blocks.map((block, blockIndex) => block.type === "break" ? <div className="scene-break" data-minimap-kind="break" data-scroll-anchor={`${activePart.id}:${sectionIndex}:${blockIndex}`} aria-label="Scene break" key={blockIndex}><i /></div> : <p data-minimap-kind="paragraph" data-scroll-anchor={`${activePart.id}:${sectionIndex}:${blockIndex}`} key={blockIndex} dangerouslySetInnerHTML={{ __html: block.html }} />)}
+            </section>)}
+          </section>
+          <div className="end-mark"><i />End of {activePart.label}<i /></div>
         </article>
       </section>
 
-      <ReaderMinimap ref={minimapRef} book={book} readerRef={readerRef} progress={progress} geometry={readerGeometry}
+      <ReaderMinimap ref={minimapRef} book={book} activePartId={activePart.id} readerRef={readerRef} progress={progress} geometry={readerGeometry}
         onGeometryChange={(nextGeometry) => { readerGeometryRef.current = nextGeometry; setReaderGeometry(nextGeometry); }}
         onNavigation={recordNavigation} onPositionCommit={commitPosition} />
 
@@ -281,9 +324,9 @@ export default function Home() {
         <button className="return-button" onClick={() => { setSummaryOpen(false); setWelcomeOpen(false); }}>Return to the story</button>
       </aside>}
 
-      {contentsOpen && <><div className="scrim" onClick={() => setContentsOpen(false)} /><aside className="left-drawer"><button className="drawer-close" onClick={() => setContentsOpen(false)}>×</button><p className="kicker">Contents</p><h2>{book.title}</h2><nav>{book.parts.map((part, index) => <button className={index === partIndex ? "current" : ""} key={part.id} onClick={() => jumpToPart(index)}><span>{String(index + 1).padStart(2, "0")}</span><b>{part.title}</b></button>)}</nav></aside></>}
+      {contentsOpen && <><div className="scrim" onClick={() => setContentsOpen(false)} /><aside className="left-drawer"><button className="drawer-close" onClick={() => setContentsOpen(false)}>×</button><p className="kicker">Contents</p><h2>{book.title}</h2><nav>{book.parts.map((part, index) => <button className={index === partIndex ? "current" : ""} key={part.id} onClick={() => navigateToPart(index)}><span>{String(index + 1).padStart(2, "0")}</span><b>{part.title}</b></button>)}</nav></aside></>}
 
-      {libraryOpen && <><div className="scrim" onClick={() => setLibraryOpen(false)} /><section className="library-modal"><button className="drawer-close" onClick={() => setLibraryOpen(false)}>×</button><p className="kicker">Your reading room</p><h2>Open another book</h2><p className="modal-copy">EPUB is fully supported in this first release. The format shelf is already shaped for the readers that come next.</p><button className="import-button" onClick={() => fileRef.current?.click()}>Choose an EPUB</button><input ref={fileRef} hidden type="file" accept=".epub,application/epub+zip" onChange={(event) => importFile(event.target.files?.[0])} />{importError && <p className="import-error">{importError}</p>}<div className="format-grid">{formatSupport.map((format) => <div className={format.status} key={format.extension}><span>{format.extension}</span><b>{format.label}</b><small>{format.status === "available" ? "Ready now" : "Adapter ready"}</small></div>)}</div>{book.title !== "Before We Were Us" && <button className="quiet-action" onClick={() => { localStorage.removeItem("story-reader:imported-book"); fetch("/book.json").then((r) => r.json()).then(setBook); setLibraryOpen(false); }}>Return to Before We Were Us</button>}<a className="download-link" href="/before-we-were-us.epub" download>Download this manuscript as EPUB</a></section></>}
+      {libraryOpen && <><div className="scrim" onClick={() => setLibraryOpen(false)} /><section className="library-modal"><button className="drawer-close" onClick={() => setLibraryOpen(false)}>×</button><p className="kicker">Your reading room</p><h2>Open another book</h2><p className="modal-copy">EPUB is fully supported in this first release. The format shelf is already shaped for the readers that come next.</p><button className="import-button" onClick={() => fileRef.current?.click()}>Choose an EPUB</button><input ref={fileRef} hidden type="file" accept=".epub,application/epub+zip" onChange={(event) => importFile(event.target.files?.[0])} />{importError && <p className="import-error">{importError}</p>}<div className="format-grid">{formatSupport.map((format) => <div className={format.status} key={format.extension}><span>{format.extension}</span><b>{format.label}</b><small>{format.status === "available" ? "Ready now" : "Adapter ready"}</small></div>)}</div>{book.title !== "Before We Were Us" && <button className="quiet-action" onClick={() => { localStorage.removeItem("story-reader:imported-book"); fetch("/book.json").then((r) => r.json()).then(openBook); setLibraryOpen(false); }}>Return to Before We Were Us</button>}<a className="download-link" href="/before-we-were-us.epub" download>Download this manuscript as EPUB</a></section></>}
     </main>
   );
 }

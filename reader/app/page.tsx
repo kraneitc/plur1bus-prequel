@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { createBookProgressMap, getOverallBookProgress, resolveOverallBookProgress, snapOverallBookProgress, type BookProgressMap } from "./book-progress";
 import { formatSupport, parseEpub, splitPartSections, type ReaderBook } from "./formats";
 import { getRecap } from "./recaps";
+import { createReadingLocation, readReadingLocation, type ReadingLocation } from "./reading-position";
 import { ReaderMinimap, defaultReaderGeometry, getReaderGeometry, type ReaderGeometry, type ReaderMinimapHandle } from "./reader-minimap";
 import {
   captureScrollPoint,
@@ -22,15 +23,35 @@ type Preferences = { fontSize: number; lineHeight: number; measure: number };
 const defaultPreferences: Preferences = { fontSize: 22, lineHeight: 1.5, measure: 68 };
 const builtInKey = "before-we-were-us";
 const positionCommitInterval = 80;
+const bookmarkReturnInset = 32;
 const emptyBookProgressMap = createBookProgressMap([]);
 
 function storageKey(book: ReaderBook) { return `story-reader:${book.title.toLowerCase().replace(/\W+/g, "-")}`; }
 function partProgressKey(book: ReaderBook, partId: string) { return `${storageKey(book)}:part:${partId}:progress`; }
 function partHistoryKey(book: ReaderBook, partId: string) { return `${storageKey(book)}:part:${partId}:scroll-history`; }
+function readingLocationKey(book: ReaderBook) { return `${storageKey(book)}:reading-location`; }
+function bookmarkLocationKey(book: ReaderBook) { return `${storageKey(book)}:bookmark-location`; }
+function clampProgress(value: number) { return Number.isFinite(value) ? Math.max(0, Math.min(1, value)) : 0; }
+function createProgressPoint(progress: number): ScrollPoint { return { anchor: null, anchorOffset: 0, progress: clampProgress(progress), scrollTop: 0 }; }
+function writeReadingLocation(book: ReaderBook, location: ReadingLocation) {
+  localStorage.setItem(readingLocationKey(book), JSON.stringify(location));
+  localStorage.setItem(`${storageKey(book)}:part-index`, String(location.partIndex));
+  localStorage.setItem(partProgressKey(book, location.partId), String(location.point.progress));
+}
+function getScrollTarget(reader: HTMLElement, point: ScrollPoint) {
+  const range = Math.max(0, reader.scrollHeight - reader.clientHeight);
+  let target = point.progress * range;
+  if (point.anchor) {
+    const anchor = Array.from(reader.querySelectorAll<HTMLElement>("[data-scroll-anchor]")).find((element) => element.dataset.scrollAnchor === point.anchor);
+    if (anchor) target = getElementScrollTop(reader, anchor) + point.anchorOffset * anchor.offsetHeight;
+  }
+  return Math.max(0, Math.min(range, target));
+}
 
 export default function Home() {
   const readerRef = useRef<HTMLElement>(null);
   const minimapRef = useRef<ReaderMinimapHandle>(null);
+  const mainBookmarkRef = useRef<HTMLButtonElement>(null);
   const statusProgressRef = useRef<HTMLElement>(null);
   const statusPercentRef = useRef<HTMLSpanElement>(null);
   const readerGeometryRef = useRef<ReaderGeometry>(defaultReaderGeometry);
@@ -41,13 +62,17 @@ export default function Home() {
   const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const positionCommitTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const pendingPartProgressRef = useRef(0);
+  const pendingScrollPointRef = useRef<ScrollPoint | null>(null);
+  const pendingScrollInsetRef = useRef(0);
   const pendingWelcomeRef = useRef(false);
+  const restoringPositionRef = useRef(false);
   const [book, setBook] = useState<ReaderBook | null>(null);
   const [progress, setProgress] = useState(0);
   const [readerGeometry, setReaderGeometry] = useState(defaultReaderGeometry);
   const [partIndex, setPartIndex] = useState(0);
   const [partTransitionDirection, setPartTransitionDirection] = useState<"forward" | "backward" | null>(null);
   const [partProgress, setPartProgress] = useState(0);
+  const [sessionBookmark, setSessionBookmark] = useState<ReadingLocation | null>(null);
   const [summaryOpen, setSummaryOpen] = useState(false);
   const [contentsOpen, setContentsOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
@@ -64,23 +89,35 @@ export default function Home() {
 
   const openBook = useCallback((nextBook: ReaderBook) => {
     const key = storageKey(nextBook);
+    const storedLocation = readReadingLocation(localStorage.getItem(readingLocationKey(nextBook)));
+    const storedPartIndex = storedLocation ? nextBook.parts.findIndex((part) => part.id === storedLocation.partId) : -1;
+    const savedLocation = storedLocation && storedPartIndex >= 0
+      ? createReadingLocation(storedLocation.partId, storedPartIndex, storedLocation.point, storedLocation.updatedAt)
+      : null;
+    const storedBookmark = readReadingLocation(localStorage.getItem(bookmarkLocationKey(nextBook)));
+    const storedBookmarkPartIndex = storedBookmark ? nextBook.parts.findIndex((part) => part.id === storedBookmark.partId) : -1;
+    const savedBookmark = storedBookmark && storedBookmarkPartIndex >= 0
+      ? createReadingLocation(storedBookmark.partId, storedBookmarkPartIndex, storedBookmark.point, storedBookmark.updatedAt)
+      : null;
     const savedPartValue = localStorage.getItem(`${key}:part-index`);
-    const legacyProgress = Math.max(0, Math.min(1, Number(localStorage.getItem(`${key}:progress`) || 0)));
+    const legacyProgress = clampProgress(Number(localStorage.getItem(`${key}:progress`) || 0));
     const nextProgressMap = createBookProgressMap(nextBook.parts);
     const legacyLocation = resolveOverallBookProgress(nextProgressMap, legacyProgress);
-    const savedPartIndex = savedPartValue === null
+    const savedPartIndex = savedLocation?.partIndex ?? (savedPartValue === null
       ? legacyLocation.partIndex
-      : Math.max(0, Math.min(nextBook.parts.length - 1, Number(savedPartValue) || 0));
+      : Math.max(0, Math.min(nextBook.parts.length - 1, Number(savedPartValue) || 0)));
     const savedPart = nextBook.parts[savedPartIndex];
-    const savedPartProgress = savedPartValue === null
+    const savedPartProgress = savedLocation?.point.progress ?? (savedPartValue === null
       ? legacyLocation.partProgress
-      : Math.max(0, Math.min(1, Number(localStorage.getItem(partProgressKey(nextBook, savedPart.id)) || 0)));
-
+      : clampProgress(Number(localStorage.getItem(partProgressKey(nextBook, savedPart.id)) || 0)));
     pendingPartProgressRef.current = savedPartProgress;
+    pendingScrollPointRef.current = savedLocation?.point ?? null;
     pendingWelcomeRef.current = savedPartIndex > 0 || savedPartProgress > .004;
+    restoringPositionRef.current = true;
     setPartIndex(savedPartIndex);
     setProgress(savedPartProgress);
     setPartProgress(savedPartProgress);
+    setSessionBookmark(savedBookmark);
     setBook(nextBook);
   }, []);
 
@@ -98,9 +135,15 @@ export default function Home() {
     if (!book || !activePart || !readerRef.current) return;
     const reader = readerRef.current;
     const saved = pendingPartProgressRef.current;
+    const savedPoint = pendingScrollPointRef.current;
+    const savedInset = pendingScrollInsetRef.current;
     pendingPartProgressRef.current = 0;
+    pendingScrollPointRef.current = null;
+    pendingScrollInsetRef.current = 0;
     requestAnimationFrame(() => requestAnimationFrame(() => {
-      reader.scrollTop = saved * Math.max(0, reader.scrollHeight - reader.clientHeight);
+      const target = savedPoint ? getScrollTarget(reader, savedPoint) : saved * Math.max(0, reader.scrollHeight - reader.clientHeight);
+      reader.scrollTop = Math.max(0, target - savedInset);
+      restoringPositionRef.current = false;
       if (pendingWelcomeRef.current && !sessionStorage.getItem(`welcomed:${storageKey(book)}`)) {
         setWelcomeOpen(true);
         sessionStorage.setItem(`welcomed:${storageKey(book)}`, "yes");
@@ -113,6 +156,16 @@ export default function Home() {
     const nextHistory = book && activePart ? readScrollHistory(sessionStorage.getItem(partHistoryKey(book, activePart.id))) : createEmptyScrollHistory();
     scrollHistoryRef.current = nextHistory;
   }, [activePart, book]);
+
+  useEffect(() => {
+    const frame = requestAnimationFrame(() => {
+      const reader = readerRef.current;
+      const marker = mainBookmarkRef.current;
+      if (!reader || !marker || !sessionBookmark || sessionBookmark.partId !== activePart?.id) return;
+      marker.style.top = `${getScrollTarget(reader, sessionBookmark.point)}px`;
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [activePart?.id, preferences, readerGeometry, sessionBookmark]);
 
   useEffect(() => { localStorage.setItem("story-reader:preferences", JSON.stringify(preferences)); }, [preferences]);
 
@@ -127,19 +180,36 @@ export default function Home() {
     if (statusPercentRef.current) statusPercentRef.current.textContent = `${percent}%`;
   }, []);
 
-  const commitPosition = useCallback(() => {
+  const commitPosition = useCallback((immediate = false) => {
     const reader = readerRef.current;
-    if (!reader || !book || !activePart) return;
-    const range = reader.scrollHeight - reader.clientHeight;
-    const next = range > 0 ? reader.scrollTop / range : 0;
+    if (!reader || !book || !activePart || restoringPositionRef.current) return null;
+    const point = captureScrollPoint(reader);
+    const next = point.progress;
+    const location = createReadingLocation(activePart.id, partIndex, point);
     setProgress(next);
     setPartProgress(next);
     if (saveTimer.current) clearTimeout(saveTimer.current);
-    saveTimer.current = setTimeout(() => {
-      localStorage.setItem(`${storageKey(book)}:part-index`, String(partIndex));
-      localStorage.setItem(partProgressKey(book, activePart.id), String(next));
-    }, 180);
+    const save = () => {
+      writeReadingLocation(book, location);
+      saveTimer.current = null;
+    };
+    if (immediate) save();
+    else saveTimer.current = setTimeout(save, 180);
+    return location;
   }, [activePart, book, partIndex]);
+
+  useEffect(() => {
+    const saveStop = () => { commitPosition(true); };
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "hidden") saveStop();
+    };
+    window.addEventListener("pagehide", saveStop);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => {
+      window.removeEventListener("pagehide", saveStop);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, [commitPosition]);
 
   const updateScrollHistory = useCallback((nextHistory: ScrollHistory) => {
     scrollHistoryRef.current = nextHistory;
@@ -156,13 +226,7 @@ export default function Home() {
   const restoreScrollPoint = useCallback((point: ScrollPoint) => {
     const reader = readerRef.current;
     if (!reader) return;
-    const range = Math.max(0, reader.scrollHeight - reader.clientHeight);
-    let target = point.progress * range;
-    if (point.anchor) {
-      const anchor = Array.from(reader.querySelectorAll<HTMLElement>("[data-scroll-anchor]")).find((element) => element.dataset.scrollAnchor === point.anchor);
-      if (anchor) target = getElementScrollTop(reader, anchor) + point.anchorOffset * anchor.offsetHeight;
-    }
-    target = Math.max(0, Math.min(range, target));
+    const target = getScrollTarget(reader, point);
     reader.scrollTo({ top: target, behavior: "auto" });
     applyLivePosition(target);
     commitPosition();
@@ -244,7 +308,7 @@ export default function Home() {
     recordNavigation(captureScrollPoint(reader), target);
     reader.scrollTo({ top: target, behavior: "smooth" });
   };
-  const navigateToPart = (index: number, initialProgress = 0) => {
+  const navigateToPart = (index: number, initialProgress = 0, initialPoint: ScrollPoint | null = null, initialInset = 0) => {
     const reader = readerRef.current;
     if (!book || !activePart || !reader) return;
     const targetIndex = Math.max(0, Math.min(book.parts.length - 1, index));
@@ -252,10 +316,16 @@ export default function Home() {
     if (targetIndex === partIndex) { setContentsOpen(false); return; }
     const range = Math.max(0, reader.scrollHeight - reader.clientHeight);
     const currentProgress = range > 0 ? reader.scrollTop / range : 0;
-    if (saveTimer.current) clearTimeout(saveTimer.current);
+    if (saveTimer.current) { clearTimeout(saveTimer.current); saveTimer.current = null; }
+    if (positionCommitTimer.current) { clearTimeout(positionCommitTimer.current); positionCommitTimer.current = null; }
     localStorage.setItem(partProgressKey(book, activePart.id), String(currentProgress));
-    localStorage.setItem(`${storageKey(book)}:part-index`, String(targetIndex));
+    const targetPart = book.parts[targetIndex];
+    const targetPoint = initialPoint ?? createProgressPoint(targetProgress);
+    writeReadingLocation(book, createReadingLocation(targetPart.id, targetIndex, targetPoint));
     pendingPartProgressRef.current = targetProgress;
+    pendingScrollPointRef.current = initialPoint;
+    pendingScrollInsetRef.current = Math.max(0, initialInset);
+    restoringPositionRef.current = true;
     scrollHistoryRef.current = createEmptyScrollHistory();
     reader.scrollTop = 0;
     setProgress(targetProgress);
@@ -274,6 +344,26 @@ export default function Home() {
     navigateToPart(location.partIndex, location.partProgress);
   };
 
+  const returnToSessionBookmark = () => {
+    const reader = readerRef.current;
+    if (!sessionBookmark || !reader) return;
+    if (sessionBookmark.partIndex !== partIndex) {
+      navigateToPart(sessionBookmark.partIndex, sessionBookmark.point.progress, sessionBookmark.point, bookmarkReturnInset);
+      return;
+    }
+    const target = Math.max(0, getScrollTarget(reader, sessionBookmark.point) - bookmarkReturnInset);
+    recordNavigation(captureScrollPoint(reader), target, true);
+    reader.scrollTo({ top: target, behavior: "smooth" });
+  };
+
+  const setBookmarkHere = () => {
+    if (!book) return;
+    const location = commitPosition(true);
+    if (!location) return;
+    localStorage.setItem(bookmarkLocationKey(book), JSON.stringify(location));
+    setSessionBookmark(location);
+  };
+
   const importFile = async (file?: File) => {
     if (!file) return;
     setImportError("");
@@ -288,8 +378,16 @@ export default function Home() {
 
   const recap = getRecap(partIndex, partProgress);
   const overallProgress = getOverallBookProgress(bookProgressMap, partIndex, progress);
+  const sessionBookmarkOverallProgress = sessionBookmark
+    ? getOverallBookProgress(bookProgressMap, sessionBookmark.partIndex, sessionBookmark.point.progress)
+    : null;
 
   if (!book || !activePart) return <main className="loading-room"><span>Preparing your place in the story…</span></main>;
+  const sessionBookmarkPart = sessionBookmark ? book.parts[sessionBookmark.partIndex] : null;
+  const sessionBookmarkLabel = sessionBookmark && sessionBookmarkPart
+    ? `Return to bookmark: ${sessionBookmarkPart.label}, ${Math.round(sessionBookmark.point.progress * 100)}%`
+    : "Return to bookmark";
+  const bookmarkActionLabel = sessionBookmark ? "Move bookmark to current position" : "Bookmark current position";
 
   return (
     <main className="reader-shell" style={{ "--reader-size": `${preferences.fontSize}px`, "--reader-leading": preferences.lineHeight, "--reader-measure": `${preferences.measure}ch` } as React.CSSProperties}>
@@ -307,6 +405,7 @@ export default function Home() {
           <button type="button" onClick={() => navigateToPart(partIndex + 1)} disabled={partIndex === book.parts.length - 1} aria-label="Next part" title="Next part"><span aria-hidden="true">&#8594;</span></button>
         </nav>
         <div className="top-actions">
+          <button className={`bookmark-action${sessionBookmark ? " has-bookmark" : ""}`} onClick={setBookmarkHere} aria-label={bookmarkActionLabel} title={bookmarkActionLabel}><span className="bookmark-action-icon" aria-hidden="true" /></button>
           <button className="memory-button" onClick={() => setSummaryOpen(true)} aria-label="What should I remember?" title="What should I remember?"><span className="memory-spark" aria-hidden="true">✦</span></button>
           <button className="icon-button" onClick={() => setSettingsOpen((value) => !value)} aria-label="Reading settings">Aa</button>
         </div>
@@ -321,6 +420,9 @@ export default function Home() {
 
       <section className="reading-pane" id="book-reading-pane" ref={readerRef} tabIndex={0} aria-label={`${book.title} reading area`}>
         <article className={`page${partTransitionDirection ? ` part-enter-${partTransitionDirection}` : ""}`} key={activePart.id}>
+          {sessionBookmark?.partId === activePart.id && <button className="reading-bookmark" ref={mainBookmarkRef} type="button"
+            style={{ top: `${sessionBookmark.point.progress * Math.max(0, readerGeometry.scrollSize - readerGeometry.viewportSize)}px` }}
+            onClick={returnToSessionBookmark} aria-label={sessionBookmarkLabel} title={sessionBookmarkLabel}><span aria-hidden="true" /></button>}
           <section className="book-part" id={`part-${partIndex}`} key={activePart.id}>
             {activeSections.map((blocks, sectionIndex) => <section className="part-section" data-reader-section data-scroll-anchor={`${activePart.id}:section:${sectionIndex}`} key={`${activePart.id}:section:${sectionIndex}`}>
               {sectionIndex === 0 && <header className="part-heading" data-minimap-kind="heading" data-minimap-key={`heading:${activePart.id}`}><p className="kicker">{activePart.label}</p><h1>{activePart.title}</h1><div className="ornament"><span /><i /><span /></div></header>}
@@ -332,10 +434,21 @@ export default function Home() {
       </section>
 
       <ReaderMinimap ref={minimapRef} book={book} activePartId={activePart.id} readerRef={readerRef} progress={progress} geometry={readerGeometry}
+        bookmarkProgress={sessionBookmark?.partId === activePart.id ? sessionBookmark.point.progress : null}
         onGeometryChange={(nextGeometry) => { readerGeometryRef.current = nextGeometry; setReaderGeometry(nextGeometry); }}
-        onNavigation={recordNavigation} />
+        onNavigation={recordNavigation} onBookmarkNavigation={returnToSessionBookmark} />
 
-      <footer className="statusbar"><span>Part {partIndex + 1} of {book.parts.length}</span><button className="status-line" aria-label="Position in the entire text" onClick={(event) => { const rect = event.currentTarget.getBoundingClientRect(); const rawProgress = (event.clientX - rect.left) / rect.width; const snappedProgress = snapOverallBookProgress(bookProgressMap, rawProgress, Math.min(.07, 10 / Math.max(1, rect.width))); jumpToOverallProgress(snappedProgress); }}><span className="status-track" /><span className="status-progress" ref={statusProgressRef} style={{ width: `${overallProgress * 100}%` }} />{bookProgressMap.boundaries.map((boundary, index) => <span className="status-part-guide" aria-hidden="true" style={{ left: `${boundary * 100}%` }} key={index} />)}</button><span ref={statusPercentRef}>{Math.round(overallProgress * 100)}%</span></footer>
+      <footer className="statusbar">
+        <span>Part {partIndex + 1} of {book.parts.length}</span>
+        <div className="status-line">
+          <button className="status-position-control" aria-label="Position in the entire text" onClick={(event) => { const rect = event.currentTarget.getBoundingClientRect(); const rawProgress = (event.clientX - rect.left) / rect.width; const snappedProgress = snapOverallBookProgress(bookProgressMap, rawProgress, Math.min(.07, 10 / Math.max(1, rect.width))); jumpToOverallProgress(snappedProgress); }}>
+            <span className="status-track" /><span className="status-progress" ref={statusProgressRef} style={{ width: `${overallProgress * 100}%` }} />
+            {bookProgressMap.boundaries.map((boundary, index) => <span className="status-part-guide" aria-hidden="true" style={{ left: `${boundary * 100}%` }} key={index} />)}
+          </button>
+          {sessionBookmarkOverallProgress !== null && <button className="status-bookmark" type="button" style={{ left: `${sessionBookmarkOverallProgress * 100}%` }} onClick={returnToSessionBookmark} aria-label={sessionBookmarkLabel} title={sessionBookmarkLabel}><span aria-hidden="true" /></button>}
+        </div>
+        <span ref={statusPercentRef}>{Math.round(overallProgress * 100)}%</span>
+      </footer>
 
       {(summaryOpen || welcomeOpen) && <div className="scrim" onClick={() => { setSummaryOpen(false); setWelcomeOpen(false); }} />}
       {(summaryOpen || welcomeOpen) && <aside className="memory-drawer open" aria-live="polite">

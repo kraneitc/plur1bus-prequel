@@ -66,9 +66,11 @@ type ReaderMinimapProps = {
   activePartId: string;
   readerRef: RefObject<HTMLElement | null>;
   progress: number;
+  bookmarkProgress: number | null;
   geometry: ReaderGeometry;
   onGeometryChange: (geometry: ReaderGeometry) => void;
   onNavigation: (origin: ScrollPoint, destination: number, force?: boolean) => void;
+  onBookmarkNavigation: () => void;
 };
 
 type MinimapDrag = {
@@ -86,9 +88,11 @@ export const ReaderMinimap = forwardRef<ReaderMinimapHandle, ReaderMinimapProps>
   activePartId,
   readerRef,
   progress,
+  bookmarkProgress,
   geometry,
   onGeometryChange,
   onNavigation,
+  onBookmarkNavigation,
 }, forwardedRef) {
   const minimapRef = useRef<HTMLElement>(null);
   const positionControlRef = useRef<HTMLDivElement>(null);
@@ -208,6 +212,9 @@ export const ReaderMinimap = forwardRef<ReaderMinimapHandle, ReaderMinimapProps>
   const scrollbarThumbStyle = { top: `${scrollbarMetrics.thumbTop}px`, height: `${scrollbarMetrics.thumbSize}px` };
   const previousSectionStyle = { top: `${minimapTrackInsetTop + previewMetrics.thumbTop}px` };
   const nextSectionStyle = { top: `${minimapTrackInsetTop + previewMetrics.thumbTop + previewMetrics.thumbSize}px` };
+  const bookmarkStyle = bookmarkProgress === null ? undefined : {
+    top: `${minimapTrackInsetTop + Math.max(0, Math.min(1, bookmarkProgress)) * geometry.trackSize}px`,
+  };
 
   const beginDrag = (event: React.PointerEvent<HTMLElement>) => {
     if (!event.isPrimary || (event.pointerType === "mouse" && event.button !== 0)) return;
@@ -315,6 +322,11 @@ export const ReaderMinimap = forwardRef<ReaderMinimapHandle, ReaderMinimapProps>
       <div className="map-scrollbar-track" />
       <div className="map-scrollbar-thumb" ref={scrollbarThumbRef} style={scrollbarThumbStyle} />
     </div>
+    {bookmarkProgress !== null && <button className="map-bookmark" type="button" style={bookmarkStyle} onClick={onBookmarkNavigation}
+      aria-label={`Return to bookmark, ${Math.round(bookmarkProgress * 100)}% through this part`} title="Return to bookmark"
+      onPointerDown={stopSectionControlPointer} onPointerMove={stopSectionControlPointer} onPointerUp={stopSectionControlPointer} onPointerCancel={stopSectionControlPointer} onKeyDown={stopSectionControlKey}>
+      <span aria-hidden="true" />
+    </button>}
     <button className="map-section-button previous" ref={previousSectionRef} type="button" style={previousSectionStyle} aria-label="Previous section" title="Previous section"
       onClick={() => navigateSection(-1)} onPointerDown={stopSectionControlPointer} onPointerMove={stopSectionControlPointer} onPointerUp={stopSectionControlPointer} onPointerCancel={stopSectionControlPointer} onKeyDown={stopSectionControlKey}>
       <span aria-hidden="true">&#8593;</span>

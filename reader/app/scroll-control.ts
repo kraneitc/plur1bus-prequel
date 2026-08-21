@@ -7,6 +7,11 @@ export type ScrollbarMetrics = {
   thumbTravel: number;
 };
 
+export type MinimapPreviewMetrics = ScrollbarMetrics & {
+  contentSize: number;
+  contentOffset: number;
+};
+
 function clamp(value: number, minimum: number, maximum: number) {
   return Math.max(minimum, Math.min(maximum, value));
 }
@@ -58,6 +63,37 @@ export function getScrollbarVisualMetrics(
     clamp(progress, 0, 1) * Math.max(0, 1 - safeViewportRatio),
     minimumThumbSize,
   );
+}
+
+export function getMinimapPreviewMetrics(
+  trackSize: number,
+  viewportSize: number,
+  scrollSize: number,
+  scrollPosition: number,
+  previewScale: number,
+): MinimapPreviewMetrics {
+  const safeTrackSize = Math.max(0, trackSize);
+  const safeScrollSize = Math.max(0, scrollSize);
+  const safeViewportSize = clamp(viewportSize, 0, safeScrollSize || viewportSize);
+  const safeScale = Math.max(0, previewScale);
+  const scrollRange = Math.max(0, safeScrollSize - safeViewportSize);
+  const contentSize = safeScrollSize * safeScale;
+  const thumbSize = Math.min(safeTrackSize, safeViewportSize * safeScale);
+  const contentTravel = Math.max(0, contentSize - thumbSize);
+  const thumbTravel = Math.min(Math.max(0, safeTrackSize - thumbSize), contentTravel);
+  const progress = scrollRange > 0 ? clamp(scrollPosition / scrollRange, 0, 1) : 0;
+  const thumbTop = progress * thumbTravel;
+  const unclampedOffset = thumbTop - clamp(scrollPosition, 0, scrollRange) * safeScale;
+  const contentOffset = clamp(unclampedOffset, Math.min(0, safeTrackSize - contentSize), 0);
+
+  return {
+    scrollRange,
+    thumbSize,
+    thumbTop,
+    thumbTravel,
+    contentSize,
+    contentOffset,
+  };
 }
 
 export function getScrollPositionForPointer(

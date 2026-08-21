@@ -3,26 +3,34 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { formatSupport, parseEpub, type ReaderBook } from "./formats";
 import { getRecap } from "./recaps";
-import { getScrollbarMetrics, getScrollbarVisualMetrics, getScrollPositionForPointer } from "./scroll-control";
+import { getMinimapPreviewMetrics, getScrollbarMetrics, getScrollPositionForPointer } from "./scroll-control";
 
 type Preferences = { fontSize: number; lineHeight: number; measure: number };
 const defaultPreferences: Preferences = { fontSize: 22, lineHeight: 1.5, measure: 68 };
 const builtInKey = "before-we-were-us";
+const minimapLinePitch = 3;
+const minimapScrollbarWidth = 14;
 
 function storageKey(book: ReaderBook) { return `story-reader:${book.title.toLowerCase().replace(/\W+/g, "-")}`; }
+
+function getMinimapScale(reader: HTMLElement) {
+  const page = reader.querySelector<HTMLElement>(".page");
+  const lineHeight = page ? Number.parseFloat(getComputedStyle(page).lineHeight) : 0;
+  return minimapLinePitch / (lineHeight || defaultPreferences.fontSize * defaultPreferences.lineHeight);
+}
 
 export default function Home() {
   const readerRef = useRef<HTMLElement>(null);
   const minimapRef = useRef<HTMLElement>(null);
   const minimapTrackRef = useRef<HTMLDivElement>(null);
-  const minimapDrag = useRef<{ pointerId: number; grabOffset: number } | null>(null);
+  const minimapDrag = useRef<{ pointerId: number; grabOffset: number; target: "preview" | "scrollbar" } | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
   const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const scrollRevealTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [book, setBook] = useState<ReaderBook | null>(null);
   const [progress, setProgress] = useState(0);
-  const [viewportRatio, setViewportRatio] = useState(1);
   const [minimapTrackSize, setMinimapTrackSize] = useState(0);
+  const [readerGeometry, setReaderGeometry] = useState({ viewportSize: 0, scrollSize: 0, previewScale: minimapLinePitch / (defaultPreferences.fontSize * defaultPreferences.lineHeight) });
   const [partIndex, setPartIndex] = useState(0);
   const [partProgress, setPartProgress] = useState(0);
   const [summaryOpen, setSummaryOpen] = useState(false);
@@ -64,7 +72,8 @@ export default function Home() {
     const range = reader.scrollHeight - reader.clientHeight;
     const next = range > 0 ? reader.scrollTop / range : 0;
     setProgress(next);
-    setViewportRatio(reader.scrollHeight > 0 ? Math.min(1, reader.clientHeight / reader.scrollHeight) : 1);
+    const nextGeometry = { viewportSize: reader.clientHeight, scrollSize: reader.scrollHeight, previewScale: getMinimapScale(reader) };
+    setReaderGeometry((current) => current.viewportSize === nextGeometry.viewportSize && current.scrollSize === nextGeometry.scrollSize && current.previewScale === nextGeometry.previewScale ? current : nextGeometry);
     const sections = Array.from(reader.querySelectorAll<HTMLElement>(".book-part"));
     const focus = reader.scrollTop + reader.clientHeight * .36;
     let current = 0;
@@ -129,13 +138,16 @@ export default function Home() {
     event.preventDefault();
     const element = event.currentTarget;
     const rect = track.getBoundingClientRect();
-    const metrics = getScrollbarMetrics(rect.height, reader.clientHeight, reader.scrollHeight, reader.scrollTop);
+    const target = event.clientX >= rect.right - minimapScrollbarWidth ? "scrollbar" : "preview";
+    const metrics = target === "scrollbar"
+      ? getScrollbarMetrics(rect.height, reader.clientHeight, reader.scrollHeight, reader.scrollTop)
+      : getMinimapPreviewMetrics(rect.height, reader.clientHeight, reader.scrollHeight, reader.scrollTop, getMinimapScale(reader));
     const pointerOffset = Math.max(0, Math.min(rect.height, event.clientY - rect.top));
     const withinThumb = pointerOffset >= metrics.thumbTop && pointerOffset <= metrics.thumbTop + metrics.thumbSize;
     const grabOffset = withinThumb ? pointerOffset - metrics.thumbTop : metrics.thumbSize / 2;
 
     if (!withinThumb) reader.scrollTop = getScrollPositionForPointer(pointerOffset, grabOffset, metrics);
-    minimapDrag.current = { pointerId: event.pointerId, grabOffset };
+    minimapDrag.current = { pointerId: event.pointerId, grabOffset, target };
     element.dataset.dragging = "true";
     element.focus({ preventScroll: true });
     element.setPointerCapture(event.pointerId);
@@ -151,7 +163,9 @@ export default function Home() {
     const samples = event.nativeEvent.getCoalescedEvents?.() ?? [];
     const latest = samples.at(-1) ?? event.nativeEvent;
     const rect = track.getBoundingClientRect();
-    const metrics = getScrollbarMetrics(rect.height, reader.clientHeight, reader.scrollHeight, reader.scrollTop);
+    const metrics = drag.target === "scrollbar"
+      ? getScrollbarMetrics(rect.height, reader.clientHeight, reader.scrollHeight, reader.scrollTop)
+      : getMinimapPreviewMetrics(rect.height, reader.clientHeight, reader.scrollHeight, reader.scrollTop, getMinimapScale(reader));
     reader.scrollTop = getScrollPositionForPointer(latest.clientY - rect.top, drag.grabOffset, metrics);
   };
 
@@ -194,7 +208,7 @@ export default function Home() {
   const mapLines = useMemo(() => {
     const blocks = book?.parts.flatMap((part) => part.blocks.map((block, index) => ({ block, partStart: index === 0 }))) ?? [];
     if (!blocks.length) return [];
-    const lineCount = Math.min(240, blocks.length);
+    const lineCount = Math.min(4000, blocks.length);
     return Array.from({ length: lineCount }, (_, index) => {
       const start = Math.floor(index * blocks.length / lineCount);
       const end = Math.max(start + 1, Math.floor((index + 1) * blocks.length / lineCount));
@@ -208,8 +222,14 @@ export default function Home() {
       };
     });
   }, [book]);
-  const minimapMetrics = getScrollbarVisualMetrics(minimapTrackSize, viewportRatio, progress);
-  const minimapThumbStyle = { top: `${minimapMetrics.thumbTop}px`, height: `${minimapMetrics.thumbSize}px` };
+  const mapLineElements = useMemo(() => mapLines.map((line) => <i key={line.index} className={`${line.break ? "break" : ""} ${line.partStart ? "part-start" : ""}`} style={{ width: `${line.width}%` }} />), [mapLines]);
+  const scrollRange = Math.max(0, readerGeometry.scrollSize - readerGeometry.viewportSize);
+  const scrollPosition = progress * scrollRange;
+  const minimapPreviewMetrics = getMinimapPreviewMetrics(minimapTrackSize, readerGeometry.viewportSize, readerGeometry.scrollSize, scrollPosition, readerGeometry.previewScale);
+  const scrollbarMetrics = getScrollbarMetrics(minimapTrackSize, readerGeometry.viewportSize, readerGeometry.scrollSize, scrollPosition);
+  const minimapViewportStyle = { top: `${minimapPreviewMetrics.thumbTop}px`, height: `${minimapPreviewMetrics.thumbSize}px` };
+  const minimapTapeStyle = { height: `${minimapPreviewMetrics.contentSize}px`, transform: `translate3d(0, ${minimapPreviewMetrics.contentOffset}px, 0)`, "--map-line-count": mapLines.length } as React.CSSProperties;
+  const scrollbarThumbStyle = { top: `${scrollbarMetrics.thumbTop}px`, height: `${scrollbarMetrics.thumbSize}px` };
 
   if (!book) return <main className="loading-room"><span>Preparing your place in the story…</span></main>;
 
@@ -248,11 +268,11 @@ export default function Home() {
         onPointerDown={beginMinimapDrag} onPointerMove={moveMinimapDrag} onPointerUp={endMinimapDrag} onPointerCancel={endMinimapDrag} onLostPointerCapture={endMinimapDrag}
         onWheel={(event) => { event.preventDefault(); const unit = event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? (readerRef.current?.clientHeight ?? 1) : 1; moveReaderBy(event.deltaY * unit); }}
         onKeyDown={handleMinimapKey}>
-        <div className="map-tape" aria-hidden="true" style={{ "--map-line-count": mapLines.length } as React.CSSProperties}>{mapLines.map((line) => <i key={line.index} className={`${line.break ? "break" : ""} ${line.partStart ? "part-start" : ""}`} style={{ width: `${line.width}%` }} />)}</div>
         <div className="map-scroll-area" ref={minimapTrackRef} aria-hidden="true">
-          <div className="map-viewport" style={minimapThumbStyle} />
+          <div className="map-tape" style={minimapTapeStyle}>{mapLineElements}</div>
+          <div className="map-viewport" style={minimapViewportStyle} />
           <div className="map-scrollbar-track" />
-          <div className="map-scrollbar-thumb" style={minimapThumbStyle} />
+          <div className="map-scrollbar-thumb" style={scrollbarThumbStyle} />
         </div>
         <span className="map-progress">{Math.round(progress * 100)}%</span>
       </div>

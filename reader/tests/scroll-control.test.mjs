@@ -73,14 +73,15 @@ test("pans an overflowing preview on a different travel range", () => {
   assert.equal(end.contentOffset, -500);
 });
 
-test("keeps direct dragging free of smooth-scroll tweening", async () => {
+test("uses the shared smooth movement for direct minimap navigation", async () => {
   const [css, minimap] = await Promise.all([
     readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
     readFile(new URL("../app/reader-minimap.tsx", import.meta.url), "utf8"),
   ]);
 
   assert.match(css, /\.reading-pane\s*\{[^}]*scroll-behavior:\s*auto/);
-  assert.match(minimap, /reader\.scrollTop\s*=\s*getScrollPositionForPointer/);
+  assert.match(minimap, /reader\.scrollTo\(\{ top: drag\.destination, behavior: "smooth" \}\)/);
+  assert.match(minimap, /reader\.scrollTo\(\{ top: next, behavior: "smooth" \}\)/);
 });
 
 test("keeps layout measurement and React commits out of pointer movement", async () => {
@@ -140,7 +141,7 @@ test("keeps section navigation attached to the viewport and separate from draggi
   assert.match(minimap, /previousSectionRef\.current\.disabled =/);
   assert.match(minimap, /nextSectionRef\.current\.disabled =/);
   assert.match(minimap, /onNavigation\(captureScrollPoint\(reader\), target, true\)/);
-  assert.match(minimap, /reader\.scrollTop = target/);
+  assert.match(minimap, /reader\.scrollTo\(\{ top: target, behavior: "smooth" \}\)/);
   assert.match(minimap, /onPointerDown=\{stopSectionControlPointer\}/);
   assert.match(page, /\(!force && !isMeaningfulScrollJump/);
   assert.match(css, /\.map-section-button[^}]*translate:\s*0 -50%/);

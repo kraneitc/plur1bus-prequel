@@ -69,8 +69,6 @@ type ReaderMinimapProps = {
   geometry: ReaderGeometry;
   onGeometryChange: (geometry: ReaderGeometry) => void;
   onNavigation: (origin: ScrollPoint, destination: number, force?: boolean) => void;
-  onPositionCommit: () => void;
-  onSectionMovement: (direction: -1 | 1) => void;
 };
 
 type MinimapDrag = {
@@ -80,6 +78,7 @@ type MinimapDrag = {
   metrics: ReturnType<typeof getScrollbarMetrics>;
   geometry: ReaderGeometry;
   origin: ScrollPoint;
+  destination: number;
 };
 
 export const ReaderMinimap = forwardRef<ReaderMinimapHandle, ReaderMinimapProps>(function ReaderMinimap({
@@ -90,8 +89,6 @@ export const ReaderMinimap = forwardRef<ReaderMinimapHandle, ReaderMinimapProps>
   geometry,
   onGeometryChange,
   onNavigation,
-  onPositionCommit,
-  onSectionMovement,
 }, forwardedRef) {
   const minimapRef = useRef<HTMLElement>(null);
   const positionControlRef = useRef<HTMLDivElement>(null);
@@ -230,10 +227,10 @@ export const ReaderMinimap = forwardRef<ReaderMinimapHandle, ReaderMinimapProps>
     const withinThumb = pointerOffset >= metrics.thumbTop && pointerOffset <= metrics.thumbTop + metrics.thumbSize;
     const grabOffset = withinThumb ? pointerOffset - metrics.thumbTop : metrics.thumbSize / 2;
 
-    dragRef.current = { pointerId: event.pointerId, grabOffset, trackTop: rect.top, metrics, geometry: nextGeometry, origin: captureScrollPoint(reader) };
+    const destination = withinThumb ? reader.scrollTop : getScrollPositionForPointer(pointerOffset, grabOffset, metrics);
+    dragRef.current = { pointerId: event.pointerId, grabOffset, trackTop: rect.top, metrics, geometry: nextGeometry, origin: captureScrollPoint(reader), destination };
     if (!withinThumb) {
-      reader.scrollTop = getScrollPositionForPointer(pointerOffset, grabOffset, metrics);
-      applyPosition(reader.scrollTop, nextGeometry);
+      reader.scrollTo({ top: destination, behavior: "smooth" });
     }
     element.dataset.dragging = "true";
     positionControlRef.current?.focus({ preventScroll: true });
@@ -248,8 +245,8 @@ export const ReaderMinimap = forwardRef<ReaderMinimapHandle, ReaderMinimapProps>
     event.preventDefault();
     const samples = event.nativeEvent.getCoalescedEvents?.() ?? [];
     const latest = samples.at(-1) ?? event.nativeEvent;
-    reader.scrollTop = getScrollPositionForPointer(latest.clientY - drag.trackTop, drag.grabOffset, drag.metrics);
-    applyPosition(reader.scrollTop, drag.geometry);
+    drag.destination = getScrollPositionForPointer(latest.clientY - drag.trackTop, drag.grabOffset, drag.metrics);
+    reader.scrollTo({ top: drag.destination, behavior: "smooth" });
   };
 
   const endDrag = (event: React.PointerEvent<HTMLElement>) => {
@@ -260,8 +257,7 @@ export const ReaderMinimap = forwardRef<ReaderMinimapHandle, ReaderMinimapProps>
     delete event.currentTarget.dataset.dragging;
     if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
     onGeometryChange(drag.geometry);
-    onNavigation(drag.origin, reader.scrollTop);
-    onPositionCommit();
+    onNavigation(drag.origin, drag.destination);
   };
 
   const handleKey = (event: React.KeyboardEvent<HTMLElement>) => {
@@ -277,7 +273,7 @@ export const ReaderMinimap = forwardRef<ReaderMinimapHandle, ReaderMinimapProps>
     if (next === null) return;
     event.preventDefault();
     if (event.key === "Home" || event.key === "End") onNavigation(captureScrollPoint(reader), next);
-    reader.scrollTop = next;
+    reader.scrollTo({ top: next, behavior: "smooth" });
   };
 
   const handleWheel = (event: React.WheelEvent<HTMLElement>) => {
@@ -303,11 +299,7 @@ export const ReaderMinimap = forwardRef<ReaderMinimapHandle, ReaderMinimapProps>
 
     const target = Math.max(0, Math.min(reader.scrollHeight - reader.clientHeight, offsets[targetIndex]));
     onNavigation(captureScrollPoint(reader), target, true);
-    reader.scrollTop = target;
-    onSectionMovement(direction);
-    const nextGeometry = getReaderGeometry(reader, trackRef.current?.clientHeight ?? geometry.trackSize);
-    applyPosition(target, nextGeometry, true);
-    onPositionCommit();
+    reader.scrollTo({ top: target, behavior: "smooth" });
   };
 
   const stopSectionControlPointer = (event: React.PointerEvent<HTMLButtonElement>) => event.stopPropagation();

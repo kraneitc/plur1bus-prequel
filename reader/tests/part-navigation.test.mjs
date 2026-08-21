@@ -63,7 +63,7 @@ test("mounts one part while keeping part and section navigation distinct", async
   assert.match(page, /aria-label="Position in the entire text"/);
   assert.match(page, /bookProgressMap\.boundaries\.map/);
   assert.match(page, /part-enter-\$\{partTransitionDirection\}/);
-  assert.match(page, /onSectionMovement=\{cueSectionMovement\}/);
+  assert.match(minimap, /reader\.scrollTo\(\{ top: target, behavior: "smooth" \}\)/);
   assert.match(minimap, /querySelectorAll<HTMLElement>\("\[data-reader-section\]"\)/);
   assert.match(minimap, /aria-label="Previous section"/);
   assert.match(minimap, /aria-label="Next section"/);
@@ -79,10 +79,10 @@ test("mounts one part while keeping part and section navigation distinct", async
   assert.match(css, /\.floating-card[^}]*position:\s*fixed/);
   assert.match(css, /\.settings-drag-handle[^}]*touch-action:\s*none/);
   assert.match(page, /partDuration/);
-  assert.match(page, /sectionDistance/);
+  assert.doesNotMatch(page, /sectionDistance/);
+  assert.match(page, /partDuration:\s*270,\s*partDistance:\s*92,\s*partOpacity:\s*5,\s*partEasing:\s*"ease-in-out"/);
   assert.match(page, /Reset animation defaults/);
   assert.match(css, /\.page\.part-enter-forward[^}]*var\(--part-motion-duration\)/);
   assert.match(css, /@keyframes part-enter-forward[^}]*var\(--part-motion-distance\)/);
-  assert.match(css, /\.page\.section-enter-down[^}]*var\(--section-motion-duration\)/);
-  assert.match(css, /@keyframes section-enter-down[^}]*var\(--section-motion-distance\)/);
+  assert.doesNotMatch(css, /section-enter-down/);
 });

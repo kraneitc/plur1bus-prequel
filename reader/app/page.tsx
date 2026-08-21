@@ -19,10 +19,10 @@ import {
 } from "./scroll-history";
 
 type Preferences = { fontSize: number; lineHeight: number; measure: number };
-type AnimationTuning = { partDuration: number; partDistance: number; partOpacity: number; partEasing: string; sectionDuration: number; sectionDistance: number; sectionOpacity: number };
+type AnimationTuning = { partDuration: number; partDistance: number; partOpacity: number; partEasing: string };
 type SettingsDrag = { pointerId: number; startX: number; startY: number; originX: number; originY: number; minX: number; maxX: number; minY: number; maxY: number };
 const defaultPreferences: Preferences = { fontSize: 22, lineHeight: 1.5, measure: 68 };
-const defaultAnimationTuning: AnimationTuning = { partDuration: 240, partDistance: 36, partOpacity: 35, partEasing: "cubic-bezier(.22,1,.36,1)", sectionDuration: 125, sectionDistance: 12, sectionOpacity: 92 };
+const defaultAnimationTuning: AnimationTuning = { partDuration: 270, partDistance: 92, partOpacity: 5, partEasing: "ease-in-out" };
 const builtInKey = "before-we-were-us";
 const positionCommitInterval = 80;
 const emptyBookProgressMap = createBookProgressMap([]);
@@ -296,14 +296,6 @@ export default function Home() {
   const recap = getRecap(partIndex, partProgress);
   const overallProgress = getOverallBookProgress(bookProgressMap, partIndex, progress);
   const partEasingLabel = animationTuning.partEasing.startsWith("cubic-bezier") ? "Polished" : animationTuning.partEasing;
-  const cueSectionMovement = useCallback((direction: -1 | 1) => {
-    const page = readerRef.current?.querySelector<HTMLElement>(".page");
-    if (!page) return;
-    page.classList.remove("section-enter-up", "section-enter-down");
-    void page.offsetWidth;
-    page.classList.add(direction > 0 ? "section-enter-down" : "section-enter-up");
-  }, []);
-
   const beginSettingsDrag = (event: React.PointerEvent<HTMLButtonElement>) => {
     if (!event.isPrimary || (event.pointerType === "mouse" && event.button !== 0) || !settingsCardRef.current) return;
     event.preventDefault();
@@ -354,7 +346,7 @@ export default function Home() {
   if (!book || !activePart) return <main className="loading-room"><span>Preparing your place in the story…</span></main>;
 
   return (
-    <main className="reader-shell" style={{ "--reader-size": `${preferences.fontSize}px`, "--reader-leading": preferences.lineHeight, "--reader-measure": `${preferences.measure}ch`, "--part-motion-duration": `${animationTuning.partDuration}ms`, "--part-motion-distance": `${animationTuning.partDistance}px`, "--part-motion-opacity": animationTuning.partOpacity / 100, "--part-motion-easing": animationTuning.partEasing, "--section-motion-duration": `${animationTuning.sectionDuration}ms`, "--section-motion-distance": `${animationTuning.sectionDistance}px`, "--section-motion-opacity": animationTuning.sectionOpacity / 100 } as React.CSSProperties}>
+    <main className="reader-shell" style={{ "--reader-size": `${preferences.fontSize}px`, "--reader-leading": preferences.lineHeight, "--reader-measure": `${preferences.measure}ch`, "--part-motion-duration": `${animationTuning.partDuration}ms`, "--part-motion-distance": `${animationTuning.partDistance}px`, "--part-motion-opacity": animationTuning.partOpacity / 100, "--part-motion-easing": animationTuning.partEasing } as React.CSSProperties}>
       <header className="topbar">
         <div className="book-identity">
           <button className="book-mark" onClick={() => setLibraryOpen(true)} aria-label="Open library">BW</button>
@@ -381,14 +373,11 @@ export default function Home() {
           <button className="quiet-action" onClick={() => setPreferences(defaultPreferences)}>Restore calm defaults</button>
           <div className="motion-lab">
             <div className="card-label">Temporary animation lab</div>
-            <div className="motion-readout" aria-live="polite"><small>Include this box in your screenshot</small><p><strong>Part</strong><code>{animationTuning.partDuration}ms · {animationTuning.partDistance}px · {animationTuning.partOpacity}% · {partEasingLabel}</code></p><p><strong>Section</strong><code>{animationTuning.sectionDuration}ms · {animationTuning.sectionDistance}px · {animationTuning.sectionOpacity}%</code></p></div>
+            <div className="motion-readout" aria-live="polite"><small>Include this box in your screenshot</small><p><strong>Part</strong><code>{animationTuning.partDuration}ms · {animationTuning.partDistance}px · {animationTuning.partOpacity}% · {partEasingLabel}</code></p></div>
             <label>Part duration <output>{animationTuning.partDuration}ms</output><input type="range" min="80" max="600" step="10" value={animationTuning.partDuration} onChange={(event) => setAnimationTuning({ ...animationTuning, partDuration: Number(event.target.value) })} /></label>
             <label>Part travel <output>{animationTuning.partDistance}px</output><input type="range" min="0" max="100" step="2" value={animationTuning.partDistance} onChange={(event) => setAnimationTuning({ ...animationTuning, partDistance: Number(event.target.value) })} /></label>
             <label>Part starting opacity <output>{animationTuning.partOpacity}%</output><input type="range" min="0" max="100" step="5" value={animationTuning.partOpacity} onChange={(event) => setAnimationTuning({ ...animationTuning, partOpacity: Number(event.target.value) })} /></label>
             <label>Part easing<select value={animationTuning.partEasing} onChange={(event) => setAnimationTuning({ ...animationTuning, partEasing: event.target.value })}><option value="cubic-bezier(.22,1,.36,1)">Polished</option><option value="ease-out">Standard ease-out</option><option value="ease-in-out">Ease in/out</option><option value="linear">Linear</option></select></label>
-            <label>Section duration <output>{animationTuning.sectionDuration}ms</output><input type="range" min="40" max="400" step="5" value={animationTuning.sectionDuration} onChange={(event) => setAnimationTuning({ ...animationTuning, sectionDuration: Number(event.target.value) })} /></label>
-            <label>Section travel <output>{animationTuning.sectionDistance}px</output><input type="range" min="0" max="60" step="2" value={animationTuning.sectionDistance} onChange={(event) => setAnimationTuning({ ...animationTuning, sectionDistance: Number(event.target.value) })} /></label>
-            <label>Section starting opacity <output>{animationTuning.sectionOpacity}%</output><input type="range" min="0" max="100" step="5" value={animationTuning.sectionOpacity} onChange={(event) => setAnimationTuning({ ...animationTuning, sectionOpacity: Number(event.target.value) })} /></label>
             <button className="quiet-action" onClick={() => setAnimationTuning(defaultAnimationTuning)}>Reset animation defaults</button>
           </div>
         </div>}
@@ -408,7 +397,7 @@ export default function Home() {
 
       <ReaderMinimap ref={minimapRef} book={book} activePartId={activePart.id} readerRef={readerRef} progress={progress} geometry={readerGeometry}
         onGeometryChange={(nextGeometry) => { readerGeometryRef.current = nextGeometry; setReaderGeometry(nextGeometry); }}
-        onNavigation={recordNavigation} onPositionCommit={commitPosition} onSectionMovement={cueSectionMovement} />
+        onNavigation={recordNavigation} />
 
       <footer className="statusbar"><span>Part {partIndex + 1} of {book.parts.length}</span><button className="status-line" aria-label="Position in the entire text" onClick={(event) => { const rect = event.currentTarget.getBoundingClientRect(); const rawProgress = (event.clientX - rect.left) / rect.width; const snappedProgress = snapOverallBookProgress(bookProgressMap, rawProgress, Math.min(.07, 10 / Math.max(1, rect.width))); jumpToOverallProgress(snappedProgress); }}><span className="status-track" /><span className="status-progress" ref={statusProgressRef} style={{ width: `${overallProgress * 100}%` }} />{bookProgressMap.boundaries.map((boundary, index) => <span className="status-part-guide" aria-hidden="true" style={{ left: `${boundary * 100}%` }} key={index} />)}</button><span ref={statusPercentRef}>{Math.round(overallProgress * 100)}%</span></footer>
 

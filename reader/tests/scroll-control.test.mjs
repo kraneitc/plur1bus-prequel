@@ -109,3 +109,20 @@ test("keeps the minimap implementation outside the reader page", async () => {
   assert.match(minimap, /className="minimap"/);
   assert.match(minimap, /onPointerDown=\{beginDrag\}/);
 });
+
+test("maps semantic structure and rendered paragraph depth", async () => {
+  const [page, minimap, css] = await Promise.all([
+    readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/reader-minimap.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
+  ]);
+
+  assert.match(page, /data-minimap-kind="heading"/);
+  assert.match(page, /data-minimap-kind="paragraph"/);
+  assert.match(page, /data-minimap-kind="break"/);
+  assert.match(minimap, /node\.offsetHeight \* geometry\.previewScale/);
+  assert.match(minimap, /getElementScrollTop\(reader, node, readerTop\) \* geometry\.previewScale/);
+  assert.match(css, /\.map-heading[^}]*border-top:\s*2px/);
+  assert.match(css, /\.map-paragraph[^}]*repeating-linear-gradient/);
+  assert.match(css, /\.map-scene-break::before/);
+});

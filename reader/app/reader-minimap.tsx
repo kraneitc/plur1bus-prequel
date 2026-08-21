@@ -1,13 +1,38 @@
 "use client";
 
-import { forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef, type CSSProperties, type RefObject } from "react";
+import { forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState, type CSSProperties, type RefObject } from "react";
 import type { ReaderBook } from "./formats";
-import { captureScrollPoint, type ScrollPoint } from "./scroll-history";
+import { captureScrollPoint, getElementScrollTop, type ScrollPoint } from "./scroll-history";
 import { getMinimapPreviewMetrics, getScrollbarMetrics, getScrollPositionForPointer } from "./scroll-control";
 
 const minimapLinePitch = 3;
 const minimapScrollbarWidth = 14;
 const fallbackReaderLineHeight = 33;
+const maximumMinimapItems = 4000;
+
+type MinimapItemKind = "heading" | "paragraph" | "break";
+
+type MinimapItem = {
+  key: string;
+  kind: MinimapItemKind;
+  top: number;
+  height: number;
+  width: number;
+  firstHeading: boolean;
+};
+
+function getParagraphWidth(characterCount: number) {
+  return Math.max(24, Math.min(96, 24 + Math.sqrt(characterCount) * 4.4));
+}
+
+function selectMinimapNodes(nodes: HTMLElement[]) {
+  if (nodes.length <= maximumMinimapItems) return nodes;
+  const semanticNodes = nodes.filter((node) => node.dataset.minimapKind !== "paragraph");
+  const paragraphs = nodes.filter((node) => node.dataset.minimapKind === "paragraph");
+  const paragraphBudget = Math.max(1, maximumMinimapItems - semanticNodes.length);
+  const selectedParagraphs = new Set(Array.from({ length: paragraphBudget }, (_, index) => paragraphs[Math.floor(index * paragraphs.length / paragraphBudget)]));
+  return nodes.filter((node) => node.dataset.minimapKind !== "paragraph" || selectedParagraphs.has(node));
+}
 
 export type ReaderGeometry = { trackSize: number; viewportSize: number; scrollSize: number; previewScale: number };
 
@@ -71,6 +96,7 @@ export const ReaderMinimap = forwardRef<ReaderMinimapHandle, ReaderMinimapProps>
   const progressRef = useRef<HTMLSpanElement>(null);
   const dragRef = useRef<MinimapDrag | null>(null);
   const revealTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [mapItems, setMapItems] = useState<MinimapItem[]>([]);
 
   const applyPosition = useCallback((scrollPosition: number, nextGeometry: ReaderGeometry, reveal = false) => {
     const previewMetrics = getMinimapPreviewMetrics(nextGeometry.trackSize, nextGeometry.viewportSize, nextGeometry.scrollSize, scrollPosition, nextGeometry.previewScale);
@@ -114,31 +140,45 @@ export const ReaderMinimap = forwardRef<ReaderMinimapHandle, ReaderMinimapProps>
     if (revealTimer.current) clearTimeout(revealTimer.current);
   }, []);
 
-  const mapLines = useMemo(() => {
-    const blocks = book.parts.flatMap((part) => part.blocks.map((block, index) => ({ block, partStart: index === 0 })));
-    if (!blocks.length) return [];
-    const lineCount = Math.min(4000, blocks.length);
-    return Array.from({ length: lineCount }, (_, index) => {
-      const start = Math.floor(index * blocks.length / lineCount);
-      const end = Math.max(start + 1, Math.floor((index + 1) * blocks.length / lineCount));
-      const bucket = blocks.slice(start, end);
-      const averageLength = bucket.reduce((sum, item) => sum + item.block.html.replace(/<[^>]*>/g, "").length, 0) / bucket.length;
-      return {
-        index,
-        break: bucket.some((item) => item.block.type === "break"),
-        partStart: bucket.some((item) => item.partStart),
-        width: Math.max(14, Math.min(98, 14 + Math.sqrt(averageLength) * 4.2)),
-      };
+  useEffect(() => {
+    const frame = requestAnimationFrame(() => {
+      const reader = readerRef.current;
+      if (!reader || geometry.previewScale <= 0) return;
+      const readerTop = reader.getBoundingClientRect().top;
+      const nodes = selectMinimapNodes(Array.from(reader.querySelectorAll<HTMLElement>("[data-minimap-kind]")));
+      let headingIndex = 0;
+      const nextItems = nodes.map((node, index): MinimapItem => {
+        const rawKind = node.dataset.minimapKind;
+        const kind: MinimapItemKind = rawKind === "heading" || rawKind === "break" ? rawKind : "paragraph";
+        const firstHeading = kind === "heading" && headingIndex++ === 0;
+        const scaledHeight = node.offsetHeight * geometry.previewScale;
+        const height = kind === "heading" ? Math.max(16, Math.min(28, scaledHeight)) : kind === "break" ? Math.max(9, scaledHeight) : Math.max(1, scaledHeight);
+        return {
+          key: node.dataset.minimapKey ?? node.dataset.scrollAnchor ?? `${kind}:${index}`,
+          kind,
+          top: Math.max(0, getElementScrollTop(reader, node, readerTop) * geometry.previewScale),
+          height,
+          width: kind === "paragraph" ? getParagraphWidth(node.textContent?.trim().length ?? 0) : 100,
+          firstHeading,
+        };
+      });
+      setMapItems(nextItems);
     });
-  }, [book]);
+    return () => cancelAnimationFrame(frame);
+  }, [book, geometry.previewScale, geometry.scrollSize, readerRef]);
 
-  const mapLineElements = useMemo(() => mapLines.map((line) => <i key={line.index} className={`${line.break ? "break" : ""} ${line.partStart ? "part-start" : ""}`} style={{ width: `${line.width}%` }} />), [mapLines]);
+  const mapItemElements = useMemo(() => mapItems.map((item) => {
+    const style = { top: `${item.top}px`, height: `${item.height}px`, width: `${item.width}%` };
+    if (item.kind === "heading") return <span className={`map-item map-heading${item.firstHeading ? " first" : ""}`} key={item.key} style={style}><i /><i /><i /></span>;
+    if (item.kind === "break") return <span className="map-item map-scene-break" key={item.key} style={style} />;
+    return <i className="map-item map-paragraph" key={item.key} style={style} />;
+  }), [mapItems]);
   const scrollRange = Math.max(0, geometry.scrollSize - geometry.viewportSize);
   const scrollPosition = progress * scrollRange;
   const previewMetrics = getMinimapPreviewMetrics(geometry.trackSize, geometry.viewportSize, geometry.scrollSize, scrollPosition, geometry.previewScale);
   const scrollbarMetrics = getScrollbarMetrics(geometry.trackSize, geometry.viewportSize, geometry.scrollSize, scrollPosition);
   const viewportStyle = { top: `${previewMetrics.thumbTop}px`, height: `${previewMetrics.thumbSize}px` };
-  const tapeStyle = { height: `${previewMetrics.contentSize}px`, transform: `translate3d(0, ${previewMetrics.contentOffset}px, 0)`, "--map-line-count": mapLines.length } as CSSProperties;
+  const tapeStyle = { height: `${previewMetrics.contentSize}px`, transform: `translate3d(0, ${previewMetrics.contentOffset}px, 0)` } as CSSProperties;
   const scrollbarThumbStyle = { top: `${scrollbarMetrics.thumbTop}px`, height: `${scrollbarMetrics.thumbSize}px` };
 
   const beginDrag = (event: React.PointerEvent<HTMLElement>) => {
@@ -221,7 +261,7 @@ export const ReaderMinimap = forwardRef<ReaderMinimapHandle, ReaderMinimapProps>
     onPointerDown={beginDrag} onPointerMove={moveDrag} onPointerUp={endDrag} onPointerCancel={endDrag} onLostPointerCapture={endDrag}
     onWheel={handleWheel} onKeyDown={handleKey}>
     <div className="map-scroll-area" ref={trackRef} aria-hidden="true">
-      <div className="map-tape" ref={tapeRef} style={tapeStyle}>{mapLineElements}</div>
+      <div className="map-tape" ref={tapeRef} style={tapeStyle}>{mapItemElements}</div>
       <div className="map-viewport" ref={viewportRef} style={viewportStyle} />
       <div className="map-scrollbar-track" />
       <div className="map-scrollbar-thumb" ref={scrollbarThumbRef} style={scrollbarThumbStyle} />

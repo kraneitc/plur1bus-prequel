@@ -259,8 +259,8 @@ export default function Home() {
       <section className="reading-pane" id="book-reading-pane" ref={readerRef} tabIndex={0} aria-label={`${book.title} reading area`}>
         <article className="page">
           {book.parts.map((part, index) => <section className="book-part" id={`part-${index}`} key={part.id}>
-            <header className="part-heading"><p className="kicker">{part.label}</p><h1>{part.title}</h1><div className="ornament"><span /><i /><span /></div></header>
-            {part.blocks.map((block, blockIndex) => block.type === "break" ? <div className="scene-break" data-scroll-anchor={`${part.id}:${blockIndex}`} aria-label="Scene break" key={blockIndex}><i /></div> : <p data-scroll-anchor={`${part.id}:${blockIndex}`} key={blockIndex} dangerouslySetInnerHTML={{ __html: block.html }} />)}
+            <header className="part-heading" data-minimap-kind="heading" data-minimap-key={`heading:${part.id}`}><p className="kicker">{part.label}</p><h1>{part.title}</h1><div className="ornament"><span /><i /><span /></div></header>
+            {part.blocks.map((block, blockIndex) => block.type === "break" ? <div className="scene-break" data-minimap-kind="break" data-scroll-anchor={`${part.id}:${blockIndex}`} aria-label="Scene break" key={blockIndex}><i /></div> : <p data-minimap-kind="paragraph" data-scroll-anchor={`${part.id}:${blockIndex}`} key={blockIndex} dangerouslySetInnerHTML={{ __html: block.html }} />)}
           </section>)}
           <div className="end-mark"><i />End<i /></div>
         </article>

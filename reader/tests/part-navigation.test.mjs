@@ -67,4 +67,6 @@ test("mounts one part while keeping part and section navigation distinct", async
   assert.match(minimap, /aria-label="Next section"/);
   assert.match(css, /\.topbar[^}]*grid-template-columns:\s*minmax\(0,\s*1fr\) auto minmax\(0,\s*1fr\)/);
   assert.match(css, /\.part-navigation[^}]*justify-self:\s*center/);
+  assert.match(css, /\.part-navigation button[^}]*place-items:\s*center/);
+  assert.match(css, /\.part-navigation button span[^}]*translate:\s*0 -1px/);
 });

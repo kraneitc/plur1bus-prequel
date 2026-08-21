@@ -46,6 +46,7 @@ export default function Home() {
   const [progress, setProgress] = useState(0);
   const [readerGeometry, setReaderGeometry] = useState(defaultReaderGeometry);
   const [partIndex, setPartIndex] = useState(0);
+  const [partTransitionDirection, setPartTransitionDirection] = useState<"forward" | "backward" | null>(null);
   const [partProgress, setPartProgress] = useState(0);
   const [summaryOpen, setSummaryOpen] = useState(false);
   const [contentsOpen, setContentsOpen] = useState(false);
@@ -259,6 +260,7 @@ export default function Home() {
     reader.scrollTop = 0;
     setProgress(targetProgress);
     setPartProgress(targetProgress);
+    setPartTransitionDirection(targetIndex > partIndex ? "forward" : "backward");
     setPartIndex(targetIndex);
     setContentsOpen(false);
   };
@@ -286,6 +288,13 @@ export default function Home() {
 
   const recap = getRecap(partIndex, partProgress);
   const overallProgress = getOverallBookProgress(bookProgressMap, partIndex, progress);
+  const cueSectionMovement = useCallback((direction: -1 | 1) => {
+    const page = readerRef.current?.querySelector<HTMLElement>(".page");
+    if (!page) return;
+    page.classList.remove("section-enter-up", "section-enter-down");
+    void page.offsetWidth;
+    page.classList.add(direction > 0 ? "section-enter-down" : "section-enter-up");
+  }, []);
 
   if (!book || !activePart) return <main className="loading-room"><span>Preparing your place in the story…</span></main>;
 
@@ -318,7 +327,7 @@ export default function Home() {
       </header>
 
       <section className="reading-pane" id="book-reading-pane" ref={readerRef} tabIndex={0} aria-label={`${book.title} reading area`}>
-        <article className="page">
+        <article className={`page${partTransitionDirection ? ` part-enter-${partTransitionDirection}` : ""}`} key={activePart.id}>
           <section className="book-part" id={`part-${partIndex}`} key={activePart.id}>
             {activeSections.map((blocks, sectionIndex) => <section className="part-section" data-reader-section data-scroll-anchor={`${activePart.id}:section:${sectionIndex}`} key={`${activePart.id}:section:${sectionIndex}`}>
               {sectionIndex === 0 && <header className="part-heading" data-minimap-kind="heading" data-minimap-key={`heading:${activePart.id}`}><p className="kicker">{activePart.label}</p><h1>{activePart.title}</h1><div className="ornament"><span /><i /><span /></div></header>}
@@ -331,7 +340,7 @@ export default function Home() {
 
       <ReaderMinimap ref={minimapRef} book={book} activePartId={activePart.id} readerRef={readerRef} progress={progress} geometry={readerGeometry}
         onGeometryChange={(nextGeometry) => { readerGeometryRef.current = nextGeometry; setReaderGeometry(nextGeometry); }}
-        onNavigation={recordNavigation} onPositionCommit={commitPosition} />
+        onNavigation={recordNavigation} onPositionCommit={commitPosition} onSectionMovement={cueSectionMovement} />
 
       <footer className="statusbar"><span>Part {partIndex + 1} of {book.parts.length}</span><button className="status-line" aria-label="Position in the entire text" onClick={(event) => { const rect = event.currentTarget.getBoundingClientRect(); const rawProgress = (event.clientX - rect.left) / rect.width; const snappedProgress = snapOverallBookProgress(bookProgressMap, rawProgress, Math.min(.07, 10 / Math.max(1, rect.width))); jumpToOverallProgress(snappedProgress); }}><span className="status-track" /><span className="status-progress" ref={statusProgressRef} style={{ width: `${overallProgress * 100}%` }} />{bookProgressMap.boundaries.map((boundary, index) => <span className="status-part-guide" aria-hidden="true" style={{ left: `${boundary * 100}%` }} key={index} />)}</button><span ref={statusPercentRef}>{Math.round(overallProgress * 100)}%</span></footer>
 

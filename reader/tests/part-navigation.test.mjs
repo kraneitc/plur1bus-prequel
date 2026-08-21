@@ -62,6 +62,8 @@ test("mounts one part while keeping part and section navigation distinct", async
   assert.match(page, /activePartId=\{activePart\.id\}/);
   assert.match(page, /aria-label="Position in the entire text"/);
   assert.match(page, /bookProgressMap\.boundaries\.map/);
+  assert.match(page, /part-enter-\$\{partTransitionDirection\}/);
+  assert.match(page, /onSectionMovement=\{cueSectionMovement\}/);
   assert.match(minimap, /querySelectorAll<HTMLElement>\("\[data-reader-section\]"\)/);
   assert.match(minimap, /aria-label="Previous section"/);
   assert.match(minimap, /aria-label="Next section"/);
@@ -69,4 +71,8 @@ test("mounts one part while keeping part and section navigation distinct", async
   assert.match(css, /\.part-navigation[^}]*justify-self:\s*center/);
   assert.match(css, /\.part-navigation button[^}]*place-items:\s*center/);
   assert.match(css, /\.part-navigation button span[^}]*translate:\s*0 -1px/);
+  assert.match(css, /\.page\.part-enter-forward[^}]*240ms cubic-bezier/);
+  assert.match(css, /@keyframes part-enter-forward[^}]*translate:\s*36px 0/);
+  assert.match(css, /\.page\.section-enter-down[^}]*125ms ease-out/);
+  assert.match(css, /@keyframes section-enter-down[^}]*translate:\s*0 12px/);
 });

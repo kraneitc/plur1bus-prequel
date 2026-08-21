@@ -70,6 +70,7 @@ type ReaderMinimapProps = {
   onGeometryChange: (geometry: ReaderGeometry) => void;
   onNavigation: (origin: ScrollPoint, destination: number, force?: boolean) => void;
   onPositionCommit: () => void;
+  onSectionMovement: (direction: -1 | 1) => void;
 };
 
 type MinimapDrag = {
@@ -90,6 +91,7 @@ export const ReaderMinimap = forwardRef<ReaderMinimapHandle, ReaderMinimapProps>
   onGeometryChange,
   onNavigation,
   onPositionCommit,
+  onSectionMovement,
 }, forwardedRef) {
   const minimapRef = useRef<HTMLElement>(null);
   const positionControlRef = useRef<HTMLDivElement>(null);
@@ -302,6 +304,7 @@ export const ReaderMinimap = forwardRef<ReaderMinimapHandle, ReaderMinimapProps>
     const target = Math.max(0, Math.min(reader.scrollHeight - reader.clientHeight, offsets[targetIndex]));
     onNavigation(captureScrollPoint(reader), target, true);
     reader.scrollTop = target;
+    onSectionMovement(direction);
     const nextGeometry = getReaderGeometry(reader, trackRef.current?.clientHeight ?? geometry.trackSize);
     applyPosition(target, nextGeometry, true);
     onPositionCommit();

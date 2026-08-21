@@ -3,6 +3,16 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { formatSupport, parseEpub, type ReaderBook } from "./formats";
 import { getRecap } from "./recaps";
+import {
+  createEmptyScrollHistory,
+  isMeaningfulScrollJump,
+  readScrollHistory,
+  recordScrollNavigation,
+  stepScrollHistoryBack,
+  stepScrollHistoryForward,
+  type ScrollHistory,
+  type ScrollPoint,
+} from "./scroll-history";
 import { getMinimapPreviewMetrics, getScrollbarMetrics, getScrollPositionForPointer } from "./scroll-control";
 
 type Preferences = { fontSize: number; lineHeight: number; measure: number };
@@ -23,6 +33,39 @@ function getMinimapScale(reader: HTMLElement) {
   return minimapLinePitch / (lineHeight || defaultPreferences.fontSize * defaultPreferences.lineHeight);
 }
 
+function getElementScrollTop(reader: HTMLElement, element: HTMLElement, readerTop = reader.getBoundingClientRect().top) {
+  return element.getBoundingClientRect().top - readerTop + reader.scrollTop;
+}
+
+function captureScrollPoint(reader: HTMLElement): ScrollPoint {
+  const anchors = reader.querySelectorAll<HTMLElement>("[data-scroll-anchor]");
+  const readerTop = reader.getBoundingClientRect().top;
+  const targetTop = reader.scrollTop + 1;
+  let low = 0;
+  let high = anchors.length - 1;
+  let anchor = anchors[0] ?? null;
+
+  while (low <= high) {
+    const middle = Math.floor((low + high) / 2);
+    const candidate = anchors[middle];
+    if (getElementScrollTop(reader, candidate, readerTop) <= targetTop) {
+      anchor = candidate;
+      low = middle + 1;
+    } else {
+      high = middle - 1;
+    }
+  }
+
+  const range = Math.max(0, reader.scrollHeight - reader.clientHeight);
+  const anchorTop = anchor ? getElementScrollTop(reader, anchor, readerTop) : reader.scrollTop;
+  return {
+    anchor: anchor?.dataset.scrollAnchor ?? null,
+    anchorOffset: anchor ? (reader.scrollTop - anchorTop) / Math.max(1, anchor.offsetHeight) : 0,
+    progress: range > 0 ? reader.scrollTop / range : 0,
+    scrollTop: reader.scrollTop,
+  };
+}
+
 export default function Home() {
   const readerRef = useRef<HTMLElement>(null);
   const minimapRef = useRef<HTMLElement>(null);
@@ -34,7 +77,8 @@ export default function Home() {
   const statusProgressRef = useRef<HTMLElement>(null);
   const statusPercentRef = useRef<HTMLSpanElement>(null);
   const readerGeometryRef = useRef<ReaderGeometry>(defaultReaderGeometry);
-  const minimapDrag = useRef<{ pointerId: number; grabOffset: number; trackTop: number; metrics: ReturnType<typeof getScrollbarMetrics>; geometry: ReaderGeometry } | null>(null);
+  const scrollHistoryRef = useRef<ScrollHistory>(createEmptyScrollHistory());
+  const minimapDrag = useRef<{ pointerId: number; grabOffset: number; trackTop: number; metrics: ReturnType<typeof getScrollbarMetrics>; geometry: ReaderGeometry; origin: ScrollPoint } | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
   const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const scrollRevealTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -74,6 +118,11 @@ export default function Home() {
         sessionStorage.setItem(`welcomed:${storageKey(book)}`, "yes");
       }
     }));
+  }, [book]);
+
+  useEffect(() => {
+    const nextHistory = book ? readScrollHistory(sessionStorage.getItem(`${storageKey(book)}:scroll-history`)) : createEmptyScrollHistory();
+    scrollHistoryRef.current = nextHistory;
   }, [book]);
 
   useEffect(() => { localStorage.setItem("story-reader:preferences", JSON.stringify(preferences)); }, [preferences]);
@@ -121,6 +170,65 @@ export default function Home() {
     if (saveTimer.current) clearTimeout(saveTimer.current);
     saveTimer.current = setTimeout(() => localStorage.setItem(`${storageKey(book)}:progress`, String(next)), 180);
   }, [book]);
+
+  const updateScrollHistory = useCallback((nextHistory: ScrollHistory) => {
+    scrollHistoryRef.current = nextHistory;
+    if (book) sessionStorage.setItem(`${storageKey(book)}:scroll-history`, JSON.stringify(nextHistory));
+  }, [book]);
+
+  const recordNavigation = useCallback((origin: ScrollPoint, destination: number) => {
+    const reader = readerRef.current;
+    if (!reader || !isMeaningfulScrollJump(origin.scrollTop, destination, reader.clientHeight)) return false;
+    updateScrollHistory(recordScrollNavigation(scrollHistoryRef.current, origin));
+    return true;
+  }, [updateScrollHistory]);
+
+  const restoreScrollPoint = useCallback((point: ScrollPoint) => {
+    const reader = readerRef.current;
+    if (!reader) return;
+    const range = Math.max(0, reader.scrollHeight - reader.clientHeight);
+    let target = point.progress * range;
+    if (point.anchor) {
+      const anchor = Array.from(reader.querySelectorAll<HTMLElement>("[data-scroll-anchor]")).find((element) => element.dataset.scrollAnchor === point.anchor);
+      if (anchor) target = getElementScrollTop(reader, anchor) + point.anchorOffset * anchor.offsetHeight;
+    }
+    target = Math.max(0, Math.min(range, target));
+    reader.scrollTo({ top: target, behavior: "auto" });
+    applyLivePosition(target);
+    commitPosition();
+  }, [applyLivePosition, commitPosition]);
+
+  const goBack = useCallback(() => {
+    const reader = readerRef.current;
+    if (!reader) return false;
+    const step = stepScrollHistoryBack(scrollHistoryRef.current, captureScrollPoint(reader));
+    if (!step.target) return false;
+    updateScrollHistory(step.history);
+    restoreScrollPoint(step.target);
+    return true;
+  }, [restoreScrollPoint, updateScrollHistory]);
+
+  const goForward = useCallback(() => {
+    const reader = readerRef.current;
+    if (!reader) return false;
+    const step = stepScrollHistoryForward(scrollHistoryRef.current, captureScrollPoint(reader));
+    if (!step.target) return false;
+    updateScrollHistory(step.history);
+    restoreScrollPoint(step.target);
+    return true;
+  }, [restoreScrollPoint, updateScrollHistory]);
+
+  useEffect(() => {
+    const handleHistoryShortcut = (event: KeyboardEvent) => {
+      if (event.defaultPrevented || event.altKey || (!event.ctrlKey && !event.metaKey) || event.key.toLowerCase() !== "z") return;
+      const target = event.target;
+      if (target instanceof HTMLElement && (target.matches("input, textarea, select") || target.isContentEditable)) return;
+      const moved = event.shiftKey ? goForward() : goBack();
+      if (moved) event.preventDefault();
+    };
+    window.addEventListener("keydown", handleHistoryShortcut);
+    return () => window.removeEventListener("keydown", handleHistoryShortcut);
+  }, [goBack, goForward]);
 
   const handleReaderScroll = useCallback(() => {
     const reader = readerRef.current;
@@ -170,10 +278,17 @@ export default function Home() {
   const jumpTo = (next: number) => {
     const reader = readerRef.current;
     if (!reader) return;
-    reader.scrollTo({ top: Math.max(0, Math.min(1, next)) * (reader.scrollHeight - reader.clientHeight), behavior: "smooth" });
+    const target = Math.max(0, Math.min(1, next)) * (reader.scrollHeight - reader.clientHeight);
+    recordNavigation(captureScrollPoint(reader), target);
+    reader.scrollTo({ top: target, behavior: "smooth" });
   };
   const jumpToPart = (index: number) => {
-    readerRef.current?.querySelector<HTMLElement>(`#part-${index}`)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    const reader = readerRef.current;
+    const part = reader?.querySelector<HTMLElement>(`#part-${index}`);
+    if (reader && part) {
+      recordNavigation(captureScrollPoint(reader), getElementScrollTop(reader, part));
+      part.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
     setContentsOpen(false);
   };
 
@@ -205,7 +320,7 @@ export default function Home() {
       clearTimeout(positionCommitTimer.current);
       positionCommitTimer.current = null;
     }
-    minimapDrag.current = { pointerId: event.pointerId, grabOffset, trackTop: rect.top, metrics, geometry };
+    minimapDrag.current = { pointerId: event.pointerId, grabOffset, trackTop: rect.top, metrics, geometry, origin: captureScrollPoint(reader) };
     if (!withinThumb) {
       reader.scrollTop = getScrollPositionForPointer(pointerOffset, grabOffset, metrics);
       applyLivePosition(reader.scrollTop, geometry);
@@ -235,6 +350,7 @@ export default function Home() {
     if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
     setMinimapTrackSize(drag.geometry.trackSize);
     setReaderGeometry(drag.geometry);
+    recordNavigation(drag.origin, readerRef.current?.scrollTop ?? drag.origin.scrollTop);
     commitPosition();
   };
 
@@ -250,6 +366,7 @@ export default function Home() {
     if (event.key === "End") next = reader.scrollHeight - reader.clientHeight;
     if (next === null) return;
     event.preventDefault();
+    if (event.key === "Home" || event.key === "End") recordNavigation(captureScrollPoint(reader), next);
     reader.scrollTop = next;
   };
 
@@ -320,7 +437,7 @@ export default function Home() {
         <article className="page">
           {book.parts.map((part, index) => <section className="book-part" id={`part-${index}`} key={part.id}>
             <header className="part-heading"><p className="kicker">{part.label}</p><h1>{part.title}</h1><div className="ornament"><span /><i /><span /></div></header>
-            {part.blocks.map((block, blockIndex) => block.type === "break" ? <div className="scene-break" aria-label="Scene break" key={blockIndex}><i /></div> : <p key={blockIndex} dangerouslySetInnerHTML={{ __html: block.html }} />)}
+            {part.blocks.map((block, blockIndex) => block.type === "break" ? <div className="scene-break" data-scroll-anchor={`${part.id}:${blockIndex}`} aria-label="Scene break" key={blockIndex}><i /></div> : <p data-scroll-anchor={`${part.id}:${blockIndex}`} key={blockIndex} dangerouslySetInnerHTML={{ __html: block.html }} />)}
           </section>)}
           <div className="end-mark"><i />End<i /></div>
         </article>

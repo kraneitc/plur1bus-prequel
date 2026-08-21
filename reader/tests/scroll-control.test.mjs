@@ -140,6 +140,7 @@ test("keeps section navigation attached to the viewport and separate from draggi
   assert.doesNotMatch(minimap, /title="(?:Previous|Next) section" disabled/);
   assert.match(minimap, /previousSectionRef\.current\.disabled =/);
   assert.match(minimap, /nextSectionRef\.current\.disabled =/);
+  assert.match(css, /\.map-section-button:disabled\s*\{[^}]*display:\s*none/);
   assert.match(minimap, /onNavigation\(captureScrollPoint\(reader\), target, true\)/);
   assert.match(minimap, /reader\.scrollTo\(\{ top: target, behavior: "smooth" \}\)/);
   assert.match(minimap, /onPointerDown=\{stopSectionControlPointer\}/);

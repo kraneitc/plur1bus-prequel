@@ -19,7 +19,10 @@ import {
 } from "./scroll-history";
 
 type Preferences = { fontSize: number; lineHeight: number; measure: number };
+type AnimationTuning = { partDuration: number; partDistance: number; partOpacity: number; partEasing: string; sectionDuration: number; sectionDistance: number; sectionOpacity: number };
+type SettingsDrag = { pointerId: number; startX: number; startY: number; originX: number; originY: number; minX: number; maxX: number; minY: number; maxY: number };
 const defaultPreferences: Preferences = { fontSize: 22, lineHeight: 1.5, measure: 68 };
+const defaultAnimationTuning: AnimationTuning = { partDuration: 240, partDistance: 36, partOpacity: 35, partEasing: "cubic-bezier(.22,1,.36,1)", sectionDuration: 125, sectionDistance: 12, sectionOpacity: 92 };
 const builtInKey = "before-we-were-us";
 const positionCommitInterval = 80;
 const emptyBookProgressMap = createBookProgressMap([]);
@@ -42,6 +45,8 @@ export default function Home() {
   const positionCommitTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const pendingPartProgressRef = useRef(0);
   const pendingWelcomeRef = useRef(false);
+  const settingsCardRef = useRef<HTMLDivElement>(null);
+  const settingsDragRef = useRef<SettingsDrag | null>(null);
   const [book, setBook] = useState<ReaderBook | null>(null);
   const [progress, setProgress] = useState(0);
   const [readerGeometry, setReaderGeometry] = useState(defaultReaderGeometry);
@@ -54,6 +59,8 @@ export default function Home() {
   const [libraryOpen, setLibraryOpen] = useState(false);
   const [welcomeOpen, setWelcomeOpen] = useState(false);
   const [preferences, setPreferences] = useState<Preferences>(defaultPreferences);
+  const [animationTuning, setAnimationTuning] = useState<AnimationTuning>(defaultAnimationTuning);
+  const [settingsPosition, setSettingsPosition] = useState({ x: 0, y: 0 });
   const [importError, setImportError] = useState("");
 
   const activePart = book?.parts[partIndex];
@@ -288,6 +295,7 @@ export default function Home() {
 
   const recap = getRecap(partIndex, partProgress);
   const overallProgress = getOverallBookProgress(bookProgressMap, partIndex, progress);
+  const partEasingLabel = animationTuning.partEasing.startsWith("cubic-bezier") ? "Polished" : animationTuning.partEasing;
   const cueSectionMovement = useCallback((direction: -1 | 1) => {
     const page = readerRef.current?.querySelector<HTMLElement>(".page");
     if (!page) return;
@@ -296,10 +304,57 @@ export default function Home() {
     page.classList.add(direction > 0 ? "section-enter-down" : "section-enter-up");
   }, []);
 
+  const beginSettingsDrag = (event: React.PointerEvent<HTMLButtonElement>) => {
+    if (!event.isPrimary || (event.pointerType === "mouse" && event.button !== 0) || !settingsCardRef.current) return;
+    event.preventDefault();
+    const rect = settingsCardRef.current.getBoundingClientRect();
+    settingsDragRef.current = {
+      pointerId: event.pointerId,
+      startX: event.clientX,
+      startY: event.clientY,
+      originX: settingsPosition.x,
+      originY: settingsPosition.y,
+      minX: settingsPosition.x + 8 - rect.left,
+      maxX: settingsPosition.x + window.innerWidth - 8 - rect.right,
+      minY: settingsPosition.y + 8 - rect.top,
+      maxY: settingsPosition.y + window.innerHeight - 8 - rect.bottom,
+    };
+    event.currentTarget.setPointerCapture(event.pointerId);
+  };
+
+  const moveSettingsDrag = (event: React.PointerEvent<HTMLButtonElement>) => {
+    const drag = settingsDragRef.current;
+    if (!drag || drag.pointerId !== event.pointerId) return;
+    event.preventDefault();
+    const clamp = (value: number, minimum: number, maximum: number) => Math.max(minimum, Math.min(Math.max(minimum, maximum), value));
+    setSettingsPosition({
+      x: clamp(drag.originX + event.clientX - drag.startX, drag.minX, drag.maxX),
+      y: clamp(drag.originY + event.clientY - drag.startY, drag.minY, drag.maxY),
+    });
+  };
+
+  const endSettingsDrag = (event: React.PointerEvent<HTMLButtonElement>) => {
+    if (settingsDragRef.current?.pointerId !== event.pointerId) return;
+    settingsDragRef.current = null;
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
+  };
+
+  const moveSettingsWithKeyboard = (event: React.KeyboardEvent<HTMLButtonElement>) => {
+    const movement = event.shiftKey ? 40 : 12;
+    const delta = event.key === "ArrowLeft" ? [-movement, 0] : event.key === "ArrowRight" ? [movement, 0] : event.key === "ArrowUp" ? [0, -movement] : event.key === "ArrowDown" ? [0, movement] : null;
+    const card = settingsCardRef.current;
+    if (!delta || !card) return;
+    event.preventDefault();
+    const rect = card.getBoundingClientRect();
+    const nextLeft = Math.max(8, Math.min(window.innerWidth - rect.width - 8, rect.left + delta[0]));
+    const nextTop = Math.max(8, Math.min(window.innerHeight - rect.height - 8, rect.top + delta[1]));
+    setSettingsPosition((current) => ({ x: current.x + nextLeft - rect.left, y: current.y + nextTop - rect.top }));
+  };
+
   if (!book || !activePart) return <main className="loading-room"><span>Preparing your place in the story…</span></main>;
 
   return (
-    <main className="reader-shell" style={{ "--reader-size": `${preferences.fontSize}px`, "--reader-leading": preferences.lineHeight, "--reader-measure": `${preferences.measure}ch` } as React.CSSProperties}>
+    <main className="reader-shell" style={{ "--reader-size": `${preferences.fontSize}px`, "--reader-leading": preferences.lineHeight, "--reader-measure": `${preferences.measure}ch`, "--part-motion-duration": `${animationTuning.partDuration}ms`, "--part-motion-distance": `${animationTuning.partDistance}px`, "--part-motion-opacity": animationTuning.partOpacity / 100, "--part-motion-easing": animationTuning.partEasing, "--section-motion-duration": `${animationTuning.sectionDuration}ms`, "--section-motion-distance": `${animationTuning.sectionDistance}px`, "--section-motion-opacity": animationTuning.sectionOpacity / 100 } as React.CSSProperties}>
       <header className="topbar">
         <div className="book-identity">
           <button className="book-mark" onClick={() => setLibraryOpen(true)} aria-label="Open library">BW</button>
@@ -317,12 +372,25 @@ export default function Home() {
           <button className="memory-button" onClick={() => setSummaryOpen(true)} aria-label="What should I remember?" title="What should I remember?"><span className="memory-spark" aria-hidden="true">✦</span></button>
           <button className="icon-button" onClick={() => setSettingsOpen((value) => !value)} aria-label="Reading settings">Aa</button>
         </div>
-        {settingsOpen && <div className="settings-card floating-card">
+        {settingsOpen && <div className="settings-card floating-card" ref={settingsCardRef} style={{ translate: `${settingsPosition.x}px ${settingsPosition.y}px` }}>
+          <button className="settings-drag-handle" type="button" aria-label="Move settings window" title="Drag to move settings" onPointerDown={beginSettingsDrag} onPointerMove={moveSettingsDrag} onPointerUp={endSettingsDrag} onPointerCancel={endSettingsDrag} onLostPointerCapture={endSettingsDrag} onKeyDown={moveSettingsWithKeyboard}><span>Move settings</span><i aria-hidden="true">⠿</i></button>
           <div className="card-label">Reading comfort</div>
           <label>Text size <output>{preferences.fontSize}px</output><input type="range" min="18" max="30" value={preferences.fontSize} onChange={(event) => setPreferences({ ...preferences, fontSize: Number(event.target.value) })} /></label>
           <label>Line height <output>{preferences.lineHeight.toFixed(2)}</output><input type="range" min="1.3" max="1.9" step=".05" value={preferences.lineHeight} onChange={(event) => setPreferences({ ...preferences, lineHeight: Number(event.target.value) })} /></label>
           <label>Page width <output>{preferences.measure}ch</output><input type="range" min="52" max="82" value={preferences.measure} onChange={(event) => setPreferences({ ...preferences, measure: Number(event.target.value) })} /></label>
           <button className="quiet-action" onClick={() => setPreferences(defaultPreferences)}>Restore calm defaults</button>
+          <div className="motion-lab">
+            <div className="card-label">Temporary animation lab</div>
+            <div className="motion-readout" aria-live="polite"><small>Include this box in your screenshot</small><p><strong>Part</strong><code>{animationTuning.partDuration}ms · {animationTuning.partDistance}px · {animationTuning.partOpacity}% · {partEasingLabel}</code></p><p><strong>Section</strong><code>{animationTuning.sectionDuration}ms · {animationTuning.sectionDistance}px · {animationTuning.sectionOpacity}%</code></p></div>
+            <label>Part duration <output>{animationTuning.partDuration}ms</output><input type="range" min="80" max="600" step="10" value={animationTuning.partDuration} onChange={(event) => setAnimationTuning({ ...animationTuning, partDuration: Number(event.target.value) })} /></label>
+            <label>Part travel <output>{animationTuning.partDistance}px</output><input type="range" min="0" max="100" step="2" value={animationTuning.partDistance} onChange={(event) => setAnimationTuning({ ...animationTuning, partDistance: Number(event.target.value) })} /></label>
+            <label>Part starting opacity <output>{animationTuning.partOpacity}%</output><input type="range" min="0" max="100" step="5" value={animationTuning.partOpacity} onChange={(event) => setAnimationTuning({ ...animationTuning, partOpacity: Number(event.target.value) })} /></label>
+            <label>Part easing<select value={animationTuning.partEasing} onChange={(event) => setAnimationTuning({ ...animationTuning, partEasing: event.target.value })}><option value="cubic-bezier(.22,1,.36,1)">Polished</option><option value="ease-out">Standard ease-out</option><option value="ease-in-out">Ease in/out</option><option value="linear">Linear</option></select></label>
+            <label>Section duration <output>{animationTuning.sectionDuration}ms</output><input type="range" min="40" max="400" step="5" value={animationTuning.sectionDuration} onChange={(event) => setAnimationTuning({ ...animationTuning, sectionDuration: Number(event.target.value) })} /></label>
+            <label>Section travel <output>{animationTuning.sectionDistance}px</output><input type="range" min="0" max="60" step="2" value={animationTuning.sectionDistance} onChange={(event) => setAnimationTuning({ ...animationTuning, sectionDistance: Number(event.target.value) })} /></label>
+            <label>Section starting opacity <output>{animationTuning.sectionOpacity}%</output><input type="range" min="0" max="100" step="5" value={animationTuning.sectionOpacity} onChange={(event) => setAnimationTuning({ ...animationTuning, sectionOpacity: Number(event.target.value) })} /></label>
+            <button className="quiet-action" onClick={() => setAnimationTuning(defaultAnimationTuning)}>Reset animation defaults</button>
+          </div>
         </div>}
       </header>
 

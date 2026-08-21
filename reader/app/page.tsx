@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { createBookProgressMap, getOverallBookProgress, resolveOverallBookProgress, type BookProgressMap } from "./book-progress";
+import { createBookProgressMap, getOverallBookProgress, resolveOverallBookProgress, snapOverallBookProgress, type BookProgressMap } from "./book-progress";
 import { formatSupport, parseEpub, splitPartSections, type ReaderBook } from "./formats";
 import { getRecap } from "./recaps";
 import { ReaderMinimap, defaultReaderGeometry, getReaderGeometry, type ReaderGeometry, type ReaderMinimapHandle } from "./reader-minimap";
@@ -301,11 +301,11 @@ export default function Home() {
         </div>
         <nav className="part-navigation" aria-label="Part navigation">
           <button type="button" onClick={() => navigateToPart(partIndex - 1)} disabled={partIndex === 0} aria-label="Previous part" title="Previous part"><span aria-hidden="true">&#8592;</span></button>
-          <span className="part-position" aria-live="polite"><b>Part</b> {partIndex + 1} / {book.parts.length}</span>
+          <span className="part-position" aria-live="polite">{partIndex + 1} / {book.parts.length}</span>
           <button type="button" onClick={() => navigateToPart(partIndex + 1)} disabled={partIndex === book.parts.length - 1} aria-label="Next part" title="Next part"><span aria-hidden="true">&#8594;</span></button>
         </nav>
         <div className="top-actions">
-          <button className="memory-button" onClick={() => setSummaryOpen(true)}><span className="memory-spark">✦</span><span>What should I remember?</span></button>
+          <button className="memory-button" onClick={() => setSummaryOpen(true)} aria-label="What should I remember?" title="What should I remember?"><span className="memory-spark" aria-hidden="true">✦</span></button>
           <button className="icon-button" onClick={() => setSettingsOpen((value) => !value)} aria-label="Reading settings">Aa</button>
         </div>
         {settingsOpen && <div className="settings-card floating-card">
@@ -333,7 +333,7 @@ export default function Home() {
         onGeometryChange={(nextGeometry) => { readerGeometryRef.current = nextGeometry; setReaderGeometry(nextGeometry); }}
         onNavigation={recordNavigation} onPositionCommit={commitPosition} />
 
-      <footer className="statusbar"><span>Part {partIndex + 1} of {book.parts.length}</span><button className="status-line" aria-label="Position in the entire text" onClick={(event) => { const rect = event.currentTarget.getBoundingClientRect(); jumpToOverallProgress((event.clientX - rect.left) / rect.width); }}><span className="status-track" /><span className="status-progress" ref={statusProgressRef} style={{ width: `${overallProgress * 100}%` }} />{bookProgressMap.boundaries.map((boundary, index) => <span className="status-part-guide" aria-hidden="true" style={{ left: `${boundary * 100}%` }} key={index} />)}</button><span ref={statusPercentRef}>{Math.round(overallProgress * 100)}%</span></footer>
+      <footer className="statusbar"><span>Part {partIndex + 1} of {book.parts.length}</span><button className="status-line" aria-label="Position in the entire text" onClick={(event) => { const rect = event.currentTarget.getBoundingClientRect(); const rawProgress = (event.clientX - rect.left) / rect.width; const snappedProgress = snapOverallBookProgress(bookProgressMap, rawProgress, Math.min(.07, 10 / Math.max(1, rect.width))); jumpToOverallProgress(snappedProgress); }}><span className="status-track" /><span className="status-progress" ref={statusProgressRef} style={{ width: `${overallProgress * 100}%` }} />{bookProgressMap.boundaries.map((boundary, index) => <span className="status-part-guide" aria-hidden="true" style={{ left: `${boundary * 100}%` }} key={index} />)}</button><span ref={statusPercentRef}>{Math.round(overallProgress * 100)}%</span></footer>
 
       {(summaryOpen || welcomeOpen) && <div className="scrim" onClick={() => { setSummaryOpen(false); setWelcomeOpen(false); }} />}
       {(summaryOpen || welcomeOpen) && <aside className="memory-drawer open" aria-live="polite">

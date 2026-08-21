@@ -33,13 +33,29 @@ export function getOverallBookProgress(map: BookProgressMap, partIndex: number, 
   return (map.starts[index] + map.weights[index] * local) / map.total;
 }
 
+export function snapOverallBookProgress(map: BookProgressMap, overallProgress: number, maximumDistance: number) {
+  const progress = Math.max(0, Math.min(1, overallProgress));
+  const distance = Math.max(0, maximumDistance);
+  let snapped = progress;
+  let closestDistance = distance;
+  for (const boundary of map.boundaries) {
+    const boundaryDistance = Math.abs(progress - boundary);
+    if (boundaryDistance <= closestDistance) {
+      snapped = boundary;
+      closestDistance = boundaryDistance;
+    }
+  }
+  return snapped;
+}
+
 export function resolveOverallBookProgress(map: BookProgressMap, overallProgress: number) {
   if (map.weights.length === 0) return { partIndex: 0, partProgress: 0 };
   const progress = Math.max(0, Math.min(1, overallProgress));
   const position = progress * map.total;
+  const boundaryTolerance = map.total * 1e-10;
   let partIndex = map.weights.length - 1;
   for (let index = 0; index < map.weights.length; index += 1) {
-    if (position < map.starts[index] + map.weights[index] || index === map.weights.length - 1) {
+    if (position < map.starts[index] + map.weights[index] - boundaryTolerance || index === map.weights.length - 1) {
       partIndex = index;
       break;
     }

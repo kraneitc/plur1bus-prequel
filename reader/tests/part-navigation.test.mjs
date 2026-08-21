@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
-import { createBookProgressMap, getOverallBookProgress, resolveOverallBookProgress } from "../app/book-progress.ts";
+import { createBookProgressMap, getOverallBookProgress, resolveOverallBookProgress, snapOverallBookProgress } from "../app/book-progress.ts";
 import { splitPartSections } from "../app/formats.ts";
 
 test("uses scene breaks to divide a part into navigable sections", () => {
@@ -35,6 +35,12 @@ test("maps whole-text progress through content-weighted part boundaries", () => 
   const resolved = resolveOverallBookProgress(map, overall);
   assert.equal(resolved.partIndex, 1);
   assert.ok(Math.abs(resolved.partProgress - .4) < .0001);
+
+  const snapped = snapOverallBookProgress(map, map.boundaries[0] - .02, .03);
+  const snappedLocation = resolveOverallBookProgress(map, snapped);
+  assert.equal(snapped, map.boundaries[0]);
+  assert.deepEqual(snappedLocation, { partIndex: 1, partProgress: 0 });
+  assert.equal(snapOverallBookProgress(map, map.boundaries[0] - .04, .03), map.boundaries[0] - .04);
 });
 
 test("mounts one part while keeping part and section navigation distinct", async () => {
@@ -45,6 +51,10 @@ test("mounts one part while keeping part and section navigation distinct", async
   ]);
 
   assert.match(page, /aria-label="Part navigation"/);
+  assert.doesNotMatch(page, /className="part-position"[^>]*><b>Part<\/b>/);
+  assert.match(page, /className="memory-button"/);
+  assert.match(page, /aria-label="What should I remember\?"/);
+  assert.match(page, /<span className="memory-spark" aria-hidden="true">✦<\/span><\/button>/);
   assert.match(page, /aria-label="Previous part"/);
   assert.match(page, /aria-label="Next part"/);
   assert.match(page, /activeSections\.map/);

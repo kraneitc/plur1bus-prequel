@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
+import { createBookProgressMap, getOverallBookProgress, resolveOverallBookProgress } from "../app/book-progress.ts";
 import { splitPartSections } from "../app/formats.ts";
 
 test("uses scene breaks to divide a part into navigable sections", () => {
@@ -23,6 +24,19 @@ test("keeps a part without scene breaks as one section", () => {
   assert.equal(splitPartSections([{ type: "p", html: "One continuous scene." }]).length, 1);
 });
 
+test("maps whole-text progress through content-weighted part boundaries", () => {
+  const parts = [
+    { id: "short", label: "Part One", title: "Short", blocks: [{ type: "p", html: "Brief." }] },
+    { id: "long", label: "Part Two", title: "Long", blocks: [{ type: "p", html: "A much longer section of text ".repeat(40) }] },
+  ];
+  const map = createBookProgressMap(parts);
+  assert.ok(map.boundaries[0] < .5);
+  const overall = getOverallBookProgress(map, 1, .4);
+  const resolved = resolveOverallBookProgress(map, overall);
+  assert.equal(resolved.partIndex, 1);
+  assert.ok(Math.abs(resolved.partProgress - .4) < .0001);
+});
+
 test("mounts one part while keeping part and section navigation distinct", async () => {
   const [page, minimap, css] = await Promise.all([
     readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
@@ -36,6 +50,8 @@ test("mounts one part while keeping part and section navigation distinct", async
   assert.match(page, /activeSections\.map/);
   assert.match(page, /data-reader-section/);
   assert.match(page, /activePartId=\{activePart\.id\}/);
+  assert.match(page, /aria-label="Position in the entire text"/);
+  assert.match(page, /bookProgressMap\.boundaries\.map/);
   assert.match(minimap, /querySelectorAll<HTMLElement>\("\[data-reader-section\]"\)/);
   assert.match(minimap, /aria-label="Previous section"/);
   assert.match(minimap, /aria-label="Next section"/);

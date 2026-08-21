@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { createBookProgressMap, getOverallBookProgress, resolveOverallBookProgress, type BookProgressMap } from "./book-progress";
 import { formatSupport, parseEpub, splitPartSections, type ReaderBook } from "./formats";
 import { getRecap } from "./recaps";
 import { ReaderMinimap, defaultReaderGeometry, getReaderGeometry, type ReaderGeometry, type ReaderMinimapHandle } from "./reader-minimap";
@@ -21,6 +22,7 @@ type Preferences = { fontSize: number; lineHeight: number; measure: number };
 const defaultPreferences: Preferences = { fontSize: 22, lineHeight: 1.5, measure: 68 };
 const builtInKey = "before-we-were-us";
 const positionCommitInterval = 80;
+const emptyBookProgressMap = createBookProgressMap([]);
 
 function storageKey(book: ReaderBook) { return `story-reader:${book.title.toLowerCase().replace(/\W+/g, "-")}`; }
 function partProgressKey(book: ReaderBook, partId: string) { return `${storageKey(book)}:part:${partId}:progress`; }
@@ -32,6 +34,8 @@ export default function Home() {
   const statusProgressRef = useRef<HTMLElement>(null);
   const statusPercentRef = useRef<HTMLSpanElement>(null);
   const readerGeometryRef = useRef<ReaderGeometry>(defaultReaderGeometry);
+  const bookProgressMapRef = useRef<BookProgressMap>(emptyBookProgressMap);
+  const activePartIndexRef = useRef(0);
   const scrollHistoryRef = useRef<ScrollHistory>(createEmptyScrollHistory());
   const fileRef = useRef<HTMLInputElement>(null);
   const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -53,18 +57,22 @@ export default function Home() {
 
   const activePart = book?.parts[partIndex];
   const activeSections = useMemo(() => activePart ? splitPartSections(activePart.blocks) : [], [activePart]);
+  const bookProgressMap = useMemo(() => createBookProgressMap(book?.parts ?? []), [book]);
+  bookProgressMapRef.current = bookProgressMap;
+  activePartIndexRef.current = partIndex;
 
   const openBook = useCallback((nextBook: ReaderBook) => {
     const key = storageKey(nextBook);
     const savedPartValue = localStorage.getItem(`${key}:part-index`);
     const legacyProgress = Math.max(0, Math.min(1, Number(localStorage.getItem(`${key}:progress`) || 0)));
-    const legacyPosition = legacyProgress * Math.max(1, nextBook.parts.length);
+    const nextProgressMap = createBookProgressMap(nextBook.parts);
+    const legacyLocation = resolveOverallBookProgress(nextProgressMap, legacyProgress);
     const savedPartIndex = savedPartValue === null
-      ? Math.min(nextBook.parts.length - 1, Math.floor(legacyPosition))
+      ? legacyLocation.partIndex
       : Math.max(0, Math.min(nextBook.parts.length - 1, Number(savedPartValue) || 0));
     const savedPart = nextBook.parts[savedPartIndex];
     const savedPartProgress = savedPartValue === null
-      ? Math.min(1, legacyPosition - savedPartIndex)
+      ? legacyLocation.partProgress
       : Math.max(0, Math.min(1, Number(localStorage.getItem(partProgressKey(nextBook, savedPart.id)) || 0)));
 
     pendingPartProgressRef.current = savedPartProgress;
@@ -110,10 +118,11 @@ export default function Home() {
   const applyLivePosition = useCallback((scrollPosition: number, geometry = readerGeometryRef.current, revealMinimap = false) => {
     const range = Math.max(0, geometry.scrollSize - geometry.viewportSize);
     const nextProgress = range > 0 ? Math.max(0, Math.min(1, scrollPosition / range)) : 0;
-    const percent = Math.round(nextProgress * 100);
+    const overallProgress = getOverallBookProgress(bookProgressMapRef.current, activePartIndexRef.current, nextProgress);
+    const percent = Math.round(overallProgress * 100);
 
     minimapRef.current?.applyPosition(scrollPosition, geometry, revealMinimap);
-    if (statusProgressRef.current) statusProgressRef.current.style.width = `${nextProgress * 100}%`;
+    if (statusProgressRef.current) statusProgressRef.current.style.width = `${overallProgress * 100}%`;
     if (statusPercentRef.current) statusPercentRef.current.textContent = `${percent}%`;
   }, []);
 
@@ -234,23 +243,33 @@ export default function Home() {
     recordNavigation(captureScrollPoint(reader), target);
     reader.scrollTo({ top: target, behavior: "smooth" });
   };
-  const navigateToPart = (index: number) => {
+  const navigateToPart = (index: number, initialProgress = 0) => {
     const reader = readerRef.current;
     if (!book || !activePart || !reader) return;
     const targetIndex = Math.max(0, Math.min(book.parts.length - 1, index));
+    const targetProgress = Math.max(0, Math.min(1, initialProgress));
     if (targetIndex === partIndex) { setContentsOpen(false); return; }
     const range = Math.max(0, reader.scrollHeight - reader.clientHeight);
     const currentProgress = range > 0 ? reader.scrollTop / range : 0;
     if (saveTimer.current) clearTimeout(saveTimer.current);
     localStorage.setItem(partProgressKey(book, activePart.id), String(currentProgress));
     localStorage.setItem(`${storageKey(book)}:part-index`, String(targetIndex));
-    pendingPartProgressRef.current = 0;
+    pendingPartProgressRef.current = targetProgress;
     scrollHistoryRef.current = createEmptyScrollHistory();
     reader.scrollTop = 0;
-    setProgress(0);
-    setPartProgress(0);
+    setProgress(targetProgress);
+    setPartProgress(targetProgress);
     setPartIndex(targetIndex);
     setContentsOpen(false);
+  };
+
+  const jumpToOverallProgress = (next: number) => {
+    const location = resolveOverallBookProgress(bookProgressMap, next);
+    if (location.partIndex === partIndex) {
+      jumpTo(location.partProgress);
+      return;
+    }
+    navigateToPart(location.partIndex, location.partProgress);
   };
 
   const importFile = async (file?: File) => {
@@ -266,6 +285,7 @@ export default function Home() {
   };
 
   const recap = getRecap(partIndex, partProgress);
+  const overallProgress = getOverallBookProgress(bookProgressMap, partIndex, progress);
 
   if (!book || !activePart) return <main className="loading-room"><span>Preparing your place in the story…</span></main>;
 
@@ -313,7 +333,7 @@ export default function Home() {
         onGeometryChange={(nextGeometry) => { readerGeometryRef.current = nextGeometry; setReaderGeometry(nextGeometry); }}
         onNavigation={recordNavigation} onPositionCommit={commitPosition} />
 
-      <footer className="statusbar"><span>{activePart?.label} of {book.parts.length}</span><button className="status-line" onClick={(event) => { const rect = event.currentTarget.getBoundingClientRect(); jumpTo((event.clientX - rect.left) / rect.width); }}><i ref={statusProgressRef} style={{ width: `${progress * 100}%` }} /></button><span ref={statusPercentRef}>{Math.round(progress * 100)}%</span></footer>
+      <footer className="statusbar"><span>Part {partIndex + 1} of {book.parts.length}</span><button className="status-line" aria-label="Position in the entire text" onClick={(event) => { const rect = event.currentTarget.getBoundingClientRect(); jumpToOverallProgress((event.clientX - rect.left) / rect.width); }}><span className="status-track" /><span className="status-progress" ref={statusProgressRef} style={{ width: `${overallProgress * 100}%` }} />{bookProgressMap.boundaries.map((boundary, index) => <span className="status-part-guide" aria-hidden="true" style={{ left: `${boundary * 100}%` }} key={index} />)}</button><span ref={statusPercentRef}>{Math.round(overallProgress * 100)}%</span></footer>
 
       {(summaryOpen || welcomeOpen) && <div className="scrim" onClick={() => { setSummaryOpen(false); setWelcomeOpen(false); }} />}
       {(summaryOpen || welcomeOpen) && <aside className="memory-drawer open" aria-live="polite">
